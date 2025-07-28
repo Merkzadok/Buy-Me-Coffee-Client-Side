@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { DialogHeader } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
+import { DialogHeader } from "@/components/ui/dialog"; 
 import {
   Dialog,
   DialogContent,
@@ -8,7 +7,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@radix-ui/react-dialog";
-import { Label } from "@radix-ui/react-label";
 
 export const DonationProfile = () => {
   return (
