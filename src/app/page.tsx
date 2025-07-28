@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 import { Header } from "@/components/Header";
 import { Sidebar } from "@/components/Sidebar";
+=======
+
+>>>>>>> 451ae34 (123)
 
 export default function Home() {
   return (
