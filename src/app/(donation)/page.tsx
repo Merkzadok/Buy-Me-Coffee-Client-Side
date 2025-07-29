@@ -1,6 +1,8 @@
 import { DonationBackground } from "./components/Donation-Background";
+import { DonationBuyCoffeeCart } from "./components/Donation-BuyCoffeeCart";
 import { DonationProfile } from "./components/Donation-Profile";
 import { DonationSocialMedia } from "./components/Donation-SocialMedia";
+import { DonationSupporters } from "./components/Donation-Supporters";
 
 export default function Donation() {
   return (
@@ -8,6 +10,8 @@ export default function Donation() {
       <DonationBackground/>
       <DonationProfile/>
       <DonationSocialMedia/>
+      <DonationSupporters/>
+      <DonationBuyCoffeeCart/>
     </div>
   );
 }
