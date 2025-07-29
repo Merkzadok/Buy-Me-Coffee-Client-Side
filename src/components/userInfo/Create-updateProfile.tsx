@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Camera } from "lucide-react";
+import CoverImageUploader from "./profileImage";
 
 type FormFieldTypes = {
   name: string;
@@ -57,8 +58,9 @@ export const CreateUserProfile = ({
     <div>
       <div>
         <p className="mb-[12px] text-sm">Add photo</p>
+        <CoverImageUploader />
 
-        <Input
+        {/* <Input
           {...profileImageInputProps}
           type="file"
           ref={inputElement}
@@ -67,12 +69,13 @@ export const CreateUserProfile = ({
 
         <div onClick={focusInput} className={inputBorderImageErrorStyle}>
           <Camera className="text-gray-400 font-thin" />
-        </div>
-        {profileImageInputProps.inputError && (
+        </div> */}
+
+        {/* {profileImageInputProps.inputError && (
           <p className="text-sm text-red-500 mt-1">
             {profileImageInputProps.inputErrorMessage}
           </p>
-        )}
+        )} */}
       </div>
 
       <div className="flex flex-col gap-3">

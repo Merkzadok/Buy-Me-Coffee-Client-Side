@@ -12,8 +12,7 @@ const createUserSchema = Yup.object({
   socialURL: Yup.string().url("Please enter a social link").required(),
 });
 
-export const CreateProfile = () => {
-  
+export const CreateProfile = ({ handleNext }: any) => {
   const formik = useFormik({
     initialValues: {
       profileImage: "",
@@ -23,8 +22,9 @@ export const CreateProfile = () => {
     },
     validationSchema: createUserSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+
       console.log(values);
+      handleNext();
     },
   });
   // console.log("formik", formik);
