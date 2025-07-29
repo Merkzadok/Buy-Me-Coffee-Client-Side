@@ -1,4 +1,5 @@
-const Signup = () => {
-  return <div>Signup</div>;
-};
-export default Signup;
+import { SignUp } from "../sign-up/_components/signUp"
+
+export const Page = () => {
+    <SignUp/>
+}
