@@ -1,9 +1,12 @@
-import { Header } from "@/components/Header";
+import { Header } from "@/components/Header"
+import { SignUp } from "./_components/signUp"
 
-export default function page() {
+
+export default function Home() {
   return (
     <div>
       <Header />
+      <SignUp />
     </div>
-  );
+  )
 }
