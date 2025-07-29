@@ -1,12 +1,20 @@
-import { Header } from "@/components/Header"
-import { SignUp } from "./_components/signUp"
+"use client";
+
+import { useState } from "react";
+import { SignUpUserName } from "./_components/signUp";
+import { SignUpEmailPassword } from "./_components/signUpPassword";
 
 
-export default function Home() {
+const Page = () => {
+  const [currentStep, setCurrentStep] = useState(0);
+
+  const StepComponent = [SignUpUserName, SignUpEmailPassword][currentStep];
+
   return (
-    <div>
-      <Header />
-      <SignUp />
+    <div className="flex justify-center mt-10">
+      <StepComponent setCurrentStep={setCurrentStep} />
     </div>
-  )
-}
+  );
+};
+
+export default Page;
