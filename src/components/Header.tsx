@@ -70,7 +70,11 @@ export const Header = () => {
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-[187px]">
-                  <Button variant="outline" className="border-none ">
+                  <Button
+                    variant="outline"
+                    className="border-none "
+                    onClick={() => push("/login")}
+                  >
                     Log Out
                   </Button>
                 </PopoverContent>

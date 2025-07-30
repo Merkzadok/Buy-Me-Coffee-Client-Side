@@ -17,7 +17,9 @@ export const SettingsPage = () => {
       <div>
         <EditCreditCard />
       </div>
-      <div><EditSuccessPage/></div>
+      <div>
+        <EditSuccessPage />
+      </div>
     </div>
   );
 };
