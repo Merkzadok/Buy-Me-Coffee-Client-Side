@@ -1,28 +1,16 @@
 "use client";
 
-import { CreateUserProfile } from "@/components/userInfo/createProfileInfo/Create-updateProfile";
-
 import { Button } from "@/components/ui/button";
-
 import { useFormik } from "formik";
-
 import * as Yup from "yup";
 
-import { useRef, useState } from "react";
-
-import { Input } from "@/components/ui/input";
-
-import { Camera } from "lucide-react";
-
-import { ProfileImageUploader } from "@/components/userInfo/createProfileInfo/profileImageuploader";
+import { ProfileImageUploader } from "@/components/userInfo/createProfileInfo/ProfileImageuploader";
+import { CreateUserProfile } from "@/components/userInfo/createProfileInfo/CreateUpdateProfile";
 
 const createUserSchema = Yup.object({
   profileImage: Yup.string().required("Please enter image"),
-
   name: Yup.string().required("Name is Please enter name"),
-
   about: Yup.string().required("Please enter info about yourself"),
-
   socialURL: Yup.string().url("Please enter a social link").required(),
 });
 
@@ -34,11 +22,8 @@ export const CreateProfile = ({ handleNext }: createProfileType) => {
   const formik = useFormik({
     initialValues: {
       profileImage: "",
-
       name: "",
-
       about: "",
-
       socialURL: "",
     },
 
@@ -53,33 +38,21 @@ export const CreateProfile = ({ handleNext }: createProfileType) => {
 
   const {
     handleBlur,
-
     handleChange,
-
     handleSubmit,
-
     errors,
-
     touched,
-
     values,
-
     setFieldValue,
   } = formik;
 
   const getFieldProps = (name: keyof typeof values) => ({
     name,
-
     // placeholder: getPlaceHolder(name),
-
     onChange: handleChange,
-
     onBlur: handleBlur,
-
     value: values[name],
-
     inputError: touched[name] && errors[name],
-
     inputErrorMessage: errors[name],
   }); //Butets () => ({})
 
@@ -115,7 +88,7 @@ export const CreateProfile = ({ handleNext }: createProfileType) => {
           profileURLInputProps={getFieldProps("socialURL")}
         />
         <div className="text-right mt-[24px]">
-          <Button className="w-1/2">Continue</Button>
+          <Button type="submit">Continue</Button>
         </div>
       </form>
     </div>

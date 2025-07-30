@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { CreateUserProfile } from "@/components/userInfo/createProfileInfo/Create-updateProfile";
-import { ProfileImageUploader } from "@/components/userInfo/createProfileInfo/profileImageuploader";
+import { CreateUserProfile } from "@/components/userInfo/createProfileInfo/CreateUpdateProfile";
+import { ProfileImageUploader } from "@/components/userInfo/createProfileInfo/ProfileImageuploader";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 

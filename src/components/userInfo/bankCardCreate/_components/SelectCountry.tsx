@@ -13,7 +13,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-export const SelectCountry = ({ control }: { control: any }) => {
+import { Control } from "react-hook-form";
+import { BankFormType } from "@/app/(auth)/create-profile/_components/BankCartCreate";
+
+type Props = {
+  control: Control<BankFormType>;
+};
+
+export const SelectCountry = ({ control }: Props) => {
   return (
     <FormField
       control={control}

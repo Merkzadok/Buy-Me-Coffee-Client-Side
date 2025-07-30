@@ -1,3 +1,4 @@
+import { BankFormType } from "@/app/(auth)/create-profile/_components/BankCartCreate";
 import {
   FormControl,
   FormField,
@@ -11,9 +12,14 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@radix-ui/react-select";
+} from "@/components/ui/select";
+import { Control } from "react-hook-form";
 
-export const ExpiresMonth = ({ control }: { control: any }) => {
+export type Props ={
+  control:Control<BankFormType>
+}
+
+export const ExpiresMonth = ({ control }: Props) => {
   return (
     // <div className="w-1/3">
     <FormField

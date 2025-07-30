@@ -13,8 +13,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Control } from "react-hook-form";
+import { BankFormType } from "@/app/(auth)/create-profile/_components/BankCartCreate";
 
-export const CardExpiryRow = ({ control }: { control: any }) => {
+export type Props ={
+  control:Control<BankFormType>
+}
+
+export const CardExpiryRow = ({ control }: Props) => {
   return (
     <div className="flex gap-3">
       <div className="w-1/3">
@@ -93,7 +99,7 @@ export const CardExpiryRow = ({ control }: { control: any }) => {
           name="CVC"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Last name</FormLabel>
+              <FormLabel>CVC</FormLabel>
               <FormControl>
                 <Input
                   placeholder="CVC"

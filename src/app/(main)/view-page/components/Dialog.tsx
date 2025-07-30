@@ -12,10 +12,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { CreateUserProfile } from "@/components/userInfo/createProfileInfo/Create-updateProfile";
-import { ProfileImageUploader } from "@/components/userInfo/createProfileInfo/profileImageuploader";
+import { CreateUserProfile } from "@/components/userInfo/createProfileInfo/CreateUpdateProfile";
+import { ProfileImageUploader } from "@/components/userInfo/createProfileInfo/ProfileImageuploader";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
@@ -61,7 +59,7 @@ export function DialogDemo() {
     inputErrorMessage: errors[name],
   }); //Butets () => ({})
 
-//sm:max-w-[425px]
+  //sm:max-w-[425px]
   return (
     <Dialog>
       <form onSubmit={handleSubmit}>
