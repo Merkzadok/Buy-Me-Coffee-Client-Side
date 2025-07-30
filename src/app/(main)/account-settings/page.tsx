@@ -1,5 +1,11 @@
+import { SettingsPage } from "./_components/settings";
+
 const AccountSettings = () => {
-  return <div>Account Settings</div>;
+  return (
+    <div>
+      <SettingsPage />
+    </div>
+  );
 };
 
 export default AccountSettings;

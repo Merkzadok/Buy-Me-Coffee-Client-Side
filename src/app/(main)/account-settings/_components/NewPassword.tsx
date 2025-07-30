@@ -33,7 +33,7 @@ export const NewPassword = () => {
 
   return (
     <div className=" p-6 flex gap-6 flex-col border-1 border-zinc-200 rounded-lg ">
-      <p className="text-base font-bold">Set new password</p>
+      <p className="text-base font-bold">Set a new password</p>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
