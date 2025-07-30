@@ -2,6 +2,7 @@
 
 import { EditCreditCard } from "./EditCreditCard";
 import { EditProfile } from "./EditProfile";
+import { EditSuccessPage } from "./EditSuccessPage";
 import { NewPassword } from "./NewPassword";
 
 export const SettingsPage = () => {
@@ -16,6 +17,7 @@ export const SettingsPage = () => {
       <div>
         <EditCreditCard />
       </div>
+      <div><EditSuccessPage/></div>
     </div>
   );
 };
