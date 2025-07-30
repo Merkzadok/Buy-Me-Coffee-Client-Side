@@ -101,7 +101,7 @@ export const CreateProfile = ({ handleNext }: createProfileType) => {
 
   return (
     <div className="w-[100%] h-[100vh] flex flex-col justify-center items-center ">
-      <form onSubmit={handleSubmit} className="flex gap-6 flex-col">
+      <form onSubmit={handleSubmit} className="flex gap-6 flex-col w-[510px]">
         <p className="text-2xl font-semibold">Complete your profile page</p>
         <ProfileImageUploader
           value={values.profileImage}
@@ -113,7 +113,6 @@ export const CreateProfile = ({ handleNext }: createProfileType) => {
           profileNameinputProps={getFieldProps("name")}
           profileAboutMeInputProps={getFieldProps("about")}
           profileURLInputProps={getFieldProps("socialURL")}
-          profileImageInputProps={getFieldProps("profileImage")}
         />
         <div className="text-right mt-[24px]">
           <Button className="w-1/2">Continue</Button>

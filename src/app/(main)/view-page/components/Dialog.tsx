@@ -1,4 +1,6 @@
-import { Button } from "@/components/ui/button"
+"use client";
+
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -8,18 +10,66 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from "@/components/ui/dialog";
+
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { CreateUserProfile } from "@/components/userInfo/createProfileInfo/Create-updateProfile";
+import { ProfileImageUploader } from "@/components/userInfo/createProfileInfo/profileImageuploader";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+
+const createUserSchema = Yup.object({
+  profileImage: Yup.string().required("Please enter image"),
+  name: Yup.string().required("Name is Please enter name"),
+  about: Yup.string().required("Please enter info about yourself"),
+  socialURL: Yup.string().url("Please enter a social link").required(),
+});
 
 export function DialogDemo() {
+  const formik = useFormik({
+    initialValues: {
+      profileImage: "",
+      name: "",
+      about: "",
+      socialURL: "",
+    },
+
+    validationSchema: createUserSchema,
+
+    onSubmit: (values) => {
+      // handleNext();
+      console.log("L create profile: ", values);
+    },
+  });
+  const {
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    errors,
+    touched,
+    values,
+    setFieldValue,
+  } = formik;
+
+  const getFieldProps = (name: keyof typeof values) => ({
+    name,
+    onChange: handleChange,
+    onBlur: handleBlur,
+    value: values[name],
+    inputError: touched[name] && errors[name],
+    inputErrorMessage: errors[name],
+  }); //Butets () => ({})
+
+//sm:max-w-[425px]
   return (
     <Dialog>
-      <form>
+      <form onSubmit={handleSubmit}>
         <DialogTrigger asChild>
           <Button variant="outline">Edit page</Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+
+        <DialogContent className="p-6">
           <DialogHeader>
             <DialogTitle>Edit profile</DialogTitle>
             <DialogDescription>
@@ -27,7 +77,22 @@ export function DialogDemo() {
               done.
             </DialogDescription>
           </DialogHeader>
-          <div className="grid gap-4">
+
+          <ProfileImageUploader
+            value={values.profileImage}
+            touchedErr={!!touched.profileImage}
+            error={errors.profileImage || ""}
+            setImageField={(url: string) => setFieldValue("profileImage", url)}
+          />
+
+          <CreateUserProfile
+            profileNameinputProps={getFieldProps("name")}
+            profileAboutMeInputProps={getFieldProps("about")}
+            profileURLInputProps={getFieldProps("socialURL")}
+            // profileImageInputProps={getFieldProps("profileImage")}
+          />
+
+          {/* <div className="grid gap-4">
             <div className="grid gap-3">
               <Label htmlFor="name-1">Name</Label>
               <Input id="name-1" name="name" defaultValue="Pedro Duarte" />
@@ -36,7 +101,7 @@ export function DialogDemo() {
               <Label htmlFor="username-1">Username</Label>
               <Input id="username-1" name="username" defaultValue="@peduarte" />
             </div>
-          </div>
+          </div> */}
           <DialogFooter>
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
@@ -46,5 +111,5 @@ export function DialogDemo() {
         </DialogContent>
       </form>
     </Dialog>
-  )
+  );
 }

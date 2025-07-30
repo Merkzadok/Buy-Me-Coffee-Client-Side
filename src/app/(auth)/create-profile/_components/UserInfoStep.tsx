@@ -19,5 +19,6 @@ export const UserInfoCreate = () => {
     <CreateProfile key={0} handleNext={handleNext}/>,
     <CreateBankCartForm key={1} />,
   ];
+  
   return stepComponents[step];
 };

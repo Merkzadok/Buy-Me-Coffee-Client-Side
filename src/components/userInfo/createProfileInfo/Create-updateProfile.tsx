@@ -20,7 +20,7 @@ type CreateUserProfileTypes = {
   profileNameinputProps: FormFieldTypes;
   profileAboutMeInputProps: FormFieldTypes;
   profileURLInputProps: FormFieldTypes;
-  profileImageInputProps: FormFieldTypes;
+  // profileImageInputProps: FormFieldTypes;
 };
 
 export const CreateUserProfile = ({
@@ -53,8 +53,8 @@ export const CreateUserProfile = ({
   const inputNameBorderErrorStyle = nameInputerror ? "border-red-500" : "";
 
   const inputBorderAboutErrorStyle = aboutInputerror
-    ? "border-red-500 resize-none w-[510px] h-[130px]"
-    : "resize-none w-[510px] h-[130px]";
+    ? "border-red-500 resize-none  h-[130px]"
+    : "resize-none h-[130px]";
 
   const inputBorderURLErrorStyle = urlInputerror
     ? "border-red-500"
