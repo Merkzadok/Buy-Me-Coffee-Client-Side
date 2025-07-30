@@ -9,12 +9,6 @@ export const UserInfoCreate = () => {
 
   const handleNext = () => setStep(step + 1);
 
-  const handleBack = () => setStep(step - 1);
-
-  const onChangeEmail = (inputEmail: string) => console.log(inputEmail);
-  console.log("step:", step);
-  
-
   const stepComponents = [
     <CreateProfile key={0} handleNext={handleNext}/>,
     <CreateBankCartForm key={1} />,

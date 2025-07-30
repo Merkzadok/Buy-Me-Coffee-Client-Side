@@ -1,8 +1,8 @@
-import React, { useRef } from "react";
+
 import { Input } from "../../ui/input";
 import { Textarea } from "../../ui/textarea";
-import { Camera } from "lucide-react";
-// import { ProfileImageUploader } from "./profileImageuploader";
+
+
 
 type FormFieldTypes = {
   name: string;

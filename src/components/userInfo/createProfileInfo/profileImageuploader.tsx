@@ -72,7 +72,7 @@ export const ProfileImageUploader = ({
             <img
               src={value}
               alt="preview"
-              className="w-full h-full rounded-full"
+              className="w-full h-full rounded-full object-cover"
             />
           )}
 

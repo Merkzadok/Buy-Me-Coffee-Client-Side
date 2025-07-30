@@ -1,3 +1,4 @@
+import { BankFormType } from "@/app/(auth)/create-profile/_components/BankCartCreate";
 import {
   FormControl,
   FormField,
@@ -6,8 +7,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Control } from "react-hook-form";
 
-export const BankNames = ({ control }: { control: any }) => {
+export type Props ={
+  control:Control<BankFormType>
+}
+
+export const BankNames = ({ control }: Props) => {
   return (
     <div className="flex gap-3 justify-between">
       <div className="w-1/2">
