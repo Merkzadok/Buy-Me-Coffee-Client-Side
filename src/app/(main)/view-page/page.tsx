@@ -9,7 +9,6 @@ import DonationBackground from "./components/Donation-Background";
 export default function Donation() {
   return (
     <div>
-      <Header />
       <div className="relative">
         <DonationBackground />
       </div>
