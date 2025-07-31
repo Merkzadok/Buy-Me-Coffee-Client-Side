@@ -33,7 +33,7 @@ export const bankFormSchema = z.object({
 
   CVC: z
     .string()
-    .min(3, { message: "CVC must be at least 3 digits" })
+    .min(3, { message: "CVC must be at least 3 digits" }) 
     .max(4, { message: "CVC must be 4 digits or less" }),
 });
 

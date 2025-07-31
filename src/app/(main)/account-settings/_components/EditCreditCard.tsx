@@ -1,32 +1,20 @@
+import { bankFormSchema } from "@/app/(auth)/create-profile/_components/BankCartCreate";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 
 import { CardInputsMain } from "@/components/userInfo/bankCardCreate/cardInputMain";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { useRouter } from "next/navigation";
-
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-const bankFormSchema = z.object({
-  selectCountry: z.string().min(2, { message: "Please select a country" }),
-  name: z.string().min(2, { message: "First name must match" }),
-  lastName: z.string().min(2, { message: "Last name must match" }),
-  cardNumber: z.string().min(16, { message: "Card number is invalid" }),
-  month: z.string().min(1, { message: "Select a month" }),
-  year: z.string().min(4, { message: "Year is required" }),
-  CVC: z
-    .string()
-    .min(3, { message: "CVC must be at least 3 digits" })
-    .max(4, { message: "CVC must be 4 digits or less" }),
-});
+const bankFormmSchema = bankFormSchema
 
 export const EditCreditCard = () => {
-  const { push } = useRouter();
 
-  const form = useForm<z.infer<typeof bankFormSchema>>({
-    resolver: zodResolver(bankFormSchema),
+
+  const form = useForm<z.infer<typeof bankFormmSchema>>({
+    resolver: zodResolver(bankFormmSchema),
     defaultValues: {
       selectCountry: "",
       name: "",
@@ -38,8 +26,8 @@ export const EditCreditCard = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof bankFormSchema>) {
-    push("/home");
+  function onSubmit(values: z.infer<typeof bankFormmSchema>) {
+
     console.log(values);
   }
   return (
