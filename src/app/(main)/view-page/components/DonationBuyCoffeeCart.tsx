@@ -1,21 +1,27 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@radix-ui/react-label"
 import { Coffee } from "lucide-react"
+import { useState } from "react"
  
 export const DonationBuyCoffeeCart = () => {
+    const [amount, setAmount] =useState(0)
+    console.log("amount:", amount);
+    
     return (
-        <div className="p-6 border w-[632px] rounded-lg">
+        <div className="p-6 border w-[632px] h-[509px] rounded-lg bg-white">
            <div className="flex flex-col gap-6 ">
              <h1 className="font-semibold">Buy Moloko a Coffee</h1>
  
              <div className="flex flex-col gap-2">
                 <p className="font-medium">Select amount:</p>
                 <div className="flex gap-3">
-                    <Button variant="secondary"><Coffee/>$1</Button>
-                    <Button variant="secondary"><Coffee/>$2</Button>
-                    <Button variant="secondary"><Coffee/>$5</Button>
-                    <Button variant="secondary"><Coffee/>$10</Button>
+                    <Button variant="secondary" className="cursor-pointer hover:bg-gray-400  focus:border-2 border-black" onClick={()=>setAmount(1)}><Coffee/>$1</Button>
+                    <Button variant="secondary" className="cursor-pointer hover:bg-gray-400  focus:border-2 border-black" onClick={()=>setAmount(2)}><Coffee/>$2</Button>
+                    <Button variant="secondary" className="cursor-pointer hover:bg-gray-400  focus:border-2 border-black" onClick={()=>setAmount(5)}><Coffee/>$5</Button>
+                    <Button variant="secondary" className="cursor-pointer hover:bg-gray-400  focus:border-2 border-black" onClick={()=>setAmount(10)}><Coffee/>$10</Button>
                 </div>
              </div>
             </div>

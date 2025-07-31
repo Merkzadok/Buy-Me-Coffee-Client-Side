@@ -4,7 +4,7 @@ import { DialogDemo } from "./Dialog";
 export const DonationProfile = () => {
   return (
     <div>
-      <div className="p-6 border w-[632px] rounded-lg">
+      <div className="p-6 border w-[632px] rounded-lg bg-white">
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-3">
             <img

@@ -3,14 +3,27 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import { Camera } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function DonationBackground() {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  // const [isEditing, setIsEditing] = useState(false); // shine state hiisen
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageClick = () => {
+    // setIsEditing(true); //edit mode
     fileInputRef.current?.click();
+  };
+
+  const handleCancel = () => {
+    // setIsEditing(false); // butsaaj editiig tsutslnaaaaaa
+    setImageUrl(null);
+  };
+
+  const handleSave = () => {
+    // setIsEditing(false); // hadaglah
+    alert("Changes saved");
   };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,9 +55,9 @@ export default function DonationBackground() {
       setLoading(false);
     }
   };
-
+  // console.log(isEditing);
   return (
-    <div className="relative w-full h-100 bg-gray-100 rounded-lg overflow-hidden shadow-md z-50">
+    <div className="relative w-full h-100 bg-gray-100 rounded-lg overflow-hidden shadow-md z-10">
       {/* cover image preview */}
       {imageUrl ? (
         <Image
@@ -58,15 +71,24 @@ export default function DonationBackground() {
         <div className="w-full h-full flex items-center justify-center text-gray-400"></div>
       )}
 
-      {/* Upload button like Facebook */}
       <div className="absolute  bottom-50 left-[50%] -translate-x-1/2">
-        <button
-          onClick={handleImageClick}
-          className="flex gap-2 bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition "
-        >
-          <Camera />
-          {loading ? "Uploading..." : "Add a cover image"}
-        </button>
+        {!imageUrl && (
+          <button
+            onClick={handleImageClick}
+            className="flex gap-2 bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition "
+          >
+            <Camera />
+            {loading ? "Uploading..." : "Add a cover image"}
+          </button>
+        )}
+
+        {imageUrl && (
+          <div>
+            <Button onClick={handleSave}>Save Changes</Button>
+            <Button onClick={handleCancel}>Cancel</Button>
+          </div>
+        )}
+
         <input
           type="file"
           accept="image/*"
