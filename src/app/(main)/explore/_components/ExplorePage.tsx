@@ -1,4 +1,5 @@
 import { ExploreUserSection } from "./ExploreUserSectionItem";
+import { NoUser } from "./NoUsers";
 import { UserSearchInput } from "./UserSearchInput";
 
 const mockUsers = [
@@ -18,7 +19,7 @@ const mockUsers = [
       "Passionate full-stack developer building beautiful web apps with React and Node.js. Loves space and cats 🐱🚀.",
     socialMediaUrl: "https://twitter.com/codeastronaut",
   },
-    {
+  {
     id: "user_003",
     name: "Space Ranger",
     avatarUrl: "https://github.com/shadcn.png",
@@ -38,17 +39,24 @@ const mockUsers = [
 
 export const ExplorePage = () => {
   return (
-    <div className="w-full ml-20 px-4 py-10 flex flex-col gap-6">
+    <div className="md:w-[910px] xl:w-[1200px] ml-20 xl:ml-40 px-4 py-10 flex flex-col gap-6">
       <p className="font-semibold text-xl">Explore creators</p>
       <div>
         <UserSearchInput />
       </div>
 
-      {mockUsers.map((item, i) => (
-        <div key={i}>
-          <ExploreUserSection item={item}/>
+      {mockUsers.length != 0 ? (
+        mockUsers?.map((item, i) => (
+          <div key={i} className=" w-full">
+            <ExploreUserSection item={item} />
+          </div>
+        ))
+      ) : (
+        <div className="py-6 w-[100%]">
+          <NoUser />
         </div>
-      ))}
+      )}
+      {/* <NoUser/> */}
     </div>
   );
 };

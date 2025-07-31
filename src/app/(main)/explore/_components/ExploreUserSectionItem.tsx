@@ -15,7 +15,7 @@ type itemType = {
 export const ExploreUserSection = ({ item }:itemType) => {
   const { name, avatarUrl, about, socialMediaUrl } = item;
   return (
-    <div className="w-[910px]  p-6 border-1 rounded-lg border-zinc-200 h-[230px]">
+    <div className=" p-6 border-1 rounded-lg border-zinc-200 h-[230px]">
       <div className="flex justify-between items-center mb-[12px]">
         <div className="flex items-center gap-3 text-xl">
           <img

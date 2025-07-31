@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/button";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-import { ProfileImageUploader } from "@/components/userInfo/createProfileInfo/ProfileImageuploader";
+
 import { CreateUserProfile } from "@/components/userInfo/createProfileInfo/CreateUpdateProfile";
+import { ProfileImageUploader } from "@/components/userInfo/createProfileInfo/profileImageuploader";
 
 const createUserSchema = Yup.object({
   profileImage: Yup.string().required("Please enter image"),

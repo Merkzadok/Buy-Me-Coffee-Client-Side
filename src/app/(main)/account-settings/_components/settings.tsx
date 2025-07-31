@@ -7,7 +7,7 @@ import { NewPassword } from "./NewPassword";
 
 export const SettingsPage = () => {
   return (
-    <div className="flex flex-col gap-8 md:ml-[200px] md:w-[600px] lg:ml-[200px] lg:w-[700px] justify-center ">
+    <div className="flex flex-col gap-8 md:ml-[200px] md:w-[600px] lg:ml-[200px] lg:w-[700px] xl:w-[1000px] xl:ml-[400px] justify-center ">
       <div>
         <p className="text-[24px] font-semibold mb-6">My account</p> <EditProfile />
       </div>
