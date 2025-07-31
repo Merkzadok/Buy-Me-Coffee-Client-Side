@@ -27,6 +27,7 @@
     "react-dom": "19.1.0",
     "react-hook-form": "^7.61.1",
     "react-input-mask": "^3.0.0-alpha.2",
+    "resolvers": "^1.0.0",
     "tailwind-merge": "^3.3.1",
     "yup": "^1.6.1",
     "zod": "^4.0.14"
