@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@radix-ui/react-label"
 import { Coffee } from "lucide-react"
 import { useState } from "react"
+import { QRdialog } from "./QR-Dialog"
  
 export const DonationBuyCoffeeCart = () => {
     const [amount, setAmount] =useState(0)
@@ -35,7 +36,9 @@ export const DonationBuyCoffeeCart = () => {
                 <Label htmlFor="text" className="font-medium">Special message:</Label>
                 <Input type="text" id="text" placeholder="Please write your message here" className="w-full h-[131px]"/>
             </div>
-            <Button className="w-full mt-8">Support</Button>
+            <div className="w-full mt-8">
+                <QRdialog/> 
+            </div>
  
         </div>
     )
