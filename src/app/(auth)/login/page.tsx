@@ -13,7 +13,7 @@ const Page = () => {
 //   const StepComponent = [LogInEmailPassword][currentStep];
 
   return (
-    <div className="flex justify-center mt-10">
+    <div className="flex justify-center">
       <LogInEmailPassword />
     </div>
   );

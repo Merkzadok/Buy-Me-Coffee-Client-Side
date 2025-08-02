@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/popover";
 
 import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
 
 export const Header = () => {
   const pathName = usePathname();
@@ -26,10 +27,12 @@ export const Header = () => {
 
   return (
     <div className="justify-between flex mx-30 my-4 ">
-      <p className="font-bold flex gap-[10px] cursor-pointer">
-        <CoffeeIcon className="w-6" />
-        Buy Me Coffee
-      </p>
+      <Link href={"/home"}>
+        <p className="font-bold flex gap-[10px] cursor-pointer">
+          <CoffeeIcon className="w-6" />
+          Buy Me Coffee
+        </p>
+      </Link>
       <div>
         <div>
           {onLogInPage && (
@@ -57,6 +60,7 @@ export const Header = () => {
                 alt="profile"
                 className="w-10 h-10 rounded-full"
               />
+
               <p className="pr-9 pt-1 ">Jake</p>
               <Popover>
                 <PopoverTrigger asChild>
