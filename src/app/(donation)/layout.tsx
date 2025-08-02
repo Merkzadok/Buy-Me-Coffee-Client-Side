@@ -8,9 +8,6 @@ export default function DonationLayout({
 }) {
   return (
     <div>
-      <Link href={"/home"}>
-        <Header />
-      </Link>
       {children}
     </div>
   );

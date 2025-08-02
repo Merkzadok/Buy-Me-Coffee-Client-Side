@@ -34,7 +34,6 @@ export default function MainLayout({
 }>) {
   return (
     <div>
-      <Header />
       <div className="flex mx-30 my-11  ">
         <div>
           {sidebarItems.map(({ title, href }, index) => (
