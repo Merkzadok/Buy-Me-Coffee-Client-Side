@@ -2,8 +2,9 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
-import { Camera } from "lucide-react";
+// import { Camera } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Camera } from "lucide-react";
 
 export default function DonationBackground() {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
