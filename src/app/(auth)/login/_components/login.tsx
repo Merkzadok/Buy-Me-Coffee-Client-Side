@@ -40,7 +40,7 @@ export const LogInEmailPassword = () => {
             Fund your creative work
           </h2>
           <p className="text-black text-base w-[455px]">
-            Accept support. Start a membership. Set up a shop. It's easier than you think.
+            Accept support. Start a membership. Set up a shop. It&apos;s easier than you think.
           </p>
         </div>
       </div>

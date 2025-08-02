@@ -53,7 +53,7 @@ export const CreateUserProfile = ({
   const inputNameBorderErrorStyle = nameInputerror ? "border-red-500" : "";
 
   const inputBorderAboutErrorStyle = aboutInputerror
-    ? "border-red-500 resize-none  h-[130px]"
+    ? "border-red-500 resize-none h-[130px]"
     : "resize-none h-[130px]";
 
   const inputBorderURLErrorStyle = urlInputerror
