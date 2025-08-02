@@ -17,7 +17,7 @@ export function QRdialog() {
     <Dialog>
       <form>
         <DialogTrigger asChild>
-          <Button variant="secondary" className="w-full">Support</Button>
+          <Button className="w-full">Support</Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
