@@ -4,7 +4,7 @@ import { Transactions } from "./_components/Transactions";
 
 const Home = () => {
   return (
-    <div className="mx-60">
+    <div className="">
       <AccountEarnings />
       <Amount />
       <Transactions />

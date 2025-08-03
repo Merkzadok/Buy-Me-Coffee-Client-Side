@@ -2,7 +2,7 @@ import { SettingsPage } from "./_components/settings";
 
 const AccountSettings = () => {
   return (
-    <div>
+    <div >
       <SettingsPage />
     </div>
   );

@@ -39,7 +39,7 @@ const mockUsers = [
 
 export const ExplorePage = () => {
   return (
-    <div className="md:w-[910px] xl:w-[1200px] ml-20 xl:ml-40 px-4 py-10 flex flex-col gap-6">
+    <div className="md:w-[910px] py-10 flex flex-col gap-6">
       <p className="font-semibold text-xl">Explore creators</p>
       <div>
         <UserSearchInput />
