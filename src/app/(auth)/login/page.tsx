@@ -1,11 +1,7 @@
 "use client";
 
-
 import { useState } from "react";
 import { LogInEmailPassword } from "./_components/login";
-
-
-
 
 const Page = () => {
 //   const [currentStep, setCurrentStep] = useState(0);

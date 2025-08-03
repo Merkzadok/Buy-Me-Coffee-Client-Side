@@ -6,7 +6,7 @@ const mockUsers = [
   {
     id: "user_001",
     name: "Space Ranger",
-    avatarUrl: "https://github.com/shadcn.png",
+    avatarUrl: "https://i.pinimg.com/736x/de/74/86/de74864e5816d86bf2f4d6485dd3b252.jpg",
     about:
       "All day, every day, we're watching, listening to, reading and absorbing politics. It's exhausting. We then report on what we've seen in a way that's as chill as possible.",
     socialMediaUrl: "https://buymeacoffee.com/baconpancakes1",
@@ -14,7 +14,7 @@ const mockUsers = [
   {
     id: "user_002",
     name: "Code Astronaut",
-    avatarUrl: "https://randomuser.me/api/portraits/men/32.jpg",
+    avatarUrl: "https://i.pinimg.com/736x/ce/df/43/cedf439942e18ca2127e9fe9b55a500a.jpg",
     about:
       "Passionate full-stack developer building beautiful web apps with React and Node.js. Loves space and cats 🐱🚀.",
     socialMediaUrl: "https://twitter.com/codeastronaut",
@@ -30,7 +30,7 @@ const mockUsers = [
   {
     id: "user_004",
     name: "Design Ninja",
-    avatarUrl: "https://randomuser.me/api/portraits/women/65.jpg",
+    avatarUrl: "https://i.pinimg.com/736x/96/33/32/9633326e9038d007965b9dbfac121497.jpg",
     about:
       "UX/UI designer with a love for minimal aesthetics and smooth animations. Figma, Framer, and a cup of matcha.",
     socialMediaUrl: "https://dribbble.com/designninja",

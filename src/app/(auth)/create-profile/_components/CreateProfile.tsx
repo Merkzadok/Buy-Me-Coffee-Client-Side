@@ -49,29 +49,13 @@ export const CreateProfile = ({ handleNext }: createProfileType) => {
 
   const getFieldProps = (name: keyof typeof values) => ({
     name,
-    // placeholder: getPlaceHolder(name),
     onChange: handleChange,
     onBlur: handleBlur,
     value: values[name],
     inputError: touched[name] && errors[name],
     inputErrorMessage: errors[name],
-  }); //Butets () => ({})
+  }); 
 
-  // const getPlaceHolder = (name: string) => {
-  // switch (name) {
-  // case "profileImage":
-  // return "";
-  // case "name":
-  // return "Enter your name here";
-  // case "about":
-  // return "Write about yourself here";
-  // case "socialURL":
-  // return "https://";
-  // default:
-  // return "";
-  // }
-
-  // }; //placeholder heseg
 
   return (
     <div className="w-[100%] h-[100vh] flex flex-col justify-center items-center ">
