@@ -18,7 +18,7 @@ const userData = {
   profile: {
     name: "Bolormaa Dev",
     about: "Full-stack developer passionate about clean UI and coffee ☕",
-    avatarImage: "https://github.com/shadcn.png",
+    avatarImage: "https://i.pinimg.com/736x/de/74/86/de74864e5816d86bf2f4d6485dd3b252.jpg",
     backgroundImage: "https://example.com/background.jpg",
     socialMediaURL: "https://twitter.com/bolor_dev",
     successMessage: "Баярлалаа! 🧡 Coffee авсан чинь их урам өглөө.",

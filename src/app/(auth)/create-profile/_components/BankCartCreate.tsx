@@ -29,11 +29,11 @@ export const bankFormSchema = z.object({
     .regex(/^\d+$/, { message: "Card number must contain only digits" }),
 
   month: z.string().min(1, { message: "Select a month" }),
-  year: z.string().min(4, { message: "Year is required16" }),
+  year: z.string().min(4, { message: "Year is required" }),
 
   CVC: z
     .string()
-    .min(3, { message: "CVC must be at least 3 digits" }) 
+    .min(3, { message: "CVC must be at least 3 digits" })
     .max(4, { message: "CVC must be 4 digits or less" }),
 });
 
@@ -59,6 +59,11 @@ export const CreateBankCartForm = () => {
   });
 
   function onSubmit(values: z.infer<typeof bankFormSchema>) {
+    const { selectCountry, name, lastName, cardNumber, month, year, CVC } =
+      values;
+
+    const expiryDate = `${year}-${month}-01`;
+
     setLoading(true);
 
     setTimeout(() => {
