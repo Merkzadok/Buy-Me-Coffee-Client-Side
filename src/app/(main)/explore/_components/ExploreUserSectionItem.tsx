@@ -16,9 +16,7 @@ type itemType = {
 };
 
 export const ExploreUserSection = ({ item }: itemType) => {
-  console.log("itemm:", item);
-  
-
+  console.log("itemm:", item.user.username);
 
   const { name, avatarImage, about, socialMediaURL } = item;
   return (
@@ -33,7 +31,7 @@ export const ExploreUserSection = ({ item }: itemType) => {
           <p className="text-xl font-semibold">{name}</p>
         </div>
 
-        <Link href={"/1234"}>
+        <Link href={`/${item.user.username}`}>
           <Button variant="secondary">
             View profile <SquareArrowOutUpRight />
           </Button>

@@ -6,26 +6,28 @@ import { Camera } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DonationUserUIType } from "@/types/DonationType";
 
-export default function DonationBackground({ isEditable, userData }: DonationUserUIType) {
+export default function DonationBackground({
+  isEditable,
+  userData,
+}: DonationUserUIType) {
+  // const { backgroundImage } = userData.userProfile;
+
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  // const [isEditing, setIsEditing] = useState(false);
+
   const [showChangeButton, setShowChangeButton] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageClick = () => {
-    // setIsEditing(true); //edit mode
     fileInputRef.current?.click();
   };
 
   const handleCancel = () => {
-    // setIsEditing(false); // butsaaj editiig tsutslnaaaaaa
     setImageUrl(null);
     setShowChangeButton(false);
   };
 
   const handleSave = () => {
-    // setIsEditing(false); // hadaglah
     alert("Changes saved");
     setShowChangeButton(true);
   };
@@ -64,7 +66,6 @@ export default function DonationBackground({ isEditable, userData }: DonationUse
   // console.log(isEditing);
   return (
     <div className="relative w-full h-100 bg-gray-100 rounded-lg overflow-hidden shadow-md z-10">
-
       {imageUrl ? (
         <Image
           src={imageUrl}

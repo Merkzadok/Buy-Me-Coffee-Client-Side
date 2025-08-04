@@ -1,5 +1,8 @@
+"use client";
+
 import { DonationPage } from "@/components/donation/DonationPage";
-import { profile } from "console";
+import { UserContext } from "@/provider/currentUserProvider";
+import { useContext } from "react";
 
 const userData = {
   id: "user_123",
@@ -28,5 +31,11 @@ const userData = {
 };
 
 export default function Donation() {
-  return <DonationPage isEditable={true} userData={userData} />;
+  
+  const{userProvider} = useContext(UserContext);
+  console.log("CONTEXT USER VIEW:", userProvider.username);
+
+  const username = userProvider?.username;
+
+  return <DonationPage isEditable={true} username={username} />;
 }

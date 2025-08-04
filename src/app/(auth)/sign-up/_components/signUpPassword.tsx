@@ -52,7 +52,23 @@ export const SignUpEmailPassword = ({ userName }: { userName: string }) => {
         email,
       });
     } catch (error) {
-      console.log(error?.response?.data.message as unknown as AxiosError);
+      // console.log(error?.response?.data.message as unknown as AxiosError);
+      // console.log(error);
+
+      const axiosError = error as AxiosError;
+      console.log(axiosError);
+
+      if (axiosError.response) {
+        const errorMessage = (axiosError.response.data as { message: string })
+          .message;
+        console.log("error messaage:", errorMessage);
+
+        if (errorMessage === "User profile already created") {
+          alert("User profile already created");
+        } else {
+          alert(`error ${errorMessage}`);
+        }
+      }
     }
   };
 
