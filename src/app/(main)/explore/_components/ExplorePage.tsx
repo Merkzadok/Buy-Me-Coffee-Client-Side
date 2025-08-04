@@ -6,7 +6,6 @@ import { NoUser } from "./NoUsers";
 import { UserSearchInput } from "./UserSearchInput";
 
 import axios from "axios";
-import { array } from "zod";
 
 const mockUsers = [
   {
@@ -54,6 +53,8 @@ export const ExplorePage = () => {
       const response = await axios.get("http://localhost:4001/profile/explore");
 
       const data = await response.data;
+      console.log("data:", data);
+      
 
       setUsers(data?.usersProfile);
 
