@@ -2,34 +2,67 @@
 import { useRouter } from "next/navigation";
 
 import { useForm } from "react-hook-form";
-import z from "zod";
+import z, { unknown } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+
+import axios, { AxiosError } from "axios";
 // import { Router } from "lucide-react";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 const formSchema = z.object({
-  email: z.string().min(1, { message: "" }).email({ message: "Please enter a valid email." }),
-  password: z.string().min(2, { message: "Password must be at least 2 characters." }),
+  email: z
+    .string()
+    .min(1, { message: "" })
+    .email({ message: "Please enter a valid email." }),
+  password: z
+    .string()
+    .min(2, { message: "Password must be at least 2 characters." }),
 });
 
-export const SignUpEmailPassword = () => {
-    const router = useRouter(); 
+export const SignUpEmailPassword = ({ userName }: { userName: string }) => {
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
       password: "",
     },
-    mode: "all",  
+    mode: "all",
   });
 
-function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("Submitted values:", values);
-    router.push("/login"); 
-  }
+  const handleOtgoo = async (
+    email: string,
+    password: string,
+    userName: string
+  ) => {
+    try {
+      await axios.post("http://localhost:4001/users/create-user", {
+        username: userName,
+        password,
+        email,
+      });
+    } catch (error) {
+      console.log(error?.response?.data.message as unknown as AxiosError);
+    }
+  };
 
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log("Submitted values:", values, userName);
+    // if (!values || userName) return;
+
+    await handleOtgoo(values.email, values.password, userName);
+    // router.push("/login");
+  }
 
   return (
     <div className="flex h-screen w-full">
@@ -44,18 +77,26 @@ function onSubmit(values: z.infer<typeof formSchema>) {
             Fund your creative work
           </h2>
           <p className="text-black text-base w-[455px]">
-            Accept support. Start a membership. Set up a shop. It&apos;s easier than you think.
+            Accept support. Start a membership. Set up a shop. It&apos;s easier
+            than you think.
           </p>
         </div>
       </div>
 
       <div className="w-1/2 flex items-center justify-center bg-white">
         <div className="max-w-md w-full px-8">
-          <h1 className="text-2xl font-semibold mb-6 text-black">Welcome, baconpancakes1</h1>
-          <p className="text-sm mb-2 text-gray-600">Connect email and set a password</p>
+          <h1 className="text-2xl font-semibold mb-6 text-black">
+            Welcome, baconpancakes1
+          </h1>
+          <p className="text-sm mb-2 text-gray-600">
+            Connect email and set a password
+          </p>
 
           <Form {...form}>
-            <form className="space-y-8 text-black" onSubmit={form.handleSubmit(onSubmit)}>
+            <form
+              className="space-y-8 text-black"
+              onSubmit={form.handleSubmit(onSubmit)}
+            >
               <FormField
                 control={form.control}
                 name="email"
@@ -63,10 +104,7 @@ function onSubmit(values: z.infer<typeof formSchema>) {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="Enter email here"
-                        {...field}
-                      />
+                      <Input placeholder="Enter email here" {...field} />
                     </FormControl>
                     <FormMessage className="text-red-600" />
                   </FormItem>
