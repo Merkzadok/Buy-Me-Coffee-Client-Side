@@ -5,7 +5,7 @@ export const Transactions = () => {
   });
   return (
     <div className="mt-3">
-      <div className="border-2 w-[907px] h-[660px] border-[#E4E4E7] rounded-lg overflow-y-auto">
+      <div className="border-2 h-[660px] border-[#E4E4E7] rounded-lg overflow-y-auto">
         <div className="mx-6 my-6">
           <div className="mb-7">
             <div className=" flex justify-between ">
@@ -25,7 +25,7 @@ export const Transactions = () => {
                 <p className="text-[#71717A] text-[12px]">{time} hours ago</p>
               </div>
             </div>
-            <div className="mt-4 w-[835px] ">
+            <div className="mt-4 ">
               <p>
                 Thank you for being so awesome everyday! You always manage to
                 brighten up my day when I’m feeling down. Although $1 isn’t that
@@ -51,7 +51,7 @@ export const Transactions = () => {
                 <p className="text-[#71717A] text-[12px]">{time} hours ago</p>
               </div>
             </div>
-            <div className="mt-4 w-[835px]">
+            <div className="mt-4">
               <p>
                 Thank you for being so awesome everyday! You always manage to
                 brighten up my day when I’m feeling down. Although $1 isn’t that
@@ -77,7 +77,7 @@ export const Transactions = () => {
                 <p className="text-[#71717A] text-[12px]">{time} hours ago</p>
               </div>
             </div>
-            <div className="mt-4 w-[835px]">
+            <div className="mt-4">
               <p>
                 Thank you for being so awesome everyday! You always manage to
                 brighten up my day when I’m feeling down. Although $1 isn’t that
@@ -103,7 +103,7 @@ export const Transactions = () => {
                 <p className="text-[#71717A] text-[12px]">{time} hours ago</p>
               </div>
             </div>
-            <div className="mt-4 w-[835px]">
+            <div className="mt-4">
               <p>
                 Thank you for being so awesome everyday! You always manage to
                 brighten up my day when I’m feeling down. Although $1 isn’t that
@@ -129,7 +129,7 @@ export const Transactions = () => {
                 <p className="text-[#71717A] text-[12px]">{time} hours ago</p>
               </div>
             </div>
-            <div className="mt-4 w-[835px]">
+            <div className="mt-4">
               <p>
                 Thank you for being so awesome everyday! You always manage to
                 brighten up my day when I’m feeling down. Although $1 isn’t that
@@ -155,7 +155,7 @@ export const Transactions = () => {
                 <p className="text-[#71717A] text-[12px]">{time} hours ago</p>
               </div>
             </div>
-            <div className="mt-4 w-[835px]">
+            <div className="mt-4">
               <p>
                 Thank you for being so awesome everyday! You always manage to
                 brighten up my day when I’m feeling down. Although $1 isn’t that
