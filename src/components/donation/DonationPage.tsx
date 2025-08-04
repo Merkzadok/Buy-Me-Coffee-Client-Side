@@ -8,8 +8,8 @@ import { DonationBuyCoffeeCart } from "./DonationBuyCoffeeCart";
 
 export const DonationPage = ({ isEditable, userData }: DonationUserUIType) => {
   return (
-    <div className="w-[100%] ml-20 xl:ml-40 relative">
-      <div className=" w-[1440px]">
+    <div className="max-w-[1440px] relative m-auto">
+      <div>
         <DonationBackground isEditable={isEditable} userData={userData} />
       </div>
       <div className="flex gap-5 justify-center absolute top-80 z-50 left-20">
