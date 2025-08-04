@@ -4,7 +4,7 @@ import { Transactions } from "./_components/Transactions";
 
 const Home = () => {
   return (
-    <div className="">
+    <div className=" max-w-[1200px]">
       <AccountEarnings />
       <Amount />
       <Transactions />

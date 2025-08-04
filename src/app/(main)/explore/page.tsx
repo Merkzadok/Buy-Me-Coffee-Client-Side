@@ -2,7 +2,7 @@ import { ExplorePage } from "./_components/ExplorePage";
 
 const Explore = () => {
   return (
-    <div className="">
+    <div className="max-w-[1200px]">
       <ExplorePage />
     </div>
   );

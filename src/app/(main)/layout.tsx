@@ -34,7 +34,7 @@ export default function MainLayout({
 }>) {
   return (
     <div>
-      <div className="flex justify-center gap-20">
+      <div className="flex justify-center gap-20 2xl:gap-50">
         <div className="">
           {sidebarItems.map(({ title, href }, index) => (
             <div key={index}>
