@@ -15,4 +15,5 @@ export const UserInfoCreate = () => {
   ];
   
   return stepComponents[step];
+  // return <CreateProfile  handleNext={handleNext}/>
 };

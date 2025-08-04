@@ -3,17 +3,24 @@
 import { useState } from "react";
 import { SignUpUserName } from "./_components/signUp";
 import { SignUpEmailPassword } from "./_components/signUpPassword";
-
 const Page = () => {
-  const [currentStep, setCurrentStep] = useState(0);
+  const [step, setStep] = useState(0);
+  const [userName, setUserName] = useState("");
 
-  const StepComponent = [SignUpUserName, SignUpEmailPassword][currentStep];
+  const handleNext = () => setStep(step + 1);
+  const onChangeUserName = (inputUserName: string) =>
+    setUserName(inputUserName);
 
-  return (
-    <div className="flex justify-center">
-      <StepComponent setCurrentStep={setCurrentStep} />
-    </div>
-  );
+  const stepComponents = [
+    <SignUpUserName
+      key={0}
+      handleNext={handleNext}
+      onChangeUserName={onChangeUserName}
+    />,
+    <SignUpEmailPassword key={1} userName={userName} />,
+  ];
+
+  return stepComponents[step];
 };
 
 export default Page;

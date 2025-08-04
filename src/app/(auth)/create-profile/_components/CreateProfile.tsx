@@ -4,9 +4,11 @@ import { Button } from "@/components/ui/button";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-
 import { CreateUserProfile } from "@/components/userInfo/createProfileInfo/CreateUpdateProfile";
 import { ProfileImageUploader } from "@/components/userInfo/createProfileInfo/profileImageuploader";
+
+import axios from "axios";
+import { useState } from "react";
 
 const createUserSchema = Yup.object({
   profileImage: Yup.string().required("Please enter image"),
@@ -19,7 +21,26 @@ type createProfileType = {
   handleNext: () => void;
 };
 
+const createProfilePost = async (
+  profileImage: string,
+  about: string,
+  name: string,
+  socialURL: string
+) => {
+  try {
+    await axios.post("http://localhost:4001/profile/6", {
+      avatarImage: profileImage,
+      about,
+      name,
+      socialMediaURL: socialURL,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const CreateProfile = ({ handleNext }: createProfileType) => {
+  const [loading, setLoading] = useState(false);
   const formik = useFormik({
     initialValues: {
       profileImage: "",
@@ -30,10 +51,19 @@ export const CreateProfile = ({ handleNext }: createProfileType) => {
 
     validationSchema: createUserSchema,
 
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       handleNext();
+      setLoading(true);
+      await createProfilePost(
+        values.profileImage,
+        values.about,
+        values.name,
+        values.socialURL
+      );
 
       console.log("L create profile: ", values);
+
+      setLoading(false);
     },
   });
 
@@ -54,8 +84,7 @@ export const CreateProfile = ({ handleNext }: createProfileType) => {
     value: values[name],
     inputError: touched[name] && errors[name],
     inputErrorMessage: errors[name],
-  }); 
-
+  });
 
   return (
     <div className="w-[100%] h-[100vh] flex flex-col justify-center items-center ">
@@ -73,7 +102,9 @@ export const CreateProfile = ({ handleNext }: createProfileType) => {
           profileURLInputProps={getFieldProps("socialURL")}
         />
         <div className="text-right mt-[24px]">
-          <Button type="submit">Continue</Button>
+          <Button type="submit" disabled={loading}>
+            {loading ? "...loading" : "Continue"}
+          </Button>
         </div>
       </form>
     </div>
