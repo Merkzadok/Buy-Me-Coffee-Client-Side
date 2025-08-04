@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { SquareArrowOutUpRight } from "lucide-react";
+import Link from "next/link";
 
 type usersSectionType = {
   name:string,
@@ -26,9 +27,11 @@ export const ExploreUserSection = ({ item }:itemType) => {
           <p className="text-xl font-semibold">{name}</p>
         </div>
 
+       <Link href={"/1234"}>
         <Button variant="secondary">
           View profile <SquareArrowOutUpRight />
         </Button>
+      </Link>
       </div>
 
       <div className="flex gap-5 lg:gap-10 ">
