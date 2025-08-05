@@ -7,9 +7,9 @@ import { NewPassword } from "./NewPassword";
 
 export const SettingsPage = () => {
   return (
-    <div className="flex flex-col gap-8 mx-0  justify-center ">
+    <div className="flex flex-col gap-8 justify-center w-[910px]">
       <div>
-        <p className="text-[24px] font-semibold">My account</p> <EditProfile />
+        <p className="text-[24px] font-semibold mb-6">My account</p> <EditProfile />
       </div>
       <div>
         <NewPassword />
@@ -17,7 +17,9 @@ export const SettingsPage = () => {
       <div>
         <EditCreditCard />
       </div>
-      <div><EditSuccessPage/></div>
+      <div>
+        <EditSuccessPage />
+      </div>
     </div>
   );
 };

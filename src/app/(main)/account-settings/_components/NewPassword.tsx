@@ -57,7 +57,7 @@ export const NewPassword = () => {
               name="confirmPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>New password</FormLabel>
+                  <FormLabel>Confirm password</FormLabel>
                   <FormControl>
                     <Input placeholder="Confirm password" {...field} />
                   </FormControl>

@@ -20,20 +20,17 @@ export const Header = () => {
 
   const onLogInPage = pathName.includes("/login");
 
-  console.log("L login1:", onLogInPage);
-
   const onSignUpPage = pathName.includes("/sign-up");
 
-  console.log("L signup", onSignUpPage);
-
   const onCreateProfile = pathName.includes("/create-profile");
-
   console.log("L onCreateProfile", onCreateProfile);
 
   return (
     <div className="justify-between flex mx-30 my-4 ">
-      <Link href="/home">
-        <p className="font-bold flex gap-[10px]">
+
+      <Link href={"/home"}>
+        <p className="font-bold flex gap-[10px] cursor-pointer">
+
           <CoffeeIcon className="w-6" />
           Buy Me Coffee
         </p>
@@ -65,6 +62,7 @@ export const Header = () => {
                 alt="profile"
                 className="w-10 h-10 rounded-full"
               />
+
               <p className="pr-9 pt-1 ">Jake</p>
               <Popover>
                 <PopoverTrigger asChild>
@@ -73,7 +71,11 @@ export const Header = () => {
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-[187px]">
-                  <Button variant="outline" className="border-none ">
+                  <Button
+                    variant="outline"
+                    className="border-none "
+                    onClick={() => push("/login")}
+                  >
                     Log Out
                   </Button>
                 </PopoverContent>

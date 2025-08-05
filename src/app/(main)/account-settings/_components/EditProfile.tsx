@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { CreateUserProfile } from "@/components/userInfo/createProfileInfo/Create-updateProfile";
+import { CreateUserProfile } from "@/components/userInfo/createProfileInfo/CreateUpdateProfile";
 import { ProfileImageUploader } from "@/components/userInfo/createProfileInfo/profileImageuploader";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -45,9 +45,11 @@ export const EditProfile = () => {
     inputErrorMessage: errors[name],
   }); //Butets () => ({})
 
-  
   return (
-    <div className="p-6 border-1 rounded-lg border-zinc-200">
+    <form
+      onSubmit={handleSubmit}
+      className="p-6 border-1 rounded-lg border-zinc-200"
+    >
       <p className="text-[16px] font-bold pb-6">Personal Info</p>
       <ProfileImageUploader
         value={values.profileImage}
@@ -60,10 +62,9 @@ export const EditProfile = () => {
         profileNameinputProps={getFieldProps("name")}
         profileAboutMeInputProps={getFieldProps("about")}
         profileURLInputProps={getFieldProps("socialURL")}
-        profileImageInputProps={getFieldProps("profileImage")}
       />
 
       <Button className="w-full mt-6">Save Changes</Button>
-    </div>
+    </form>
   );
 };

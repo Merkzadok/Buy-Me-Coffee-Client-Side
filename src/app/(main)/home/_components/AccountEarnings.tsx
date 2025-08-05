@@ -31,7 +31,7 @@ export const AccountEarnings = () => {
   };
   return (
     <div className="">
-      <div className="border-2 w-[907px] h-[257px] border-[#E4E4E7] rounded-lg">
+      <div className="border-2 h-[257px] border-[#E4E4E7] rounded-lg">
         <div className="mx-6 my-6 flex justify-between ">
           <div className="flex gap-4 items-center">
             <img

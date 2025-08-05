@@ -34,9 +34,8 @@ export default function MainLayout({
 }>) {
   return (
     <div>
-      <Header />
-      <div className="flex mx-30 my-11  ">
-        <div>
+      <div className="flex justify-center gap-20 2xl:gap-50">
+        <div className="">
           {sidebarItems.map(({ title, href }, index) => (
             <div key={index}>
               <Link href={href}>

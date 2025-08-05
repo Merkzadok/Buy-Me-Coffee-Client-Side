@@ -23,7 +23,7 @@ const Home = () => {
   );
   console.log(filteredAmounts);
   return (
-    <div className="mx-60">
+    <div className=" max-w-[1200px]">
       <AccountEarnings />
       <Amount
         donationAmounts={donationAmounts}

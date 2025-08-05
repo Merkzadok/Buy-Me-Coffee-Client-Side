@@ -46,7 +46,7 @@ export const EditSuccessPage = () => {
                     <Textarea
                       placeholder="Enter new password"
                       {...field}
-                      className="resize-none w-[510px] h-[130px]"
+                      className="resize-none w-full h-[130px]"
                     />
                   </FormControl>
                   <FormMessage />

@@ -13,7 +13,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-export const SelectCountry = ({ control }: { control: any }) => {
+import { Control } from "react-hook-form";
+import { BankFormType } from "@/app/(auth)/create-profile/_components/BankCartCreate";
+
+type Props = {
+  control: Control<BankFormType>;
+};
+
+export const SelectCountry = ({ control }: Props) => {
   return (
     <FormField
       control={control}
@@ -32,11 +39,12 @@ export const SelectCountry = ({ control }: { control: any }) => {
               </SelectTrigger>
             </FormControl>
             <SelectContent>
-              <SelectItem value="01">Mongolia</SelectItem>
-              <SelectItem value="02">Unites Status</SelectItem>
-              <SelectItem value="03">Japan</SelectItem>
-              <SelectItem value="04">China</SelectItem>
-              <SelectItem value="05">German</SelectItem>
+              <SelectItem value="Mongolia">Mongolia</SelectItem>
+              <SelectItem value="USA">United States</SelectItem>
+              <SelectItem value="Korea">South Korea</SelectItem>
+              <SelectItem value="China">China</SelectItem>
+              <SelectItem value="Germany">Germany</SelectItem>
+              <SelectItem value="Japan">Japan</SelectItem>
             </SelectContent>
           </Select>
           <FormMessage />

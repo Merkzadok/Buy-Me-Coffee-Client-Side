@@ -1,12 +1,14 @@
-import { Header } from "@/components/Header";
+"use client"
+
 import { Sidebar } from "@/components/Sidebar";
 
+
 export default function Home() {
+  
   return (
-    <div>
-      <Header></Header>
-      <div className="mx-30 my-11">
-        <Sidebar></Sidebar>
+    <div className="flex gap-10 justify-center">
+      <div className="w-[80%] bg-red-300">
+        <Sidebar />
       </div>
     </div>
   );
