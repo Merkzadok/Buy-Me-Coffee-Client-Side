@@ -2,18 +2,52 @@
 
 
 import { useForm } from "react-hook-form";
-import z from "zod";
+import z, { success } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
+import axios, { AxiosError } from "axios"
+import { useRouter } from 'next/navigation';
 const formSchema = z.object({
   email: z.string().min(1, { message: "" }).email({ message: "Please enter a valid email." }),
   password: z.string().min(2, { message: "Password must be at least 2 characters." }),
 });
 
+
+
 export const LogInEmailPassword = () => {
+  // const submitLogin = async (
+  //   email: string,
+  //   password: string,
+   
+  // ) => {
+  //   try {
+  //     await axios.post("http://localhost:4001/users/sign-in", {
+     
+  //       email,
+  //       password
+  //     });
+  //   } catch (error) {
+  //     // console.log(error?.response?.data.message as unknown as AxiosError);
+  //     // console.log(error);
+
+    //   const axiosError = error as AxiosError;
+    //   console.log(axiosError);}
+    // }
+   const { push } = useRouter();
+  const submitLogin = async  (email: string, password: string) => {
+    const response = await axios.post<{ accesstoken: string}>("http://localhost:4001/users/sign-in", {
+   
+        email: email,
+        password: password
+    
+    })
+console.log("response LOGIN: " ,response.data)
+    localStorage.setItem("token", response.data.accesstoken);
+      push("/");
+  }
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -23,9 +57,11 @@ export const LogInEmailPassword = () => {
     mode: "all",  
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log("Submitted values:", values);
+    await submitLogin(values.email, values.password);
   }
+   
 
   return (
     <div className="flex h-screen w-full">
