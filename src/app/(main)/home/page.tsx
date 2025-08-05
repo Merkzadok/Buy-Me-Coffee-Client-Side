@@ -1,24 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AccountEarnings } from "./_components/AccountEarnings";
 import { Amount } from "./_components/Amount";
 import { Transactions } from "./_components/Transactions";
 import { AmountType } from "@/types/types";
 
-const donationAmounts = [
-  { amount: "$1" },
-  { amount: "$2" },
-  { amount: "$5" },
-  { amount: "$10" },
-];
-
 const Home = () => {
+  const [donations, setDonations] = useState<AmountType[]>([]);
   const [amountSelected, setAmountSelected] = useState<string>("");
   const handleAmountSelect = (value: string) => {
     setAmountSelected(value);
   };
-  const filteredAmounts = donationAmounts.filter(
+  useEffect(() => {
+    const donationAmounts = async () => {
+      const response = await fetch(
+        "http://localhost:4001/donation/search-donations/14"
+      );
+      const data = await response.json();
+      console.log("Donation amounts fetched:", data);
+      setDonations(data.donations);
+    };
+    donationAmounts();
+  }, []);
+  const filteredAmounts = donations.filter(
     (item) => item.amount !== amountSelected
   );
   console.log(filteredAmounts);
@@ -26,7 +31,7 @@ const Home = () => {
     <div className=" max-w-[1200px]">
       <AccountEarnings />
       <Amount
-        donationAmounts={donationAmounts}
+        donations={donations}
         amountSelected={amountSelected}
         handleAmountSelect={handleAmountSelect}
       />

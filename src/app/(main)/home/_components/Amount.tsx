@@ -16,7 +16,7 @@ import { AmountType } from "@/types/types";
 export const Amount = ({
   amountSelected,
   handleAmountSelect,
-  donationAmounts,
+  donations,
 }: AmountType) => {
   return (
     <div className="mt-7 flex justify-between">
@@ -30,7 +30,7 @@ export const Amount = ({
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56" align="start">
             <DropdownMenuGroup>
-              {donationAmounts?.map((item, index) => (
+              {donations?.map((item, index) => (
                 <DropdownMenuItem
                   key={index}
                   onSelect={() => handleAmountSelect(item.amount)}
