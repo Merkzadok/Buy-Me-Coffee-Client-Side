@@ -4,14 +4,51 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import { Coffee } from "lucide-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { QRdialog } from "./QR-Dialog";
 import { DonationUserUIType } from "@/types/DonationType";
 import { Textarea } from "../ui/textarea";
+import axios from "axios";
+import { UserContext } from "@/provider/currentUserProvider";
 
-export const DonationBuyCoffeeCart = ({ isEditable }: DonationUserUIType) => {
+type DonationSupportType = {
+  isEditable: DonationUserUIType;
+  userid: number;
+};
+
+export const DonationBuyCoffeeCart = ({
+  isEditable,
+  userid,
+}: DonationSupportType) => {
+
   const [amount, setAmount] = useState(0);
+
+  const [socialUrl, setSocialUrl] = useState("");
+  const [specialMsg, setSpecialMsg] = useState("");
+
   console.log("amount:", amount);
+
+  
+
+  const { userProvider } = useContext(UserContext);
+
+  console.log("DONATION SUPPORT ", typeof userProvider.id);
+
+  const handleSupport = async () => {
+    const response = await axios.post(
+      "http://localhost:4001/donation/create-donation",
+      {
+        amount,
+        donorId: userProvider.id,
+        recipientId: userid,
+        socialURLOrBuyMeACoffee: socialUrl,
+        specialMesssage: specialMsg,
+      }
+    );
+
+    console.log("handleSupport:", response.data);
+  };
+  console.log("socialUrl", socialUrl);
 
   return (
     <div className="p-6 border w-[632px] h-[509px] rounded-lg bg-white">
@@ -62,10 +99,11 @@ export const DonationBuyCoffeeCart = ({ isEditable }: DonationUserUIType) => {
           Enter BuyMeCoffee or social acount URL:
         </Label>
         <Input
-          type="text"
+          type="url"
           id="text"
           placeholder="buymeacoffee.com/"
           className="w-full"
+          onChange={(e) => setSocialUrl(e.target.value)}
         />
       </div>
 
@@ -78,17 +116,21 @@ export const DonationBuyCoffeeCart = ({ isEditable }: DonationUserUIType) => {
           id="text"
           placeholder="Please write your message here"
           className="w-full h-[131px] resize-none"
+          onChange={(e) => setSpecialMsg(e.target.value)}
         />
       </div>
-      <div className="w-full mt-8">
+      {/* <div className="w-full mt-8">
         {!isEditable ? (
           <QRdialog />
         ) : (
-          <Button className="w-full" disabled={true}>
+          <Button className="w-full" disabled={true} onClick={handleSupport}>
             Support
           </Button>
         )}
-      </div>
+      </div> */}
+      <Button className="w-full" onClick={handleSupport}>
+        Support
+      </Button>
     </div>
   );
 };
