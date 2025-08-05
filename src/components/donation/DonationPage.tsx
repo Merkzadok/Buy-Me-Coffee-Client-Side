@@ -8,7 +8,7 @@ import { DonationSupporters } from "./DonationSupporters";
 import { DonationBuyCoffeeCart } from "./DonationBuyCoffeeCart";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { usePathname } from "next/navigation";
+
 
 export const DonationPage = ({
   isEditable,
@@ -34,7 +34,7 @@ export const DonationPage = ({
 
       setUserData(data?.userProfile);
 
-      console.log("explre rspinse:", data);
+      console.log("[USERNAME]:", data);
     } catch (error) {
       console.log(error);
     }
@@ -43,7 +43,7 @@ export const DonationPage = ({
   useEffect(() => {
     getExplore();
   }, []);
-  console.log("user:", userData);
+  console.log("user:", userData.id);
 
   return (
     <div className="max-w-[1440px] relative m-auto">
@@ -56,7 +56,7 @@ export const DonationPage = ({
           <DonationSocialMedia userData={userData} />
           <DonationSupporters userData={userData} />
         </div>
-        <DonationBuyCoffeeCart isEditable={isEditable} userData={userData} />
+        <DonationBuyCoffeeCart isEditable={isEditable} userData={userData} userid = {userData.id}/>
       </div>
     </div>
   );
