@@ -1,7 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { CreateUserProfile } from "@/components/userInfo/createProfileInfo/CreateUpdateProfile";
 import { ProfileImageUploader } from "@/components/userInfo/createProfileInfo/profileImageuploader";
+import { UserContext } from "@/provider/currentUserProvider";
+import { CreateProfileAPIType, CreateProfileType } from "@/types/DonationType";
+import axios from "axios";
 import { useFormik } from "formik";
+import { useContext, useEffect, useState } from "react";
 import * as Yup from "yup";
 
 const createUserSchema = Yup.object({
@@ -12,14 +16,55 @@ const createUserSchema = Yup.object({
 });
 
 export const EditProfile = () => {
+  const [profileInput, setProfileInput] = useState<CreateProfileType>({
+    profileImage: "",
+    name: "",
+    about: "",
+    socialURL: "",
+  });
+
+  const { userProvider } = useContext(UserContext);
+  // console.log("userProvider:", userProvider);
+
+  // console.log("userProver: SETTING", );
+
+  const getUserProfile = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:4001/profile/view/${userProvider.username}`
+      );
+      console.log("GET USER PROFILE SETTINGS: ", response.data.userProfile);
+
+      const data = response.data.userProfile as CreateProfileAPIType;
+
+      console.log("data", data);
+
+      setProfileInput({
+        profileImage: data.avatarImage || "",
+        name: data.name || "",
+        about: data.about || "",
+        socialURL: data.socialMediaURL || "",
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (!userProvider || !userProvider.username) return;
+    getUserProfile();
+  }, [userProvider]);
+
+  console.log("input PROFIEL", profileInput.name);
+
   const formik = useFormik({
     initialValues: {
-      profileImage: "",
-      name: "~L Bolormaa",
-      about:
-        "I’m a typical person who enjoys exploring different things. I also make music art as a hobby. Follow me along.",
-      socialURL: "",
+      profileImage: profileInput.profileImage,
+      name: profileInput.name,
+      about:profileInput.about,
+      socialURL: profileInput.socialURL,
     },
+    enableReinitialize: true,
     validationSchema: createUserSchema,
     onSubmit: (values) => {
       console.log("~L Setting profile edit:", values);

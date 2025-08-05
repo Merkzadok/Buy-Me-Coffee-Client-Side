@@ -18,8 +18,7 @@ export default function UserContextProvider({
   const [userProvider, setUserProvider] = useState({} as UserType);
 
   const getCurrentUserByAccessToken = async () => {
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjYzMTU2OTMwMTkyMDAsIlVzZXJEYXRhIjp7InVzZXIiOjEzLCJlbWFpbCI6InRlc3Q4OUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkwtZXJhNjcifSwiaWF0IjoxNzU0MzU5MTcyfQ.nUZAnbmNROVOjzQ_A3xk8AkwLwIQ5CTh2Fl9nege4iE";
+    const token =localStorage.getItem("token") as string;
     try {
       const response = await axios.get(
         "http://localhost:4001/profile/current-user",
@@ -29,17 +28,15 @@ export default function UserContextProvider({
           },
         }
       );
-      console.log(response?.data);
+      // console.log(response?.data);
 
       setUserProvider(response?.data?.user);
-
-      console.log("user provider response:", response);
     } catch (error) {
       console.log(error);
     }
   };
 
-  console.log("USER PROVIDER:", userProvider);
+  // console.log("USER PROVIDER:", userProvider);
 
   useEffect(() => {
     getCurrentUserByAccessToken();

@@ -23,7 +23,6 @@ export const Header = () => {
   const onSignUpPage = pathName.includes("/sign-up");
 
   const onCreateProfile = pathName.includes("/create-profile");
-  console.log("L onCreateProfile", onCreateProfile);
 
   return (
     <div className="justify-between flex mx-30 my-4 ">

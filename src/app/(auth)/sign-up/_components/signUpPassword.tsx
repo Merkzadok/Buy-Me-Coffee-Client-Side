@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 
 import { useForm } from "react-hook-form";
-import z, { unknown } from "zod";
+import z, { success, unknown } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import axios, { AxiosError } from "axios";
@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { TrendingUpDownIcon } from "lucide-react";
 
 const formSchema = z.object({
   email: z
@@ -46,11 +47,18 @@ export const SignUpEmailPassword = ({ userName }: { userName: string }) => {
     userName: string
   ) => {
     try {
-      await axios.post("http://localhost:4001/users/create-user", {
-        username: userName,
-        password,
-        email,
-      });
+      const response = await axios.post(
+        "http://localhost:4001/users/create-user",
+        {
+          username: userName,
+          password,
+          email,
+        }
+      );
+
+      localStorage.setItem("token", response?.data?.signUpUserAccessToken);
+
+      return TrendingUpDownIcon;
     } catch (error) {
       // console.log(error?.response?.data.message as unknown as AxiosError);
       // console.log(error);
@@ -64,9 +72,11 @@ export const SignUpEmailPassword = ({ userName }: { userName: string }) => {
         console.log("error messaage:", errorMessage);
 
         if (errorMessage === "User profile already created") {
-          alert("User profile already created");
+          // alert("User profile already created");
+          return false;
         } else {
           alert(`error ${errorMessage}`);
+          return false;
         }
       }
     }
@@ -76,8 +86,18 @@ export const SignUpEmailPassword = ({ userName }: { userName: string }) => {
     console.log("Submitted values:", values, userName);
     // if (!values || userName) return;
 
-    await handleOtgoo(values.email, values.password, userName);
-    // router.push("/login");
+    const isSuccess = await handleOtgoo(
+      values.email,
+      values.password,
+      userName
+    );
+    console.log("isSuccess", isSuccess);
+
+    if (!isSuccess) {
+      alert("User profile already created");
+    } else {
+      router.push("/create-profile");
+    }
   }
 
   return (

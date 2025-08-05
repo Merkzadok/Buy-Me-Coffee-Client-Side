@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Button } from "@/components/ui/button";
 import { DonationItemType, ProfileType } from "@/types/DonationType";
 import axios from "axios";
@@ -11,19 +11,19 @@ type userDataprops = {
 
 export const DonationSupporters = ({ userData }: userDataprops) => {
   const [supporters, setSupporters] = useState<DonationItemType[]>([]);
+  console.log("UserData:", userData);
 
   // const [user, setUser] = useState()
 
   const handleSupporters = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4001/donation/received/${userData.id}`
+        `http://localhost:4001/donation/received/${userData.userId}`
       );
-       const data = response.data.donations; 
-      //  const user = userData
-      //  console.log(";;;;;",user)
-      // const data = await response.data;
-      console.log("dataaaaa:", data);
+      const data = response.data.donations;
+
+      console.log("SUNSLEG DATA:", data);
+
       setSupporters(data);
     } catch (error) {
       console.error("Error fetching supporters:", error);
@@ -31,6 +31,7 @@ export const DonationSupporters = ({ userData }: userDataprops) => {
   };
 
   useEffect(() => {
+    if(!userData || !userData.userId) return;
     handleSupporters();
   }, [userData]);
   return (
@@ -52,7 +53,9 @@ export const DonationSupporters = ({ userData }: userDataprops) => {
               />
               <div>
                 <div className="flex gap-1">
-                  <h2 className="font-semibold">{donation.socialURLOrBuyMeACoffee}</h2>
+                  <h2 className="font-semibold">
+                    {donation.socialURLOrBuyMeACoffee}
+                  </h2>
                   <h3 className="font-medium">
                     bought ${donation.amount} coffee
                   </h3>
@@ -73,6 +76,5 @@ export const DonationSupporters = ({ userData }: userDataprops) => {
         )}
       </div>
     </div>
-   
   );
 };
