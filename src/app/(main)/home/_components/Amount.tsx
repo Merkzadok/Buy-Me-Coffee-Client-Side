@@ -11,19 +11,13 @@ import { Checkbox } from "@/components/ui/checkbox";
 
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
+import { AmountType } from "@/types/types";
 
-const donationAmounts = [
-  { amount: "$1" },
-  { amount: "$2" },
-  { amount: "$5" },
-  { amount: "$10" },
-];
-
-export const Amount = () => {
-  const [amountSelected, setAmountSelected] = useState("");
-  const handleAmountSelect = (value: string) => {
-    setAmountSelected(value);
-  };
+export const Amount = ({
+  amountSelected,
+  handleAmountSelect,
+  donationAmounts,
+}: AmountType) => {
   return (
     <div className="mt-7 flex justify-between">
       <p className="font-[500] ">Recent transactions</p>
@@ -36,7 +30,7 @@ export const Amount = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56" align="start">
             <DropdownMenuGroup>
-              {donationAmounts.map((item, index) => (
+              {donationAmounts?.map((item, index) => (
                 <DropdownMenuItem
                   key={index}
                   onSelect={() => handleAmountSelect(item.amount)}
@@ -48,6 +42,8 @@ export const Amount = () => {
                       className="ml-2 h-4 w-4  text-green-400"
                     />
                   )}
+                  {/* {amountSelected === item.amount &&
+                    donationAmounts.filter((i) => i.amount !== item.amount)} */}
                 </DropdownMenuItem>
               ))}
             </DropdownMenuGroup>
