@@ -19,7 +19,7 @@ export default function UserContextProvider({
 
   const getCurrentUserByAccessToken = async () => {
     const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjYzMTU2ODIwNDY0MDAsIlVzZXJEYXRhIjp7InVzZXIiOjEzLCJlbWFpbCI6InRlc3Q4OUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkwtZXJhNjcifSwiaWF0IjoxNzU0MzU2MTI0fQ.sWvTYEhx4mDE1Dx6WfPJ7mQ4LwViJuWzB1Tm_RseRyY";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjYzMTU2OTMwMTkyMDAsIlVzZXJEYXRhIjp7InVzZXIiOjEzLCJlbWFpbCI6InRlc3Q4OUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkwtZXJhNjcifSwiaWF0IjoxNzU0MzU5MTcyfQ.nUZAnbmNROVOjzQ_A3xk8AkwLwIQ5CTh2Fl9nege4iE";
     try {
       const response = await axios.get(
         "http://localhost:4001/profile/current-user",

@@ -128,7 +128,7 @@ export const DonationBuyCoffeeCart = ({
           </Button>
         )}
       </div> */}
-      <Button className="w-full" onClick={handleSupport}>
+      <Button className="w-full mt-8" onClick={handleSupport}>
         Support
       </Button>
     </div>
