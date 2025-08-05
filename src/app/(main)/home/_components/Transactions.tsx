@@ -73,6 +73,6 @@ export const Transactions = ({ filteredAmounts }: FilterProps) => {
 
         </div>
       </div>
-    </div>
+    // </div>
   );
 };

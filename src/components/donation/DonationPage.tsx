@@ -43,7 +43,7 @@ export const DonationPage = ({
   useEffect(() => {
     getExplore();
   }, []);
-  console.log("user:", userData.id);
+  console.log("user:", userData);
 
   return (
     <div className="max-w-[1440px] relative m-auto">
