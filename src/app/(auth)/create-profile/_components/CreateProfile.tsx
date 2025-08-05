@@ -8,7 +8,8 @@ import { CreateUserProfile } from "@/components/userInfo/createProfileInfo/Creat
 import { ProfileImageUploader } from "@/components/userInfo/createProfileInfo/profileImageuploader";
 
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UserContext } from "@/provider/currentUserProvider";
 
 const createUserSchema = Yup.object({
   profileImage: Yup.string().required("Please enter image"),
@@ -21,26 +22,31 @@ type createProfileType = {
   handleNext: () => void;
 };
 
-const createProfilePost = async (
-  profileImage: string,
-  about: string,
-  name: string,
-  socialURL: string
-) => {
-  try {
-    await axios.post("http://localhost:4001/profile/6", {
-      avatarImage: profileImage,
-      about,
-      name,
-      socialMediaURL: socialURL,
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 export const CreateProfile = ({ handleNext }: createProfileType) => {
   const [loading, setLoading] = useState(false);
+
+  const { userProvider } = useContext(UserContext);
+
+  console.log("CREATE PROFILE USERPROVIDER:", userProvider);
+
+  const createProfilePost = async (
+    profileImage: string,
+    about: string,
+    name: string,
+    socialURL: string
+  ) => {
+    try {
+      await axios.post(`http://localhost:4001/profile/${userProvider.id}`, {
+        avatarImage: profileImage,
+        about,
+        name,
+        socialMediaURL: socialURL,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const formik = useFormik({
     initialValues: {
       profileImage: "",
@@ -52,14 +58,20 @@ export const CreateProfile = ({ handleNext }: createProfileType) => {
     validationSchema: createUserSchema,
 
     onSubmit: async (values) => {
-      handleNext();
+      if (!userProvider.id) {
+        alert("User data is not loaded yet. Please try again.");
+        return;
+      }
       setLoading(true);
+
       await createProfilePost(
         values.profileImage,
         values.about,
         values.name,
         values.socialURL
       );
+
+      handleNext();
 
       console.log("L create profile: ", values);
 

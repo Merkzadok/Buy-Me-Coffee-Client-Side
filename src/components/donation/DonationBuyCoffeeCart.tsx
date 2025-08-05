@@ -6,13 +6,12 @@ import { Label } from "@radix-ui/react-label";
 import { Coffee } from "lucide-react";
 import { useContext, useState } from "react";
 import { QRdialog } from "./QR-Dialog";
-import { DonationUserUIType } from "@/types/DonationType";
 import { Textarea } from "../ui/textarea";
 import axios from "axios";
 import { UserContext } from "@/provider/currentUserProvider";
 
 type DonationSupportType = {
-  isEditable: DonationUserUIType;
+  isEditable: boolean;
   userid: number;
 };
 
@@ -20,19 +19,17 @@ export const DonationBuyCoffeeCart = ({
   isEditable,
   userid,
 }: DonationSupportType) => {
-
   const [amount, setAmount] = useState(0);
 
   const [socialUrl, setSocialUrl] = useState("");
   const [specialMsg, setSpecialMsg] = useState("");
 
-  console.log("amount:", amount);
-
-  
+  // console.log("amount:", amount);
 
   const { userProvider } = useContext(UserContext);
 
-  console.log("DONATION SUPPORT ", typeof userProvider.id);
+  console.log("DONAR id :", userProvider.id);
+  console.log("RECIPIENT ID:", userid);
 
   const handleSupport = async () => {
     const response = await axios.post(
@@ -46,9 +43,8 @@ export const DonationBuyCoffeeCart = ({
       }
     );
 
-    console.log("handleSupport:", response.data);
+    // console.log("handleSupport:", response.data);
   };
-  console.log("socialUrl", socialUrl);
 
   return (
     <div className="p-6 border w-[632px] h-[509px] rounded-lg bg-white">

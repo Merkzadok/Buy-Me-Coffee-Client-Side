@@ -39,6 +39,7 @@ export const SignUpUserName = ({
   handleNext: () => void;
   onChangeUserName: (_userName: string) => void;
 }) => {
+  
   const form = useForm<z.infer<ReturnType<typeof getFormSchema>>>({
     resolver: zodResolver(getFormSchema()),
     defaultValues: {

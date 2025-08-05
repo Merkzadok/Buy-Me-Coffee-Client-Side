@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { ProfileWithUserNameType } from "@/types/DonationType";
 import axios from "axios";
 import { SquareArrowOutUpRight } from "lucide-react";
 import Link from "next/link";
@@ -12,11 +13,13 @@ type usersSectionType = {
 };
 
 type itemType = {
-  item: usersSectionType;
+  item: ProfileWithUserNameType;
 };
 
 export const ExploreUserSection = ({ item }: itemType) => {
-  console.log("itemm:", item.user.username);
+  console.log("ITEM EXPLORE :", item);
+
+  // console.log("itemm:", item.user.username);
 
   const { name, avatarImage, about, socialMediaURL } = item;
   return (

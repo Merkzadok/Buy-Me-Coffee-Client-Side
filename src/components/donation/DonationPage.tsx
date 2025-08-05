@@ -1,13 +1,14 @@
 "use client";
 
-import { DonationUserUIType, ProfileType } from "@/types/DonationType";
+import {  ProfileType } from "@/types/DonationType";
 import DonationBackground from "./Donation-Background";
 import { DonationProfile } from "./Donation-Profile";
 import { DonationSocialMedia } from "./Donation-SocialMedia";
 import { DonationSupporters } from "./DonationSupporters";
 import { DonationBuyCoffeeCart } from "./DonationBuyCoffeeCart";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
 
 
 export const DonationPage = ({
@@ -18,13 +19,14 @@ export const DonationPage = ({
   username: string;
 }) => {
 
-  console.log("isEditable",isEditable);
+  const { push } = useRouter();
+
+  console.log("isEditable", isEditable);
   console.log("USERNAME:", username);
-  
-  
+
   const [userData, setUserData] = useState({} as ProfileType);
 
-  const getExplore = async () => {
+  const getDonationPage = async () => {
     try {
       const response = await axios.get(
         `http://localhost:4001/profile/view/${username}`
@@ -36,13 +38,27 @@ export const DonationPage = ({
 
       console.log("[USERNAME]:", data);
     } catch (error) {
-      console.log(error);
+      const axiosError = error as AxiosError;
+
+      console.log("axiosError axiosError axiosError", axiosError);
+      if (axiosError.response) {
+        const errorMessage = (axiosError.response.data as { message: string })
+          .message;
+
+        if (errorMessage === "User profile not found.") {
+          alert("Please enter your profile details!");
+          push("/create-profile");
+        } else {
+          alert(`error ${errorMessage}`);
+        }
+      }
     }
   };
 
   useEffect(() => {
-    getExplore();
-  }, []);
+    if(!username) return;
+    getDonationPage();
+  }, [username, isEditable]);
   console.log("user:", userData);
 
   return (
@@ -56,7 +72,10 @@ export const DonationPage = ({
           <DonationSocialMedia userData={userData} />
           <DonationSupporters userData={userData} />
         </div>
-        <DonationBuyCoffeeCart isEditable={isEditable} userData={userData} userid = {userData.id}/>
+        <DonationBuyCoffeeCart
+          isEditable={isEditable}
+          userid={userData.userId}
+        />
       </div>
     </div>
   );

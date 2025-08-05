@@ -1,8 +1,4 @@
-"use client"
-
 import { DonationPage } from "@/components/donation/DonationPage";
-import { usePathname } from "next/navigation";
-
 
 // const userData = {
 //   id: "user_123",
@@ -29,10 +25,13 @@ import { usePathname } from "next/navigation";
 //   },
 // };
 
-export default function UsersProfile() {
-    const pathName = usePathname();
-  // console.log("pathname:", pathName.slice(1));
-  const username = pathName.slice(1);
+export default async function UsersProfile({
+  params,
+}: {
+  params: Promise<{ username: string }>;
+}) {
+  const { username } = await params;
+  const UserName = username;
 
-  return <DonationPage isEditable={false} username={username}/>;
+  return <DonationPage isEditable={false} username={UserName} />;
 }
