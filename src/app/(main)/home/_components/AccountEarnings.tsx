@@ -16,16 +16,27 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useState } from "react";
-
-const earnings = [
-  {
-    earns: "450$",
-  },
-];
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "@/provider/currentUserProvider";
 
 export const AccountEarnings = () => {
   const [selected, setSelected] = useState("Select");
+  const [totalEarnings, setTotalEarnings] = useState<number>();
+  // const { userProvider } = useContext(UserContext);
+
+  useEffect(() => {
+    const getEarnings = async () => {
+      try {
+        const response = await fetch(`http://localhost:4001/donation/total/14`);
+        const data = await response.json();
+        setTotalEarnings(data.total);
+      } catch (error) {
+        console.error("Error fetching earnings:", error);
+      }
+    };
+    getEarnings();
+  }, []);
+
   const handleSelect = (value: string) => {
     setSelected(value);
   };
@@ -75,11 +86,9 @@ export const AccountEarnings = () => {
             </DropdownMenu>
           </div>
           <div>
-            {earnings.map((earn, index) => (
-              <div key={index}>
-                <p className="mt-5 font-[700] text-[36px]">{earn.earns}</p>
-              </div>
-            ))}
+            <div>
+              <p className="mt-5 font-[700] text-[36px]">${totalEarnings}</p>
+            </div>
           </div>
         </div>
       </div>

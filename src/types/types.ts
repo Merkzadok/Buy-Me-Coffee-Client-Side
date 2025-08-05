@@ -1,7 +1,8 @@
 export type AmountType = {
   amountSelected: string;
   handleAmountSelect: (value: string) => void;
-  donationAmounts: { amount: string }[];
+  amount: string;
+  donations: { amount: string }[];
 };
 
 export type FilterProps = {

@@ -8,11 +8,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-const bankFormmSchema = bankFormSchema
+const bankFormmSchema = bankFormSchema;
 
 export const EditCreditCard = () => {
-
-
   const form = useForm<z.infer<typeof bankFormmSchema>>({
     resolver: zodResolver(bankFormmSchema),
     defaultValues: {
@@ -27,12 +25,11 @@ export const EditCreditCard = () => {
   });
 
   function onSubmit(values: z.infer<typeof bankFormmSchema>) {
-
     console.log(values);
   }
   return (
     <div className="p-6 border-1 rounded-lg border-zinc-200">
-        <p className="text-base font-bold pb-6">Payment details</p>
+      <p className="text-base font-bold pb-6">Payment details</p>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <CardInputsMain control={form.control} />
