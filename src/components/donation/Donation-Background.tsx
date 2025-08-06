@@ -1,22 +1,30 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Camera } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DonationUserUIType } from "@/types/DonationType";
+import { UserContext } from "@/provider/currentUserProvider";
+import axios from "axios";
+import { useFormik } from "formik";
 
 export default function DonationBackground({
   isEditable,
   userData,
 }: DonationUserUIType) {
   // const { backgroundImage } = userData.userProfile;
+  console.log(userData);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { userProvider } = useContext(UserContext);
 
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(
+    userData.backgroundImage || null
+  ); //cloudnary-s awach baigaa state
+
   const [loading, setLoading] = useState(false);
 
-  const [showChangeButton, setShowChangeButton] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [showChangeButton, setShowChangeButton] = useState(true);
 
   const handleImageClick = () => {
     fileInputRef.current?.click();
@@ -27,10 +35,40 @@ export default function DonationBackground({
     setShowChangeButton(false);
   };
 
-  const handleSave = () => {
-    alert("Changes saved");
-    setShowChangeButton(true);
+  const handleSave = async (urlCloud: string) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:4001/profile/${userProvider.profileId}`,
+        {
+          backgroundImage: urlCloud,
+        }
+      );
+
+      console.log("CLOUD RESPONSE ", response.data.profile.backgroundImage);
+      console.log("CLOUD IMAGE URLL:", imageUrl);
+      console.log("USER PROVIDER4 BACKGPRUND", userData.backgroundImage);
+
+      setShowChangeButton(true);
+      setImageUrl(response.data.profile.backgroundImagel);
+    } catch (error) {
+      console.log(error);
+    }finally{
+      setShowChangeButton(false)
+    }
   };
+
+  useEffect(() => {
+    if (userData?.backgroundImage) {
+      setImageUrl(userData.backgroundImage);
+      // setShowChangeButton(false);
+
+    }
+  }, [userData?.backgroundImage]);
+
+  // const handlecover = async() => {
+  //   const response = await axios.get(``)
+  // }
+  // useEffect(()=> {handlecover()}, [])
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const coverURL = process.env.NEXT_PUBLIC_COVER_URL || "";
@@ -54,6 +92,9 @@ export default function DonationBackground({
 
       if (data.secure_url) {
         setImageUrl(data.secure_url);
+        console.log("data.secure_url", data.secure_url);
+        // handleSave(data.secure_url);
+
         setShowChangeButton(false);
       }
     } catch (error) {
@@ -63,7 +104,6 @@ export default function DonationBackground({
     }
   };
 
-  // console.log(isEditing);
   return (
     <div className="relative w-full h-100 bg-gray-100 rounded-lg overflow-hidden shadow-md z-10">
       {imageUrl ? (
@@ -92,7 +132,7 @@ export default function DonationBackground({
 
           {imageUrl && !showChangeButton && (
             <div>
-              <Button onClick={handleSave}>Save Changes</Button>
+              <Button onClick={() => handleSave(imageUrl)}>Save Changes</Button>
               <Button onClick={handleCancel}>Cancel</Button>
             </div>
           )}
