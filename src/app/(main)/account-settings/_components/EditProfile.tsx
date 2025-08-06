@@ -15,7 +15,13 @@ const createUserSchema = Yup.object({
   socialURL: Yup.string().url("Please enter a social link").required(),
 });
 
-export const EditProfile = () => {
+export const EditProfile = ({
+  username,
+  profileId,
+}: {
+  username: string;
+  profileId: number;
+}) => {
   const [profileInput, setProfileInput] = useState<CreateProfileType>({
     profileImage: "",
     name: "",
@@ -23,7 +29,6 @@ export const EditProfile = () => {
     socialURL: "",
   });
 
-  const { userProvider } = useContext(UserContext);
   // console.log("userProvider:", userProvider);
 
   // console.log("userProver: SETTING", );
@@ -31,7 +36,7 @@ export const EditProfile = () => {
   const getUserProfile = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4001/profile/view/${userProvider.username}`
+        `http://localhost:4001/profile/view/${username}`
       );
       console.log("GET USER PROFILE SETTINGS: ", response.data.userProfile);
 
@@ -51,9 +56,9 @@ export const EditProfile = () => {
   };
 
   useEffect(() => {
-    if (!userProvider || !userProvider.username) return;
+    if (!username) return;
     getUserProfile();
-  }, [userProvider]);
+  }, [username]);
 
   const settingsProfileUpdate = async (
     profileImage: string,
@@ -62,7 +67,7 @@ export const EditProfile = () => {
     socialURL: string
   ) => {
     const response = await axios.put(
-      `http://localhost:4001/profile/${userProvider.profileId}`,
+      `http://localhost:4001/profile/${profileId}`,
       {
         avatarImage: profileImage,
         name,
@@ -73,7 +78,6 @@ export const EditProfile = () => {
     console.log("response UPDATE:", response.data.avatarImage);
   };
 
-  console.log("input PROFIEL", profileInput.name);
 
   const formik = useFormik({
     initialValues: {

@@ -8,6 +8,8 @@ import { DonationUserUIType } from "@/types/DonationType";
 import { UserContext } from "@/provider/currentUserProvider";
 import axios from "axios";
 import { useFormik } from "formik";
+import { error } from "console";
+import { LoaderCoffee } from "../loading.tsx/loader";
 
 export default function DonationBackground({
   isEditable,
@@ -36,39 +38,33 @@ export default function DonationBackground({
   };
 
   const handleSave = async (urlCloud: string) => {
-    try {
-      const response = await axios.put(
-        `http://localhost:4001/profile/${userProvider.profileId}`,
-        {
-          backgroundImage: urlCloud,
-        }
-      );
+    setLoading(true);
+    axios
+      .put(`http://localhost:4001/profile/${userProvider.profileId}`, {
+        backgroundImage: urlCloud,
+      })
+      .then((response) => {
+        console.log("CLOUD RESPONSE ", response.data.profile.backgroundImage);
+        console.log("CLOUD IMAGE URLL:", imageUrl);
+        console.log("USER PROVIDER4 BACKGPRUND", userData.backgroundImage);
 
-      console.log("CLOUD RESPONSE ", response.data.profile.backgroundImage);
-      console.log("CLOUD IMAGE URLL:", imageUrl);
-      console.log("USER PROVIDER4 BACKGPRUND", userData.backgroundImage);
-
-      setShowChangeButton(true);
-      setImageUrl(response.data.profile.backgroundImagel);
-    } catch (error) {
-      console.log(error);
-    }finally{
-      setShowChangeButton(false)
-    }
+        setShowChangeButton(true);
+        setImageUrl(response.data.profile.backgroundImagel);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   useEffect(() => {
     if (userData?.backgroundImage) {
       setImageUrl(userData.backgroundImage);
       // setShowChangeButton(false);
-
     }
   }, [userData?.backgroundImage]);
-
-  // const handlecover = async() => {
-  //   const response = await axios.get(``)
-  // }
-  // useEffect(()=> {handlecover()}, [])
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const coverURL = process.env.NEXT_PUBLIC_COVER_URL || "";
@@ -106,6 +102,7 @@ export default function DonationBackground({
 
   return (
     <div className="relative w-full h-100 bg-gray-100 rounded-lg overflow-hidden shadow-md z-10">
+      {loading&&<LoaderCoffee/>}
       {imageUrl ? (
         <Image
           src={imageUrl}

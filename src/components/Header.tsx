@@ -95,11 +95,19 @@ export const Header = () => {
 
           {!onLogInPage && !onSignUpPage && !onCreateProfile && (
             <div className="flex gap-2 items-center">
-              <img
-                src={userData.avatarImage}
-                alt="profile"
-                className="w-10 h-10 rounded-full"
-              />
+              {userData.avatarImage ? (
+                <img
+                  src={userData.avatarImage}
+                  alt="profile"
+                  className="w-10 h-10 rounded-full"
+                />
+              ) : (
+                <img
+                  src="https://i.pinimg.com/originals/5c/44/45/5c4445eea6c9386d27b348af65ce8278.gif"
+                  alt="profile"
+                  className="w-10 h-10 rounded-full"
+                />
+              )}
 
               <p className="pr-9 pt-1 ">{userData.name}</p>
               <Popover>
