@@ -1,6 +1,6 @@
 "use client";
 
-import {  ProfileType } from "@/types/DonationType";
+import { ProfileType } from "@/types/DonationType";
 import DonationBackground from "./Donation-Background";
 import { DonationProfile } from "./Donation-Profile";
 import { DonationSocialMedia } from "./Donation-SocialMedia";
@@ -9,7 +9,8 @@ import { DonationBuyCoffeeCart } from "./DonationBuyCoffeeCart";
 import { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
-
+import { error } from "console";
+import { LoaderCoffee } from "../loading.tsx/loader";
 
 export const DonationPage = ({
   isEditable,
@@ -18,48 +19,52 @@ export const DonationPage = ({
   isEditable: boolean;
   username: string;
 }) => {
-
   const { push } = useRouter();
 
   console.log("isEditable", isEditable);
   console.log("USERNAME:", username);
 
   const [userData, setUserData] = useState({} as ProfileType);
-
+  const [loading, setLoading] = useState(false);
   const getDonationPage = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:4001/profile/view/${username}`
-      );
+    setLoading(true);
+    axios
+      .get(`http://localhost:4001/profile/view/${username}`)
+      .then((response) => {
+        const data = response?.data;
+        setUserData(data?.userProfile);
+        console.log("[USERNAME]:", data);
+      })
+      .catch((error) => {
+        const axiosError = error as AxiosError;
 
-      const data = await response?.data;
+        console.log("axiosError axiosError axiosError", axiosError);
+        if (axiosError.response) {
+          const errorMessage = (axiosError.response.data as { message: string })
+            .message;
 
-      setUserData(data?.userProfile);
-
-      console.log("[USERNAME]:", data);
-    } catch (error) {
-      const axiosError = error as AxiosError;
-
-      console.log("axiosError axiosError axiosError", axiosError);
-      if (axiosError.response) {
-        const errorMessage = (axiosError.response.data as { message: string })
-          .message;
-
-        if (errorMessage === "User profile not found.") {
-          alert("Please enter your profile details!");
-          push("/create-profile");
-        } else {
-          alert(`error ${errorMessage}`);
+          if (errorMessage === "User profile not found.") {
+            alert("Please enter your profile details!");
+            push("/create-profile");
+          } else {
+            alert(`error ${errorMessage}`);
+          }
         }
-      }
-    }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   useEffect(() => {
-    if(!username) return;
+    if (!username) return;
     getDonationPage();
   }, [username, isEditable]);
   console.log("user:", userData);
+
+  if (loading) {
+    return <LoaderCoffee />;
+  }
 
   return (
     <div className="max-w-[1440px] relative m-auto">

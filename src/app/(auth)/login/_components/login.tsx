@@ -26,24 +26,6 @@ const formSchema = z.object({
 });
 
 export const LogInEmailPassword = () => {
-  // const submitLogin = async (
-  //   email: string,
-  //   password: string,
-
-  // ) => {
-  //   try {
-  //     await axios.post("http://localhost:4001/users/sign-in", {
-
-  //       email,
-  //       password
-  //     });
-  //   } catch (error) {
-  //     // console.log(error?.response?.data.message as unknown as AxiosError);
-  //     // console.log(error);
-
-  //   const axiosError = error as AxiosError;
-  //   console.log(axiosError);}
-  // }
   const { push } = useRouter();
   const submitLogin = async (email: string, password: string) => {
     const response = await axios.post<{ accesstoken: string }>(
