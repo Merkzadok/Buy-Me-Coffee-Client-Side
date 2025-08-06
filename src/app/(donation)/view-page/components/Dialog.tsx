@@ -14,7 +14,11 @@ import {
 
 import { CreateUserProfile } from "@/components/userInfo/createProfileInfo/CreateUpdateProfile";
 import { ProfileImageUploader } from "@/components/userInfo/createProfileInfo/profileImageuploader";
+import { UserContext } from "@/provider/currentUserProvider";
+import { CreateProfileAPIType, CreateProfileType } from "@/types/DonationType";
+import axios from "axios";
 import { useFormik } from "formik";
+import { useContext, useEffect, useState } from "react";
 import * as Yup from "yup";
 
 const createUserSchema = Yup.object({
@@ -25,21 +29,87 @@ const createUserSchema = Yup.object({
 });
 
 export function DialogDemo() {
-  const formik = useFormik({
-    initialValues: {
+  const { userProvider } = useContext(UserContext);
+
+  const [donationProfileUpdate, setDonationProfileUpdate] =
+    useState<CreateProfileType>({
       profileImage: "",
       name: "",
       about: "",
       socialURL: "",
-    },
+    });
 
+  const getProfileDonation = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:4001/profile/view/${userProvider.username}`
+      );
+
+      const data = response.data.userProfile as CreateProfileAPIType;
+
+      setDonationProfileUpdate({
+        profileImage: data?.avatarImage || "",
+        name: data?.name || "",
+        about: data?.about || "",
+        socialURL: data?.socialMediaURL || "",
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (!userProvider || !userProvider.username) return;
+    getProfileDonation();
+  }, [userProvider]);
+
+  const ViewEditProfile = async (
+    about: string,
+    name: string,
+    profileImage: string,
+    socialURL: string
+  ) => {
+    const response = await axios.put(
+      `http://localhost:4001/profile/${userProvider.profileId}`,
+      {
+        avatarImage: profileImage,
+        name,
+        about,
+        socialMediaURL: socialURL,
+      }
+    );
+
+    console.log("responsee:", response);
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      profileImage: donationProfileUpdate?.profileImage,
+      name: donationProfileUpdate?.name,
+      about: donationProfileUpdate?.about,
+      socialURL: donationProfileUpdate?.socialURL,
+    },
+    enableReinitialize: true,
     validationSchema: createUserSchema,
 
-    onSubmit: (values) => {
-      // handleNext();
+    onSubmit: async (values) => {
       console.log("L create profile: ", values);
+      await ViewEditProfile(
+        values.about,
+        values.name,
+        values.profileImage,
+        values.socialURL
+      );
+
+      // await ViewEditProfile(
+      //   values.about,
+      //   values.name,
+      //   values.profileImage,
+      //   values.socialURL
+      // );
     },
   });
+
   const {
     handleBlur,
     handleChange,
@@ -62,12 +132,12 @@ export function DialogDemo() {
   //sm:max-w-[425px]
   return (
     <Dialog>
-      <form onSubmit={handleSubmit}>
-        <DialogTrigger asChild>
-          <Button variant="outline">Edit page</Button>
-        </DialogTrigger>
+      <DialogTrigger asChild>
+        <Button variant="outline">Edit page</Button>
+      </DialogTrigger>
 
-        <DialogContent className="p-6">
+      <DialogContent className="p-6">
+        <form onSubmit={handleSubmit}>
           <DialogHeader>
             <DialogTitle>Edit profile</DialogTitle>
             <DialogDescription>
@@ -90,24 +160,16 @@ export function DialogDemo() {
             // profileImageInputProps={getFieldProps("profileImage")}
           />
 
-          {/* <div className="grid gap-4">
-            <div className="grid gap-3">
-              <Label htmlFor="name-1">Name</Label>
-              <Input id="name-1" name="name" defaultValue="Pedro Duarte" />
-            </div>
-            <div className="grid gap-3">
-              <Label htmlFor="username-1">Username</Label>
-              <Input id="username-1" name="username" defaultValue="@peduarte" />
-            </div>
-          </div> */}
           <DialogFooter>
             <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <div>
+                <Button variant="outline">Cancel</Button>
+                <Button type="submit">Save changes</Button>
+              </div>
             </DialogClose>
-            <Button type="submit">Save changes</Button>
           </DialogFooter>
-        </DialogContent>
-      </form>
+        </form>
+      </DialogContent>
     </Dialog>
   );
 }
