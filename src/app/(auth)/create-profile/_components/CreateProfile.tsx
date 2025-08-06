@@ -58,10 +58,10 @@ export const CreateProfile = ({ handleNext }: createProfileType) => {
     validationSchema: createUserSchema,
 
     onSubmit: async (values) => {
-      if (!userProvider.id) {
-        alert("User data is not loaded yet. Please try again.");
-        return;
-      }
+      // if (!userProvider.id) {
+      //   alert("User data is not loaded yet. Please try again.");
+      //   return;
+      // }
       setLoading(true);
 
       await createProfilePost(
