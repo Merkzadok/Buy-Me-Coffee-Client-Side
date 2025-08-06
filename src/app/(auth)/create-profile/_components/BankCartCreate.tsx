@@ -7,7 +7,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { CardInputsMain } from "@/components/userInfo/bankCardCreate/cardInputMain";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import axios from "axios";
+import { UserContext } from "@/provider/currentUserProvider";
 
 export const bankFormSchema = z.object({
   selectCountry: z.string().min(2, { message: "Please select a country" }),
@@ -27,6 +29,9 @@ export const bankFormSchema = z.object({
     .string()
     .min(16, { message: "Card number is invalid" })
     .regex(/^\d+$/, { message: "Card number must contain only digits" }),
+    // .transform((val)=>{
+    //       return val.match(/.{1,4}/g)?.join("-") ?? val;
+    // }),
 
   month: z.string().min(1, { message: "Select a month" }),
   year: z.string().min(4, { message: "Year is required" }),
@@ -34,7 +39,7 @@ export const bankFormSchema = z.object({
   CVC: z
     .string()
     .min(3, { message: "CVC must be at least 3 digits" })
-    .max(4, { message: "CVC must be 4 digits or less" }),
+    .max(4, { message: "CVC must be 4 digits or less" })
 });
 
 export type BankFormType = z.infer<typeof bankFormSchema>;
@@ -42,7 +47,22 @@ export type BankFormType = z.infer<typeof bankFormSchema>;
 export const CreateBankCartForm = () => {
   const { push } = useRouter();
 
+  const {userProvider} = useContext(UserContext);
+
+  console.log("USERPROVIDROOOR", userProvider);
+  
+
   const [loading, setLoading] = useState(false);
+
+
+  const bankCardPost = async(selectCountry:string, name:string, lastName:string, cardNumber:string, CVC:string, expiryDate:string) =>{
+
+  
+    const response = await axios.post(`http://localhost:4001/bank-cards/create/${userProvider.id}`,{
+      firstName:name, lastName:lastName,country:selectCountry,cardNumber:cardNumber, expiryDate, CVC:CVC
+    })
+    
+  }
 
   const form = useForm<z.infer<typeof bankFormSchema>>({
     resolver: zodResolver(bankFormSchema),
@@ -58,13 +78,16 @@ export const CreateBankCartForm = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof bankFormSchema>) {
+  async function onSubmit(values: z.infer<typeof bankFormSchema>) {
+
     const { selectCountry, name, lastName, cardNumber, month, year, CVC } =
       values;
 
     const expiryDate = `${year}-${month}-01`;
 
     setLoading(true);
+
+    await bankCardPost(selectCountry, name,lastName, cardNumber, CVC, expiryDate)
 
     setTimeout(() => {
       push("/home");
