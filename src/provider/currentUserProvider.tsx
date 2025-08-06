@@ -18,7 +18,7 @@ export default function UserContextProvider({
   const [userProvider, setUserProvider] = useState({} as UserType);
 
   const getCurrentUserByAccessToken = async () => {
-    const token =localStorage.getItem("token") as string;
+    const token = localStorage.getItem("token") as string;
     try {
       const response = await axios.get(
         "http://localhost:4001/profile/current-user",
