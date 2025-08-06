@@ -55,18 +55,42 @@ export const EditProfile = () => {
     getUserProfile();
   }, [userProvider]);
 
+  const settingsProfileUpdate = async (
+    profileImage: string,
+    name: string,
+    about: string,
+    socialURL: string
+  ) => {
+    const response = await axios.put(
+      `http://localhost:4001/profile/${userProvider.profileId}`,
+      {
+        avatarImage: profileImage,
+        name,
+        about,
+        socialMediaURL: socialURL,
+      }
+    );
+    console.log("response UPDATE:", response.data.avatarImage);
+  };
+
   console.log("input PROFIEL", profileInput.name);
 
   const formik = useFormik({
     initialValues: {
       profileImage: profileInput.profileImage,
       name: profileInput.name,
-      about:profileInput.about,
+      about: profileInput.about,
       socialURL: profileInput.socialURL,
     },
     enableReinitialize: true,
     validationSchema: createUserSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
+      await settingsProfileUpdate(
+        values.profileImage,
+        values.name,
+        values.about,
+        values.socialURL
+      );
       console.log("~L Setting profile edit:", values);
     },
   });
