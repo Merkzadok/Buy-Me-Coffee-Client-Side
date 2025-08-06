@@ -12,6 +12,10 @@ import {
 
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
+import { useContext, useEffect, useState } from "react";
+import { ProfileType } from "@/types/DonationType";
+import axios, { AxiosError } from "axios";
+import { UserContext } from "@/provider/currentUserProvider";
 
 export const Header = () => {
   const pathName = usePathname();
@@ -24,12 +28,47 @@ export const Header = () => {
 
   const onCreateProfile = pathName.includes("/create-profile");
 
+  const { userProvider } = useContext(UserContext);
+
+  const [userData, setUserData] = useState({} as ProfileType);
+
+  const getDonationPage = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:4001/profile/view/${userProvider.username}`
+      );
+
+      const data = await response?.data;
+
+      setUserData(data?.userProfile);
+
+      console.log("[USERNAME]:", data);
+    } catch (error) {
+      const axiosError = error as AxiosError;
+
+      console.log("axiosError axiosError axiosError", axiosError);
+      if (axiosError.response) {
+        const errorMessage = (axiosError.response.data as { message: string })
+          .message;
+
+        if (errorMessage === "User profile not found.") {
+          alert("Please enter your profile details!");
+        } else {
+          alert(`error ${errorMessage}`);
+        }
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (!userProvider.username) return;
+    getDonationPage();
+  }, [userProvider.username]);
+
   return (
     <div className="justify-between flex mx-30 my-4 ">
-
       <Link href={"/home"}>
         <p className="font-bold flex gap-[10px] cursor-pointer">
-
           <CoffeeIcon className="w-6" />
           Buy Me Coffee
         </p>
@@ -57,12 +96,12 @@ export const Header = () => {
           {!onLogInPage && !onSignUpPage && !onCreateProfile && (
             <div className="flex gap-2 items-center">
               <img
-                src="https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*"
+                src={userData.avatarImage}
                 alt="profile"
                 className="w-10 h-10 rounded-full"
               />
 
-              <p className="pr-9 pt-1 ">Jake</p>
+              <p className="pr-9 pt-1 ">{userData.name}</p>
               <Popover>
                 <PopoverTrigger asChild>
                   <Button variant="outline" className="border-none">
