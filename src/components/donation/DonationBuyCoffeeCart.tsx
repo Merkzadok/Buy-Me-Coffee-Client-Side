@@ -9,6 +9,8 @@ import { QRdialog } from "./QR-Dialog";
 import { Textarea } from "../ui/textarea";
 import axios from "axios";
 import { UserContext } from "@/provider/currentUserProvider";
+import { error } from "console";
+import { LoaderCoffee } from "../loading.tsx/loader";
 
 type DonationSupportType = {
   isEditable: boolean;
@@ -24,6 +26,8 @@ export const DonationBuyCoffeeCart = ({
   const [socialUrl, setSocialUrl] = useState("");
   const [specialMsg, setSpecialMsg] = useState("");
 
+  const [loading, setLoading] = useState(false);
+
   // console.log("amount:", amount);
 
   const { userProvider } = useContext(UserContext);
@@ -32,90 +36,98 @@ export const DonationBuyCoffeeCart = ({
   console.log("RECIPIENT ID:", userid);
 
   const handleSupport = async () => {
-    const response = await axios.post(
-      "http://localhost:4001/donation/create-donation",
-      {
+    setLoading(true);
+    axios
+      .post("http://localhost:4001/donation/create-donation", {
         amount,
         donorId: userProvider.id,
         recipientId: userid,
         socialURLOrBuyMeACoffee: socialUrl,
         specialMesssage: specialMsg,
-      }
-    );
+      })
+      .then((response) => {})
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
 
     // console.log("handleSupport:", response.data);
   };
 
   return (
-    <div className="p-6 border w-[632px] h-[509px] rounded-lg bg-white">
-      <div className="flex flex-col gap-6 ">
-        <h1 className="font-semibold">Buy Moloko a Coffee</h1>
+    <div>
+      {loading && <LoaderCoffee />}
+      <div className="p-6 border w-[632px] h-[509px] rounded-lg bg-white">
+        <div className="flex flex-col gap-6 ">
+          <h1 className="font-semibold">Buy Moloko a Coffee</h1>
 
-        <div className="flex flex-col gap-2">
-          <p className="font-medium">Select amount:</p>
-          <div className="flex gap-3">
-            <Button
-              variant="secondary"
-              className="cursor-pointer hover:bg-gray-400  focus:border-2 border-black"
-              onClick={() => setAmount(1)}
-            >
-              <Coffee />
-              $1
-            </Button>
-            <Button
-              variant="secondary"
-              className="cursor-pointer hover:bg-gray-400  focus:border-2 border-black"
-              onClick={() => setAmount(2)}
-            >
-              <Coffee />
-              $2
-            </Button>
-            <Button
-              variant="secondary"
-              className="cursor-pointer hover:bg-gray-400  focus:border-2 border-black"
-              onClick={() => setAmount(5)}
-            >
-              <Coffee />
-              $5
-            </Button>
-            <Button
-              variant="secondary"
-              className="cursor-pointer hover:bg-gray-400  focus:border-2 border-black"
-              onClick={() => setAmount(10)}
-            >
-              <Coffee />
-              $10
-            </Button>
+          <div className="flex flex-col gap-2">
+            <p className="font-medium">Select amount:</p>
+            <div className="flex gap-3">
+              <Button
+                variant="secondary"
+                className="cursor-pointer hover:bg-gray-400  focus:border-2 border-black"
+                onClick={() => setAmount(1)}
+              >
+                <Coffee />
+                $1
+              </Button>
+              <Button
+                variant="secondary"
+                className="cursor-pointer hover:bg-gray-400  focus:border-2 border-black"
+                onClick={() => setAmount(2)}
+              >
+                <Coffee />
+                $2
+              </Button>
+              <Button
+                variant="secondary"
+                className="cursor-pointer hover:bg-gray-400  focus:border-2 border-black"
+                onClick={() => setAmount(5)}
+              >
+                <Coffee />
+                $5
+              </Button>
+              <Button
+                variant="secondary"
+                className="cursor-pointer hover:bg-gray-400  focus:border-2 border-black"
+                onClick={() => setAmount(10)}
+              >
+                <Coffee />
+                $10
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="grid items-center gap-2 pt-8">
-        <Label htmlFor="text" className="font-medium">
-          Enter BuyMeCoffee or social acount URL:
-        </Label>
-        <Input
-          type="url"
-          id="text"
-          placeholder="buymeacoffee.com/"
-          className="w-full"
-          onChange={(e) => setSocialUrl(e.target.value)}
-        />
-      </div>
+        <div className="grid items-center gap-2 pt-8">
+          <Label htmlFor="text" className="font-medium">
+            Enter BuyMeCoffee or social acount URL:
+          </Label>
+          <Input
+            type="url"
+            id="text"
+            placeholder="buymeacoffee.com/"
+            className="w-full"
+            onChange={(e) => setSocialUrl(e.target.value)}
+          />
+        </div>
 
-      <div className="grid items-center gap-2 pt-5">
-        <Label htmlFor="text" className="font-medium">
-          Special message:
-        </Label>
-        <Textarea
-          //   type="text"
-          id="text"
-          placeholder="Please write your message here"
-          className="w-full h-[131px] resize-none"
-          onChange={(e) => setSpecialMsg(e.target.value)}
-        />
-      </div>
-      {/* <div className="w-full mt-8">
+        <div className="grid items-center gap-2 pt-5">
+          <Label htmlFor="text" className="font-medium">
+            Special message:
+          </Label>
+          <Textarea
+            //   type="text"
+            id="text"
+            placeholder="Please write your message here"
+            className="w-full h-[131px] resize-none"
+            onChange={(e) => setSpecialMsg(e.target.value)}
+          />
+        </div>
+        {/* <div className="w-full mt-8">
         {!isEditable ? (
           <QRdialog />
         ) : (
@@ -124,9 +136,10 @@ export const DonationBuyCoffeeCart = ({
           </Button>
         )}
       </div> */}
-      <Button className="w-full mt-8" onClick={handleSupport}>
-        Support
-      </Button>
+        <Button className="w-full mt-8" onClick={handleSupport}>
+          Support
+        </Button>
+      </div>
     </div>
   );
 };

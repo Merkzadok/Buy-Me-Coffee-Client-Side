@@ -2,8 +2,10 @@
 import { Button } from "@/components/ui/button";
 import { DonationItemType, ProfileType } from "@/types/DonationType";
 import axios from "axios";
+import { error } from "console";
 import { ChevronDown, Heart } from "lucide-react";
 import { useEffect, useState } from "react";
+import { LoaderCoffee } from "../loading.tsx/loader";
 
 type userDataprops = {
   userData: ProfileType;
@@ -11,31 +13,34 @@ type userDataprops = {
 
 export const DonationSupporters = ({ userData }: userDataprops) => {
   const [supporters, setSupporters] = useState<DonationItemType[]>([]);
+  const [loading, setLoading] = useState(false);
   console.log("UserData:", userData);
 
   // const [user, setUser] = useState()
 
   const handleSupporters = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:4001/donation/received/${userData.userId}`
-      );
-      const data = response.data.donations;
-
-      console.log("SUNSLEG DATA:", data);
-
-      setSupporters(data);
-    } catch (error) {
-      console.error("Error fetching supporters:", error);
-    }
+    axios
+      .get(`http://localhost:4001/donation/received/${userData.userId}`)
+      .then((response) => {
+        const data = response.data.donations;
+        setSupporters(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching supporters:", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   useEffect(() => {
-    if(!userData || !userData.userId) return;
+    if (!userData || !userData.userId) return;
     handleSupporters();
   }, [userData]);
+
   return (
     <div>
+      {loading && <LoaderCoffee />}
       <div className="p-6 pt-9 border w-[633px] rounded-lg flex flex-col gap-6">
         <h1 className="font-semibold">Recent Supporters</h1>
         {supporters.length === 0 ? (

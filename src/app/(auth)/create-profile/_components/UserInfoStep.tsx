@@ -16,5 +16,4 @@ export const UserInfoCreate = () => {
   
   return stepComponents[step];
 
-
 };
