@@ -36,10 +36,10 @@ export const DonationSupporters = ({ userData }: userDataprops) => {
   }, [userData]);
   return (
     <div>
-      <div className="p-6 pt-9 border w-full rounded-lg flex flex-col gap-6">
+      <div className="p-6 pt-9 border w-[633px] rounded-lg flex flex-col gap-6">
         <h1 className="font-semibold">Recent Supporters</h1>
         {supporters.length === 0 ? (
-          <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-col items-center justify-center p-6 pt-9 border rounded-lg">
             <Heart className="fill-black" />
             <p>Be the first one to support {userData?.name}</p>
           </div>
@@ -66,9 +66,6 @@ export const DonationSupporters = ({ userData }: userDataprops) => {
           ))
         )}
 
-        {/* <Button variant="outline" className="w-full">
-            See More <ChevronDown />
-          </Button> */}
         {supporters.length > 3 && (
           <Button variant="outline" className="w-full">
             See More <ChevronDown />
