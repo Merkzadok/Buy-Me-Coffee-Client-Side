@@ -15,22 +15,24 @@ const Home = () => {
   useEffect(() => {
     const donationAmounts = async () => {
       const response = await fetch(
-        "http://localhost:4001/donation/search-donations/14"
+        "http://localhost:4001/donation/search-donations/20"
       );
       const data = await response.json();
-      console.log("Donation amounts fetched:", data);
+
       setDonations(data.donations);
     };
     donationAmounts();
   }, []);
+
   const filteredAmounts = donations.filter(
-    (item) => item.amount !== amountSelected
+    (item) => String(item.amount) === amountSelected
   );
-  console.log(filteredAmounts);
+
   return (
     <div className=" max-w-[1200px]">
       <AccountEarnings />
       <Amount
+        amount={amountSelected}
         donations={donations}
         amountSelected={amountSelected}
         handleAmountSelect={handleAmountSelect}

@@ -5,29 +5,28 @@ import { ChevronDown, SquareArrowOutUpRight } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuPortal,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useContext, useEffect, useState } from "react";
 import { UserContext } from "@/provider/currentUserProvider";
+import { useContext, useEffect, useState } from "react";
 
 export const AccountEarnings = () => {
   const [selected, setSelected] = useState("Select");
   const [totalEarnings, setTotalEarnings] = useState<number>();
-  // const { userProvider } = useContext(UserContext);
+  const { userProvider } = useContext(UserContext);
+  console.log("User Provider:", userProvider);
 
   useEffect(() => {
+    // if (!userProvider.id) {
+    //   console.error("User ID is not available");
+    //   return;
+    // }
     const getEarnings = async () => {
       try {
-        const response = await fetch(`http://localhost:4001/donation/total/14`);
+        const response = await fetch(
+          `http://localhost:4001/donation/total/${userProvider.id}`
+        );
         const data = await response.json();
         setTotalEarnings(data.total);
       } catch (error) {
@@ -35,11 +34,12 @@ export const AccountEarnings = () => {
       }
     };
     getEarnings();
-  }, []);
+  }, [userProvider.id]);
 
   const handleSelect = (value: string) => {
     setSelected(value);
   };
+
   return (
     <div className="">
       <div className="border-2 h-[257px] border-[#E4E4E7] rounded-lg">
