@@ -2,12 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { DonationItemType, ProfileType } from "@/types/DonationType";
 import axios from "axios";
-import { error } from "console";
-
-import { ChevronDown, Heart } from "lucide-react";
-
 import { ChevronDown, ChevronUp, Heart } from "lucide-react";
-
 import { useEffect, useState } from "react";
 import { LoaderCoffee } from "../loading.tsx/loader";
 
