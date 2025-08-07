@@ -12,13 +12,24 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
+import axios from "axios";
+import { error } from "console";
 
-const NewPasswordSchema = z.object({
-  NewPassword: z.string().min(2, { message: "First name must match" }),
-  confirmPassword: z.string().min(2, { message: "First name must match" }),
-});
+const NewPasswordSchema = z
+  .object({
+    NewPassword: z
+      .string()
+      .min(2, { message: "Please enter your new password" }),
+    confirmPassword: z
+      .string()
+      .min(2, { message: "Enter your new password again" }),
+  })
+  .refine((data) => data.NewPassword === data.confirmPassword, {
+    message: "Нууц үг таарахгүй байна",
+    path: ["confirmPassword"],
+  });
 
-export const NewPassword = () => {
+export const NewPassword = ({ userId }: { userId: number }) => {
   const form = useForm<z.infer<typeof NewPasswordSchema>>({
     resolver: zodResolver(NewPasswordSchema),
     defaultValues: {
@@ -27,7 +38,21 @@ export const NewPassword = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof NewPasswordSchema>) {
+  const UpdatePassword = (confirmPassword: string) => {
+    axios
+      .put(`http://localhost:4001/users/update-user/${userId}`, {
+        password: confirmPassword,
+      })
+      .then((response) => {
+        console.log("ok pasword");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+   function onSubmit(values: z.infer<typeof NewPasswordSchema>) {
+     UpdatePassword(values.confirmPassword);
     console.log(values);
   }
 

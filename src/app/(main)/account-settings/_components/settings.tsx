@@ -16,7 +16,7 @@ export const SettingsPage = () => {
         <EditProfile username={userProvider.username} profileId={userProvider.profileId} />
       </div>
       <div>
-        <NewPassword />
+        <NewPassword userId = {userProvider.id}/>
       </div>
       <div>
         <EditCreditCard userId = {userProvider.id}/>
