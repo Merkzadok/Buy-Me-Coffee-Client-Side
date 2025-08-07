@@ -6,6 +6,13 @@ export type DonationItemType = {
   recipientId: number;
   createdAt: string;
   updatedAt: string;
+  donor: {
+    profile: {
+      avatarImage: string;
+      socialMediaURL: string;
+      name: string;
+    };
+  };
 };
 
 export type ProfileType = {
@@ -85,4 +92,5 @@ export type UserType = {
   profileId: number;
   createdAt: string;
   updatedAt: string;
+  donorId: number;
 };

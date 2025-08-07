@@ -16,12 +16,10 @@ import { ProfileType } from "@/types/DonationType";
 import axios, { AxiosError } from "axios";
 import UsersProfile from "@/app/(donation)/[username]/page";
 
-
 export const AccountEarnings = () => {
   const [selected, setSelected] = useState("Select");
   const [totalEarnings, setTotalEarnings] = useState<number>();
   const { userProvider } = useContext(UserContext);
-
 
   useEffect(() => {
     // if (!userProvider.id) {
@@ -46,9 +44,6 @@ export const AccountEarnings = () => {
     setSelected(value);
   };
 
-
-
-
   const [userData, setUserData] = useState({} as ProfileType);
 
   const getDonationPage = async () => {
@@ -56,7 +51,6 @@ export const AccountEarnings = () => {
       const response = await axios.get(
         `http://localhost:4001/profile/view/${userProvider.username}`
       );
-
 
       const data = await response?.data;
 
@@ -81,38 +75,40 @@ export const AccountEarnings = () => {
   };
 
   useEffect(() => {
-    if(!userProvider.username) return;
-    getDonationPage()
+    if (!userProvider.username) return;
+    getDonationPage();
   }, [userProvider.username]);
 
-  
   const handleShare = () => {
     const url = window.location.href;
-    navigator.clipboard.writeText(userData.socialMediaURL)
+    navigator.clipboard
+      .writeText(userData.socialMediaURL)
       .then(() => {
         alert("Page link copied to clipboard!");
       })
-      .catch(err => {
+      .catch((err) => {
         console.error("Failed to copy: ", err);
       });
-    }
-
-
+  };
 
   return (
     <div className="">
       <div className="border-2 h-[257px] border-[#E4E4E7] rounded-lg">
         <div className="mx-6 my-6 flex justify-between ">
           <div className="flex gap-4 items-center">
-            {userData.avatarImage?<img
-              src={userData.avatarImage}
-              alt="profile"
-              className="w-10 h-10 rounded-full"
-            />:<img
-              src="https://i.pinimg.com/originals/5c/44/45/5c4445eea6c9386d27b348af65ce8278.gif"
-              alt="profile"
-              className="w-10 h-10 rounded-full"
-            />}
+            {userData.avatarImage ? (
+              <img
+                src={userData.avatarImage}
+                alt="profile"
+                className="w-10 h-10 rounded-full"
+              />
+            ) : (
+              <img
+                src="https://i.pinimg.com/originals/5c/44/45/5c4445eea6c9386d27b348af65ce8278.gif"
+                alt="profile"
+                className="w-10 h-10 rounded-full"
+              />
+            )}
             <div>
               <p className="font-bold">{userData.name}</p>
               <p>{userData.socialMediaURL}</p>
@@ -125,7 +121,7 @@ export const AccountEarnings = () => {
             </Button>
           </div>
         </div>
-        <div className="border-1 border-[#E4E4E7] w-[859px] mx-6"></div>
+        <div className="border-1 border-[#E4E4E7] w-[1150px] mx-6"></div>
         <div className="mx-6 my-4 ">
           <div className="flex gap-4 items-center">
             <p className="font-[600] text-[20px]">Earnings</p>

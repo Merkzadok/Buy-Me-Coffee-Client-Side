@@ -1,35 +1,48 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { use, useContext, useEffect, useState } from "react";
 import { AccountEarnings } from "./_components/AccountEarnings";
 import { Amount } from "./_components/Amount";
 import { Transactions } from "./_components/Transactions";
-import { AmountType } from "@/types/types";
+import { UserContext } from "@/provider/currentUserProvider";
+import { DonationItemType } from "@/types/DonationType";
 
 const Home = () => {
-  const [donations, setDonations] = useState<AmountType[]>([]);
+  const [donations, setDonations] = useState<DonationItemType[]>([]);
+
   const [amountSelected, setAmountSelected] = useState<string>("");
+
   const handleAmountSelect = (value: string) => {
     setAmountSelected(value);
   };
+
+  const { userProvider } = useContext(UserContext);
+
+  console.log("userProvider", userProvider);
+
   useEffect(() => {
     const donationAmounts = async () => {
       const response = await fetch(
-        "http://localhost:4001/donation/search-donations/20"
+        `http://localhost:4001/donation/received/${userProvider.id}`
       );
       const data = await response.json();
+      console.log("donationAmounts", data);
 
-      setDonations(data.donations);
+      setDonations(data.donations ? data.donations : []);
     };
     donationAmounts();
-  }, []);
+  }, [userProvider.id]);
 
-  const filteredAmounts = donations.filter(
-    (item) => String(item.amount) === amountSelected
-  );
+  const filteredAmounts = donations.filter((item) => {
+    if (!amountSelected) return item;
+    return (
+      amountSelected === "All" ||
+      item.amount.toString() === amountSelected.replace("$", "")
+    );
+  });
 
   return (
-    <div className=" max-w-[1200px]">
+    <div className=" w-[1200px] ">
       <AccountEarnings />
       <Amount
         amount={amountSelected}

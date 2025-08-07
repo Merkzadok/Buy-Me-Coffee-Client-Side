@@ -10,14 +10,16 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 
 import { ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AmountType } from "@/types/types";
+import { DonationItemType } from "@/types/DonationType";
 
 const amounts = [
-  { amount: "1" },
-  { amount: "2" },
-  { amount: "5" },
-  { amount: "10" },
+  { amount: "$1" },
+  { amount: "$2" },
+  { amount: "$5" },
+  { amount: "$10" },
+  { amount: "All" },
 ];
 
 export const Amount = ({ amountSelected, handleAmountSelect }: AmountType) => {
@@ -38,15 +40,13 @@ export const Amount = ({ amountSelected, handleAmountSelect }: AmountType) => {
                   key={index}
                   onSelect={() => handleAmountSelect(item.amount)}
                 >
-                  ${item.amount}
+                  {item.amount}
                   {amountSelected === item.amount && (
                     <Checkbox
                       checked
                       className="ml-2 h-4 w-4  text-green-400"
                     />
                   )}
-                  {/* {amountSelected === item.amount &&
-                    donationAmounts.filter((i) => i.amount !== item.amount)} */}
                 </DropdownMenuItem>
               ))}
             </DropdownMenuGroup>
