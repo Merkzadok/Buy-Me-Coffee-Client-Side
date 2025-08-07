@@ -136,10 +136,6 @@ export default function DonationBackground({
 
           {imageUrl && !showChangeButton && (
 
-            <div>
-              <Button onClick={() => handleSave(imageUrl)}>Save Changes</Button>
-              <Button onClick={handleCancel}>Cancel</Button>
-
             <div className="flex gap-2">
               <Button variant="outline" onClick={() => handleSave(imageUrl)}>Save Changes</Button>
               <Button variant="outline" onClick={handleCancel}>Cancel</Button>
@@ -167,5 +163,6 @@ export default function DonationBackground({
         </div>
       )}
     </div>
+  
   );
 }
