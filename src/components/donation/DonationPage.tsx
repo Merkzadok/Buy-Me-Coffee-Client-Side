@@ -80,6 +80,7 @@ export const DonationPage = ({
         <DonationBuyCoffeeCart
           isEditable={isEditable}
           userid={userData.userId}
+          name = {userData.name}
         />
       </div>
     </div>

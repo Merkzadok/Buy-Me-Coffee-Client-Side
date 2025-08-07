@@ -97,19 +97,6 @@ export const AccountEarnings = () => {
         <div className="mx-6 my-6 flex justify-between ">
           <div className="flex gap-4 items-center">
 
-            {userData.avatarImage ? (
-              <img
-                src={userData.avatarImage}
-                alt="profile"
-                className="w-10 h-10 rounded-full"
-              />
-            ) : (
-              <img
-                src="https://i.pinimg.com/originals/5c/44/45/5c4445eea6c9386d27b348af65ce8278.gif"
-                alt="profile"
-                className="w-10 h-10 rounded-full"
-              />
-            )}
 
             {userData.avatarImage?<img
               src={userData.avatarImage}
@@ -133,7 +120,7 @@ export const AccountEarnings = () => {
             </Button>
           </div>
         </div>
-        <div className="border-1 border-[#E4E4E7] w-[1150px] mx-6"></div>
+        <div className="border-1 border-[#E4E4E7] min-w-[1000px] mx-6"></div>
         <div className="mx-6 my-4 ">
           <div className="flex gap-4 items-center">
             <p className="font-[600] text-[20px]">Earnings</p>

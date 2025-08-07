@@ -15,11 +15,13 @@ import { LoaderCoffee } from "../loading.tsx/loader";
 type DonationSupportType = {
   isEditable: boolean;
   userid: number;
+  name: string;
 };
 
 export const DonationBuyCoffeeCart = ({
   isEditable,
   userid,
+  name,
 }: DonationSupportType) => {
   const [amount, setAmount] = useState(0);
 
@@ -45,7 +47,9 @@ export const DonationBuyCoffeeCart = ({
         socialURLOrBuyMeACoffee: socialUrl,
         specialMesssage: specialMsg,
       })
-      .then((response) => {})
+      .then((response) => {
+        console.log("ok");
+      })
       .catch((error) => {
         console.log(error);
       })
@@ -61,7 +65,7 @@ export const DonationBuyCoffeeCart = ({
       {loading && <LoaderCoffee />}
       <div className="p-6 border w-[632px] h-[509px] rounded-lg bg-white">
         <div className="flex flex-col gap-6 ">
-          <h1 className="font-semibold">Buy Moloko a Coffee</h1>
+          <h1 className="font-semibold">Buy &quot;{name}&quot; a Coffee</h1>
 
           <div className="flex flex-col gap-2">
             <p className="font-medium">Select amount:</p>

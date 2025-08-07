@@ -42,7 +42,7 @@ const Home = () => {
   });
 
   return (
-    <div className=" w-[1200px] ">
+    <div className=" max-w-[1200px] ">
       <AccountEarnings />
       <Amount
         amount={amountSelected}
