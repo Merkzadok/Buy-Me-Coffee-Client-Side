@@ -36,8 +36,6 @@ export default function UserContextProvider({
     }
   };
 
-  // console.log("USER PROVIDER:", userProvider);
-
   useEffect(() => {
     getCurrentUserByAccessToken();
   }, []);

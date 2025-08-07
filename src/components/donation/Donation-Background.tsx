@@ -74,7 +74,7 @@ export default function DonationBackground({
     const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", "coverImage");
-
+    console.log(process.env.NEXT_PUBLIC_COVER_URL);
     setLoading(true);
     try {
       const res = await fetch(
@@ -85,7 +85,7 @@ export default function DonationBackground({
         }
       );
       const data = await res.json();
-
+      console.log(data);
       if (data.secure_url) {
         setImageUrl(data.secure_url);
         console.log("data.secure_url", data.secure_url);
