@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { DonationItemType, ProfileType } from "@/types/DonationType";
 import axios from "axios";
 import { error } from "console";
-import { ChevronDown, Heart } from "lucide-react";
+import { ChevronDown, ChevronUp, Heart } from "lucide-react";
 import { useEffect, useState } from "react";
 import { LoaderCoffee } from "../loading.tsx/loader";
 
@@ -14,9 +14,9 @@ type userDataprops = {
 export const DonationSupporters = ({ userData }: userDataprops) => {
   const [supporters, setSupporters] = useState<DonationItemType[]>([]);
   const [loading, setLoading] = useState(false);
-  console.log("UserData:", userData);
+  const [showAll, setShowAll] = useState(false);
 
-  // const [user, setUser] = useState()
+  const visibleSupporters = showAll ? supporters : supporters.slice(0, 3);
 
   const handleSupporters = async () => {
     axios
@@ -49,7 +49,7 @@ export const DonationSupporters = ({ userData }: userDataprops) => {
             <p>Be the first one to support {userData?.name}</p>
           </div>
         ) : (
-          supporters.map((donation, index) => (
+          visibleSupporters.map((donation, index) => (
             <div key={index} className="flex gap-3 items-center">
               <img
                 src="https://cdn.buymeacoffee.com/uploads/profile_pictures/default/v2/80BEAF/VE.png@200w_0e.webp"
@@ -72,8 +72,16 @@ export const DonationSupporters = ({ userData }: userDataprops) => {
         )}
 
         {supporters.length > 3 && (
-          <Button variant="outline" className="w-full">
-            See More <ChevronDown />
+          <Button variant="outline" className="w-full" onClick={() => setShowAll(!showAll)}>
+            {showAll ? (
+              <>
+                See Less <ChevronUp className="ml-2" />
+              </>
+            ) : (
+              <>
+                See More <ChevronDown className="ml-2" />
+              </>
+            )}
           </Button>
         )}
       </div>
