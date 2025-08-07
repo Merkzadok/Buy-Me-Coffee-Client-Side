@@ -3,7 +3,11 @@ import { Button } from "@/components/ui/button";
 import { DonationItemType, ProfileType } from "@/types/DonationType";
 import axios from "axios";
 import { error } from "console";
+
 import { ChevronDown, Heart } from "lucide-react";
+
+import { ChevronDown, ChevronUp, Heart } from "lucide-react";
+
 import { useEffect, useState } from "react";
 import { LoaderCoffee } from "../loading.tsx/loader";
 
@@ -14,9 +18,13 @@ type userDataprops = {
 export const DonationSupporters = ({ userData }: userDataprops) => {
   const [supporters, setSupporters] = useState<DonationItemType[]>([]);
   const [loading, setLoading] = useState(false);
+
   console.log("UserData:", userData);
 
-  // const [user, setUser] = useState()
+  const [showAll, setShowAll] = useState(false);
+
+
+  const visibleSupporters = showAll ? supporters : supporters.slice(0, 3);
 
   const handleSupporters = async () => {
     axios
@@ -38,6 +46,23 @@ export const DonationSupporters = ({ userData }: userDataprops) => {
     handleSupporters();
   }, [userData]);
 
+
+
+  const profileImages = [
+  "https://cdn.buymeacoffee.com/uploads/profile_pictures/default/v2/80BEAF/VE.png@200w_0e.webp",
+  "https://cdn.buymeacoffee.com/uploads/profile_pictures/default/v2/DEBBB9/SK.png@200w_0e.webp",
+  "https://cdn.buymeacoffee.com/uploads/profile_pictures/default/v2/C2D9E1/HT.png@200w_0e.webp",
+  "https://cdn.buymeacoffee.com/uploads/profile_pictures/default/v2/EFC16D/PV.png@200w_0e.webp"
+];
+
+// Random 
+const getRandomImage = () => {
+  const randomIndex = Math.floor(Math.random() * profileImages.length);
+  return profileImages[randomIndex];
+};
+
+ 
+
   return (
     <div>
       {loading && <LoaderCoffee />}
@@ -49,10 +74,10 @@ export const DonationSupporters = ({ userData }: userDataprops) => {
             <p>Be the first one to support {userData?.name}</p>
           </div>
         ) : (
-          supporters.map((donation, index) => (
+          visibleSupporters.map((donation, index) => (
             <div key={index} className="flex gap-3 items-center">
               <img
-                src="https://cdn.buymeacoffee.com/uploads/profile_pictures/default/v2/80BEAF/VE.png@200w_0e.webp"
+                src={getRandomImage()}
                 alt="profile zurag"
                 className="w-10 h-10 rounded-full"
               />
@@ -72,8 +97,16 @@ export const DonationSupporters = ({ userData }: userDataprops) => {
         )}
 
         {supporters.length > 3 && (
-          <Button variant="outline" className="w-full">
-            See More <ChevronDown />
+          <Button variant="outline" className="w-full" onClick={() => setShowAll(!showAll)}>
+            {showAll ? (
+              <>
+                See Less <ChevronUp className="ml-2" />
+              </>
+            ) : (
+              <>
+                See More <ChevronDown className="ml-2" />
+              </>
+            )}
           </Button>
         )}
       </div>

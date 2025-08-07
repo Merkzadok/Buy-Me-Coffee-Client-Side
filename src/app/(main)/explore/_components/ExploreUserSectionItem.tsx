@@ -23,7 +23,7 @@ export const ExploreUserSection = ({ item }: itemType) => {
 
   const { name, avatarImage, about, socialMediaURL } = item;
   return (
-    <div className=" p-6 border-1 rounded-lg border-zinc-200 h-[230px]">
+    <div className=" p-6 border-1 rounded-lg border-zinc-200 h-[230px] min-w-[900px]">
       <div className="flex justify-between items-center mb-[12px]">
         <div className="flex items-center gap-3 text-xl">
           <img
