@@ -116,32 +116,32 @@ export default function DonationBackground({
       )}
 
       {isEditable && (
-        <div className="absolute  bottom-50 left-[50%] -translate-x-1/2">
+        <div className="absolute  bottom-80 left-[1300px] -translate-x-1/2">
           {!imageUrl && (
-            <button
+            <Button
               onClick={handleImageClick}
-              className="flex gap-2 bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition "
+              variant="ghost"
             >
               <Camera />
               {loading ? "Uploading..." : "Add a cover image"}
-            </button>
+            </Button>
           )}
 
           {imageUrl && !showChangeButton && (
-            <div>
-              <Button onClick={() => handleSave(imageUrl)}>Save Changes</Button>
-              <Button onClick={handleCancel}>Cancel</Button>
+            <div className="flex gap-2">
+              <Button variant="outline" onClick={() => handleSave(imageUrl)}>Save Changes</Button>
+              <Button variant="outline" onClick={handleCancel}>Cancel</Button>
             </div>
           )}
 
           {imageUrl && showChangeButton && (
-            <button
+            <Button
               onClick={handleImageClick}
-              className="flex gap-2 bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition mt-2"
+              variant="ghost"
             >
               <Camera />
               Change Cover
-            </button>
+            </Button>
           )}
 
           <input
