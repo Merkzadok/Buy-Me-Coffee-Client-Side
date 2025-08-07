@@ -7,6 +7,11 @@ import { Button } from "@/components/ui/button";
 import { DonationUserUIType } from "@/types/DonationType";
 import { UserContext } from "@/provider/currentUserProvider";
 import axios from "axios";
+
+import { useFormik } from "formik";
+import { error } from "console";
+
+
 import { LoaderCoffee } from "../loading.tsx/loader";
 
 export default function DonationBackground({
@@ -34,7 +39,11 @@ export default function DonationBackground({
     setImageUrl(null);
     setShowChangeButton(false);
   };
+
+
+
 //Cloudinary-с авсан зурагны линк (urlCloud)-ийг backend рүү PUT хүсэлтээр илгээнэ.
+
   const handleSave = async (urlCloud: string) => {
     setLoading(true);
     axios
@@ -126,9 +135,15 @@ export default function DonationBackground({
           )}
 
           {imageUrl && !showChangeButton && (
+
+            <div>
+              <Button onClick={() => handleSave(imageUrl)}>Save Changes</Button>
+              <Button onClick={handleCancel}>Cancel</Button>
+
             <div className="flex gap-2">
               <Button variant="outline" onClick={() => handleSave(imageUrl)}>Save Changes</Button>
               <Button variant="outline" onClick={handleCancel}>Cancel</Button>
+
             </div>
           )}
 

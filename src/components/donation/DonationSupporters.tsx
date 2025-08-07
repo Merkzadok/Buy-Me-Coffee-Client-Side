@@ -3,7 +3,11 @@ import { Button } from "@/components/ui/button";
 import { DonationItemType, ProfileType } from "@/types/DonationType";
 import axios from "axios";
 import { error } from "console";
+
+import { ChevronDown, Heart } from "lucide-react";
+
 import { ChevronDown, ChevronUp, Heart } from "lucide-react";
+
 import { useEffect, useState } from "react";
 import { LoaderCoffee } from "../loading.tsx/loader";
 
@@ -14,7 +18,11 @@ type userDataprops = {
 export const DonationSupporters = ({ userData }: userDataprops) => {
   const [supporters, setSupporters] = useState<DonationItemType[]>([]);
   const [loading, setLoading] = useState(false);
+
+  console.log("UserData:", userData);
+
   const [showAll, setShowAll] = useState(false);
+
 
   const visibleSupporters = showAll ? supporters : supporters.slice(0, 3);
 
@@ -38,6 +46,8 @@ export const DonationSupporters = ({ userData }: userDataprops) => {
     handleSupporters();
   }, [userData]);
 
+
+
   const profileImages = [
   "https://cdn.buymeacoffee.com/uploads/profile_pictures/default/v2/80BEAF/VE.png@200w_0e.webp",
   "https://cdn.buymeacoffee.com/uploads/profile_pictures/default/v2/DEBBB9/SK.png@200w_0e.webp",
@@ -52,6 +62,7 @@ const getRandomImage = () => {
 };
 
  
+
   return (
     <div>
       {loading && <LoaderCoffee />}
