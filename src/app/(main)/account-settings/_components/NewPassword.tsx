@@ -40,9 +40,12 @@ export const NewPassword = ({ userId }: { userId: number }) => {
 
   const UpdatePassword = (confirmPassword: string) => {
     axios
-      .put(`http://localhost:4001/users/update-user/${userId}`, {
-        password: confirmPassword,
-      })
+      .put(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/update-user/${userId}`,
+        {
+          password: confirmPassword,
+        }
+      )
       .then((response) => {
         console.log("ok pasword");
       })
@@ -51,8 +54,8 @@ export const NewPassword = ({ userId }: { userId: number }) => {
       });
   };
 
-   function onSubmit(values: z.infer<typeof NewPasswordSchema>) {
-     UpdatePassword(values.confirmPassword);
+  function onSubmit(values: z.infer<typeof NewPasswordSchema>) {
+    UpdatePassword(values.confirmPassword);
     console.log(values);
   }
 

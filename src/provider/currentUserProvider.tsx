@@ -21,7 +21,7 @@ export default function UserContextProvider({
     const token = localStorage.getItem("token") as string;
     try {
       const response = await axios.get(
-        "http://localhost:4001/profile/current-user",
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/profile/current-user`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

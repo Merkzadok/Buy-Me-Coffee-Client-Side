@@ -22,11 +22,13 @@ const Home = () => {
 
   useEffect(() => {
     const donationAmounts = async () => {
+      if (!userProvider.id) return;
+
       const response = await fetch(
-        `http://localhost:4001/donation/received/${userProvider.id}`
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/profile/view/${userProvider.username}`
       );
+
       const data = await response.json();
-      console.log("donationAmounts", data);
 
       setDonations(data.donations ? data.donations : []);
     };

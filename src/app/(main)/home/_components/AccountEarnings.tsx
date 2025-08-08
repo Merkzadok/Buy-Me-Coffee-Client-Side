@@ -1,7 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, SquareArrowOutUpRight } from "lucide-react";
-
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,47 +8,56 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { UserContext } from "@/provider/currentUserProvider";
-
-import { useContext, useEffect, useState } from "react";
-
+import { use, useContext, useEffect, useState } from "react";
 import { ProfileType } from "@/types/DonationType";
 import axios, { AxiosError } from "axios";
-import UsersProfile from "@/app/(donation)/[username]/page";
+import { subDays } from "date-fns";
 
 export const AccountEarnings = () => {
   const [selected, setSelected] = useState("Select");
   const [totalEarnings, setTotalEarnings] = useState<number>();
   const { userProvider } = useContext(UserContext);
-
+  const [userData, setUserData] = useState({} as ProfileType);
+  const [dateRange, setDateRange] = useState<{
+    from: string;
+    to: string;
+  } | null>(null);
+  console.log(process.env.BACKEND_URL);
   useEffect(() => {
-    // if (!userProvider.id) {
-    //   console.error("User ID is not available");
-    //   return;
-    // }
     const getEarnings = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:4001/donation/total/${userProvider.id}`
-        );
+        const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/donation/total/${userProvider.id}?from=${dateRange?.from}&to=${dateRange?.to}`;
+
+        const response = await fetch(url);
         const data = await response.json();
         setTotalEarnings(data.total);
       } catch (error) {
         console.error("Error fetching earnings:", error);
       }
     };
-    getEarnings();
-  }, [userProvider.id]);
+    if (userProvider.id) getEarnings();
+  }, [userProvider.id, dateRange]);
 
   const handleSelect = (value: string) => {
     setSelected(value);
+    const today = new Date();
+    if (value === "Last 30 days") {
+      const from = subDays(today, 1).toISOString();
+      const to = today.toISOString();
+      setDateRange({ from, to });
+    } else if (value === "Last 90 days") {
+      const from = subDays(today, 90).toISOString();
+      const to = today.toISOString();
+      setDateRange({ from, to });
+    } else if (value === "All time") {
+      setDateRange(null);
+    }
   };
-
-  const [userData, setUserData] = useState({} as ProfileType);
 
   const getDonationPage = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4001/profile/view/${userProvider.username}`
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/profile/view/${userProvider.username}`
       );
 
       const data = await response?.data;
@@ -96,17 +104,19 @@ export const AccountEarnings = () => {
       <div className="border-2 h-[257px] border-[#E4E4E7] rounded-lg">
         <div className="mx-6 my-6 flex justify-between ">
           <div className="flex gap-4 items-center">
-
-
-            {userData.avatarImage?<img
-              src={userData.avatarImage}
-              alt="profile"
-              className="w-10 h-10 rounded-full"
-            />:<img
-              src="https://i.pinimg.com/originals/5c/44/45/5c4445eea6c9386d27b348af65ce8278.gif"
-              alt="profile"
-              className="w-10 h-10 rounded-full"
-            />}
+            {userData.avatarImage ? (
+              <img
+                src={userData.avatarImage}
+                alt="profile"
+                className="w-10 h-10 rounded-full"
+              />
+            ) : (
+              <img
+                src="https://i.pinimg.com/originals/5c/44/45/5c4445eea6c9386d27b348af65ce8278.gif"
+                alt="profile"
+                className="w-10 h-10 rounded-full"
+              />
+            )}
 
             <div>
               <p className="font-bold">{userData.name}</p>

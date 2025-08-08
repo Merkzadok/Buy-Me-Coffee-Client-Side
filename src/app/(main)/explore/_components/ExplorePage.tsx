@@ -29,14 +29,12 @@ export const ExplorePage = () => {
   const getExplore = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4001/profile/explore?page=${page}`
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/profile/explore`
       );
-      console.log("responseee:", response.data.totalUsers);
 
-      const data = response.data as exploreType;
-      console.log(data);
+      const data = await response.data;
 
-      setUsers(data);
+      setUsers(data?.usersProfile);
     } catch (error) {
       console.log(error);
     }
