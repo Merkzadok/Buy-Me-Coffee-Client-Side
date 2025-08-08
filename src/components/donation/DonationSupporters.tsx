@@ -18,12 +18,13 @@ export const DonationSupporters = ({ userData }: userDataprops) => {
 
   const [showAll, setShowAll] = useState(false);
 
-
   const visibleSupporters = showAll ? supporters : supporters.slice(0, 3);
 
   const handleSupporters = async () => {
     axios
-      .get(`http://localhost:4001/donation/received/${userData.userId}`)
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/donation/received/${userData.userId}`
+      )
       .then((response) => {
         const data = response.data.donations;
         setSupporters(data);
@@ -41,22 +42,18 @@ export const DonationSupporters = ({ userData }: userDataprops) => {
     handleSupporters();
   }, [userData]);
 
-
-
   const profileImages = [
-  "https://cdn.buymeacoffee.com/uploads/profile_pictures/default/v2/80BEAF/VE.png@200w_0e.webp",
-  "https://cdn.buymeacoffee.com/uploads/profile_pictures/default/v2/DEBBB9/SK.png@200w_0e.webp",
-  "https://cdn.buymeacoffee.com/uploads/profile_pictures/default/v2/C2D9E1/HT.png@200w_0e.webp",
-  "https://cdn.buymeacoffee.com/uploads/profile_pictures/default/v2/EFC16D/PV.png@200w_0e.webp"
-];
+    "https://cdn.buymeacoffee.com/uploads/profile_pictures/default/v2/80BEAF/VE.png@200w_0e.webp",
+    "https://cdn.buymeacoffee.com/uploads/profile_pictures/default/v2/DEBBB9/SK.png@200w_0e.webp",
+    "https://cdn.buymeacoffee.com/uploads/profile_pictures/default/v2/C2D9E1/HT.png@200w_0e.webp",
+    "https://cdn.buymeacoffee.com/uploads/profile_pictures/default/v2/EFC16D/PV.png@200w_0e.webp",
+  ];
 
-// Random 
-const getRandomImage = () => {
-  const randomIndex = Math.floor(Math.random() * profileImages.length);
-  return profileImages[randomIndex];
-};
-
- 
+  // Random
+  const getRandomImage = () => {
+    const randomIndex = Math.floor(Math.random() * profileImages.length);
+    return profileImages[randomIndex];
+  };
 
   return (
     <div>
@@ -92,7 +89,11 @@ const getRandomImage = () => {
         )}
 
         {supporters.length > 3 && (
-          <Button variant="outline" className="w-full" onClick={() => setShowAll(!showAll)}>
+          <Button
+            variant="outline"
+            className="w-full"
+            onClick={() => setShowAll(!showAll)}
+          >
             {showAll ? (
               <>
                 See Less <ChevronUp className="ml-2" />

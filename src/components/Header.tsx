@@ -35,7 +35,7 @@ export const Header = () => {
   const getDonationPage = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4001/profile/view/${userProvider.username}`
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/profile/view/${userProvider.username}`
       );
 
       const data = await response?.data;

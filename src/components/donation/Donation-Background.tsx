@@ -11,7 +11,6 @@ import axios from "axios";
 import { useFormik } from "formik";
 import { error } from "console";
 
-
 import { LoaderCoffee } from "../loading.tsx/loader";
 
 export default function DonationBackground({
@@ -40,16 +39,17 @@ export default function DonationBackground({
     setShowChangeButton(false);
   };
 
-
-
-//Cloudinary-с авсан зурагны линк (urlCloud)-ийг backend рүү PUT хүсэлтээр илгээнэ.
+  //Cloudinary-с авсан зурагны линк (urlCloud)-ийг backend рүү PUT хүсэлтээр илгээнэ.
 
   const handleSave = async (urlCloud: string) => {
     setLoading(true);
     axios
-      .put(`http://localhost:4001/profile/${userProvider.profileId}`, {
-        backgroundImage: urlCloud,
-      })
+      .put(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/profile/${userProvider.profileId}`,
+        {
+          backgroundImage: urlCloud,
+        }
+      )
       .then((response) => {
         console.log("CLOUD RESPONSE ", response.data.profile.backgroundImage);
         console.log("CLOUD IMAGE URLL:", imageUrl);
@@ -109,7 +109,7 @@ export default function DonationBackground({
 
   return (
     <div className="relative w-full h-100 bg-gray-100 rounded-lg overflow-hidden shadow-md z-10">
-      {loading&&<LoaderCoffee/>}
+      {loading && <LoaderCoffee />}
       {imageUrl ? (
         <Image
           src={imageUrl}
@@ -125,29 +125,25 @@ export default function DonationBackground({
       {isEditable && (
         <div className="absolute  bottom-80 left-[1300px] -translate-x-1/2">
           {!imageUrl && (
-            <Button
-              onClick={handleImageClick}
-              variant="ghost"
-            >
+            <Button onClick={handleImageClick} variant="ghost">
               <Camera />
               {loading ? "Uploading..." : "Add a cover image"}
             </Button>
           )}
 
           {imageUrl && !showChangeButton && (
-
             <div className="flex gap-2">
-              <Button variant="outline" onClick={() => handleSave(imageUrl)}>Save Changes</Button>
-              <Button variant="outline" onClick={handleCancel}>Cancel</Button>
-
+              <Button variant="outline" onClick={() => handleSave(imageUrl)}>
+                Save Changes
+              </Button>
+              <Button variant="outline" onClick={handleCancel}>
+                Cancel
+              </Button>
             </div>
           )}
 
           {imageUrl && showChangeButton && (
-            <Button
-              onClick={handleImageClick}
-              variant="ghost"
-            >
+            <Button onClick={handleImageClick} variant="ghost">
               <Camera />
               Change Cover
             </Button>
@@ -163,6 +159,5 @@ export default function DonationBackground({
         </div>
       )}
     </div>
-  
   );
 }

@@ -30,7 +30,7 @@ export const DonationPage = ({
   const getDonationPage = async () => {
     setLoading(true);
     axios
-      .get(`http://localhost:4001/profile/view/${username}`)
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/profile/view/${username}`)
       .then((response) => {
         const data = response?.data;
         setUserData(data?.userProfile);

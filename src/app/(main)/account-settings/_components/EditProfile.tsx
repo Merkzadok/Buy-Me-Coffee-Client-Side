@@ -36,7 +36,7 @@ export const EditProfile = ({
   const getUserProfile = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4001/profile/view/${username}`
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/profile/view/${username}`
       );
       console.log("GET USER PROFILE SETTINGS: ", response.data.userProfile);
 
@@ -67,7 +67,7 @@ export const EditProfile = ({
     socialURL: string
   ) => {
     const response = await axios.put(
-      `http://localhost:4001/profile/${profileId}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/profile/${profileId}`,
       {
         avatarImage: profileImage,
         name,
@@ -77,7 +77,6 @@ export const EditProfile = ({
     );
     console.log("response UPDATE:", response.data.avatarImage);
   };
-
 
   const formik = useFormik({
     initialValues: {

@@ -41,7 +41,7 @@ export const EditSuccessPage = ({
   const getSuccessMsg = () => {
     setLoading(true);
     axios
-      .get(`http://localhost:4001/profile/view/${username}`)
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/profile/view/${username}`)
       .then((response) => {
         form.reset({ successMsg: response.data.userProfile.successMessage });
       })
@@ -66,7 +66,7 @@ export const EditSuccessPage = ({
   const updateSuccessMsg = (successMsg: string) => {
     setLoading(true);
     axios
-      .put(`http://localhost:4001/profile/${profileId}`, {
+      .put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/profile/${profileId}`, {
         successMessage: successMsg,
       })
       .then((response) => {

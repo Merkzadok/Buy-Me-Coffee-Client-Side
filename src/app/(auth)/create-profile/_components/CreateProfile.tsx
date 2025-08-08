@@ -28,9 +28,9 @@ export const CreateProfile = ({ handleNext }: createProfileType) => {
   const { userProvider } = useContext(UserContext);
 
   console.log("CREATE PROFILE USERPROVIDER:", userProvider);
-  
-  const url = process.env.BACKEND_URL || "http://localhost:4001";
-  
+
+  const url = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:4001";
+
   const createProfilePost = async (
     profileImage: string,
     about: string,

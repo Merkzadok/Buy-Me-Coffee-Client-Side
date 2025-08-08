@@ -42,7 +42,7 @@ export function DialogDemo() {
   const getProfileDonation = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4001/profile/view/${userProvider.username}`
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/profile/view/${userProvider.username}`
       );
 
       const data = response.data.userProfile as CreateProfileAPIType;
@@ -70,7 +70,7 @@ export function DialogDemo() {
     socialURL: string
   ) => {
     const response = await axios.put(
-      `http://localhost:4001/profile/${userProvider.profileId}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/profile/${userProvider.profileId}`,
       {
         avatarImage: profileImage,
         name,

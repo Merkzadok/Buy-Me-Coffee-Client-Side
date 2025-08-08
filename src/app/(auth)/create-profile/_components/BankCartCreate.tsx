@@ -64,7 +64,7 @@ export const CreateBankCartForm = () => {
     expiryDate: string
   ) => {
     const response = await axios.post(
-      `http://localhost:4001/bank-cards/create/${userProvider.id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/bank-cards/create/${userProvider.id}`,
       {
         firstName: name,
         lastName: lastName,

@@ -42,7 +42,7 @@ export const DonationBuyCoffeeCart = ({
   const handleSupport = async () => {
     setLoading(true);
     axios
-      .post("http://localhost:4001/donation/create-donation", {
+      .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/donation/create-donation`, {
         amount,
         donorId: userProvider.id,
         recipientId: userid,

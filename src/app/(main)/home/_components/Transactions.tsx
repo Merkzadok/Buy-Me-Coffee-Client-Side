@@ -4,11 +4,6 @@ import { useContext, useEffect, useState } from "react";
 import { formatDistanceToNow } from "date-fns";
 
 export const Transactions = ({ filteredAmounts }: FilterProps) => {
-  const time = new Date().toLocaleTimeString("en-US", {
-    hour: "2-digit",
-    hour12: false,
-  });
-
   return (
     <div className="mt-3">
       <div className="border-2 h-[660px] border-[#E4E4E7] rounded-lg overflow-y-auto">

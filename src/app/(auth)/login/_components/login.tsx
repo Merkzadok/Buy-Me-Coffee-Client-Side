@@ -29,7 +29,7 @@ export const LogInEmailPassword = () => {
   const { push } = useRouter();
   const submitLogin = async (email: string, password: string) => {
     const response = await axios.post<{ accesstoken: string }>(
-      "http://localhost:4001/users/sign-in",
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/sign-in`,
       {
         email: email,
         password: password,

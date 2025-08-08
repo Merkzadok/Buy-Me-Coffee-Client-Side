@@ -36,7 +36,7 @@ export const EditCreditCard = ({ userId }: { userId: number }) => {
   const getBankCard = async () => {
     setLoading(true);
     axios
-      .get(`http://localhost:4001/bank-cards/get/${userId}`)
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/bank-cards/get/${userId}`)
       .then((response) => {
         const bankInfo = response.data.user as BankCardInfoType;
 
@@ -110,14 +110,17 @@ export const EditCreditCard = ({ userId }: { userId: number }) => {
     // );
     setLoading(true);
     axios
-      .put(`http://localhost:4001/bank-cards/update/${bankCardId}`, {
-        country: selectCountry,
-        firstName: name,
-        lastName: lastName,
-        cardNumber: cardNumber,
-        expiryDate: expiryDate,
-        CVC: CVC,
-      })
+      .put(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/bank-cards/update/${bankCardId}`,
+        {
+          country: selectCountry,
+          firstName: name,
+          lastName: lastName,
+          cardNumber: cardNumber,
+          expiryDate: expiryDate,
+          CVC: CVC,
+        }
+      )
       .then((response) => {})
       .catch((error) => {
         console.log(error);
@@ -125,8 +128,6 @@ export const EditCreditCard = ({ userId }: { userId: number }) => {
       .finally(() => {
         setLoading(false);
       });
-
-
   };
 
   return (
