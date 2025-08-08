@@ -102,6 +102,7 @@ export const DonationBuyCoffeeCart = ({
                 <Coffee />
                 $10
               </Button>
+              <p className="p-2 h-9 w-9 flex justify-center items-center bg-black text-white rounded-md">{amount}</p>
             </div>
           </div>
         </div>
