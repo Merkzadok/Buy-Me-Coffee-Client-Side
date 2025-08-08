@@ -48,7 +48,7 @@ export const SignUpEmailPassword = ({ userName }: { userName: string }) => {
   ) => {
     try {
       const response = await axios.post(
-        "http://localhost:4001/users/create-user",
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/create-user`,
         {
           username: userName,
           password,

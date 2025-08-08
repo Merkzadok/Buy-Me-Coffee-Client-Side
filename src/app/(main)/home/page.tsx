@@ -23,7 +23,7 @@ const Home = () => {
       if (!userProvider.id) return;
 
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/profile/view/${userProvider.username}`
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/donation/received/${userProvider.id}`
       );
 
       const data = await response.json();
