@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import UserContextProvider from "@/provider/currentUserProvider";
 import { NuqsAdapter } from "nuqs/adapters/next";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,6 +36,12 @@ export default function RootLayout({
             <Header />
             {children}
           </UserContextProvider>
+          <Toaster
+            position="top-center"
+            toastOptions={{
+              className: "w-[700px]",
+            }}
+          />
         </NuqsAdapter>
       </body>
     </html>
