@@ -11,7 +11,7 @@ import { useContext, useState } from "react";
 import axios from "axios";
 import { UserContext } from "@/provider/currentUserProvider";
 import { LoaderCoffee } from "@/components/loading.tsx/loader";
-import { error } from "console";
+import { toast } from "sonner";
 
 export const bankFormSchema = z.object({
   selectCountry: z.string().min(2, { message: "Please select a country" }),
@@ -51,8 +51,6 @@ export const CreateBankCartForm = () => {
 
   const { userProvider } = useContext(UserContext);
 
-  console.log("USERPROVIDROOOR", userProvider);
-
   const [loading, setLoading] = useState(false);
 
   const bankCardPost = async (
@@ -63,32 +61,21 @@ export const CreateBankCartForm = () => {
     CVC: string,
     expiryDate: string
   ) => {
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/bank-cards/create/${userProvider.id}`,
-      {
-        firstName: name,
-        lastName: lastName,
-        country: selectCountry,
-        cardNumber: cardNumber,
-        expiryDate,
-        CVC: CVC,
-      }
-    );
-
-    // axios
-    //   .post(`http://localhost:4001/bank-cards/create/${userProvider.id}`, {
-    //     firstName: name,
-    //     lastName: lastName,
-    //     country: selectCountry,
-    //     cardNumber: cardNumber,
-    //     expiryDate,
-    //     CVC: CVC,
-    //   })
-    //   .then((response) => {})
-    //   .catch((error) => {
-    //     console.log(error);
-    //   })
-    //   .finally(() => {});
+    try {
+      const response = await axios.post(
+        `http://localhost:4001/bank-cards/create/${userProvider.id}`,
+        {
+          firstName: name,
+          lastName: lastName,
+          country: selectCountry,
+          cardNumber: cardNumber,
+          expiryDate,
+          CVC: CVC,
+        }
+      );
+    } catch (error) {
+      toast.error("Error");
+    }
   };
 
   const form = useForm<z.infer<typeof bankFormSchema>>({
@@ -125,11 +112,7 @@ export const CreateBankCartForm = () => {
     setTimeout(() => {
       push("/home");
     }, 4000);
-
-    console.log(values);
   }
-
-  // console.log(formik.setFieldValue);
 
   if (loading) return <LoaderCoffee />;
 

@@ -19,6 +19,7 @@ import { CreateProfileAPIType, CreateProfileType } from "@/types/DonationType";
 import axios from "axios";
 import { useFormik } from "formik";
 import { useContext, useEffect, useState } from "react";
+import { toast } from "sonner";
 import * as Yup from "yup";
 
 const createUserSchema = Yup.object({
@@ -54,7 +55,7 @@ export function DialogDemo() {
         socialURL: data?.socialMediaURL || "",
       });
     } catch (error) {
-      console.log(error);
+          toast.error("Error");
     }
   };
 
@@ -79,7 +80,7 @@ export function DialogDemo() {
       }
     );
 
-    console.log("responsee:", response);
+  
   };
 
   const formik = useFormik({
@@ -93,7 +94,7 @@ export function DialogDemo() {
     validationSchema: createUserSchema,
 
     onSubmit: async (values) => {
-      console.log("L create profile: ", values);
+     
       await ViewEditProfile(
         values.about,
         values.name,

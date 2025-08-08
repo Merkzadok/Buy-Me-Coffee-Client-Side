@@ -13,7 +13,8 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
-import { error } from "console";
+
+import { toast } from "sonner";
 
 const NewPasswordSchema = z
   .object({
@@ -40,23 +41,17 @@ export const NewPassword = ({ userId }: { userId: number }) => {
 
   const UpdatePassword = (confirmPassword: string) => {
     axios
-      .put(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/update-user/${userId}`,
-        {
-          password: confirmPassword,
-        }
-      )
-      .then((response) => {
-        console.log("ok pasword");
+      .put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users/update-user/${userId}`, {
+        password: confirmPassword,
       })
+      .then((response) => {})
       .catch((error) => {
-        console.log(error);
+        toast.error("Error");
       });
   };
 
   function onSubmit(values: z.infer<typeof NewPasswordSchema>) {
     UpdatePassword(values.confirmPassword);
-    console.log(values);
   }
 
   return (

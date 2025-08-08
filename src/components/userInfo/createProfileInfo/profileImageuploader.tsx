@@ -1,6 +1,7 @@
 import { Camera } from "lucide-react";
 import { Input } from "../../ui/input";
 import { useRef, useState } from "react";
+import { toast } from "sonner";
 
 type profileImageType = {
   value: string;
@@ -43,9 +44,8 @@ export const ProfileImageUploader = ({
         // setFieldValue("profileImage", data.secure_url);
         setImageField(data.secure_url);
       }
-      console.log("dataa image: ", data);
     } catch (error) {
-      console.log("Image upload failed:", error);
+      toast.error("Error");
     } finally {
       setUploading(false);
     }

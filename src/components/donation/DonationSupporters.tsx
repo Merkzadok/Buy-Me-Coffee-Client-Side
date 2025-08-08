@@ -5,6 +5,7 @@ import axios from "axios";
 import { ChevronDown, ChevronUp, Heart } from "lucide-react";
 import { useEffect, useState } from "react";
 import { LoaderCoffee } from "../loading.tsx/loader";
+import { toast } from "sonner";
 
 type userDataprops = {
   userData: ProfileType;
@@ -14,7 +15,6 @@ export const DonationSupporters = ({ userData }: userDataprops) => {
   const [supporters, setSupporters] = useState<DonationItemType[]>([]);
   const [loading, setLoading] = useState(false);
 
-  console.log("UserData:", userData);
 
   const [showAll, setShowAll] = useState(false);
 
@@ -30,7 +30,7 @@ export const DonationSupporters = ({ userData }: userDataprops) => {
         setSupporters(data);
       })
       .catch((error) => {
-        console.error("Error fetching supporters:", error);
+            toast.error("Error");
       })
       .finally(() => {
         setLoading(false);

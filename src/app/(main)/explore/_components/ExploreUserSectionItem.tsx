@@ -17,9 +17,7 @@ type itemType = {
 };
 
 export const ExploreUserSection = ({ item }: itemType) => {
-  console.log("ITEM EXPLORE :", item);
 
-  // console.log("itemm:", item.user.username);
 
   const { name, avatarImage, about, socialMediaURL } = item;
   return (

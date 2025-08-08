@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 const formSchema = z.object({
   email: z
     .string()
@@ -28,16 +29,19 @@ const formSchema = z.object({
 export const LogInEmailPassword = () => {
   const { push } = useRouter();
   const submitLogin = async (email: string, password: string) => {
-    const response = await axios.post<{ accesstoken: string }>(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/sign-in`,
-      {
-        email: email,
-        password: password,
-      }
-    );
-    console.log("response LOGIN: ", response.data);
-    localStorage.setItem("token", response.data.accesstoken);
-    push("/home");
+    try {
+      const response = await axios.post<{ accesstoken: string }>(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/sign-in`,
+        {
+          email: email,
+          password: password,
+        }
+      );
+      localStorage.setItem("token", response.data.accesstoken);
+      push("/home");
+    } catch (error) {
+      toast.error("Error");
+    }
   };
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -50,7 +54,6 @@ export const LogInEmailPassword = () => {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("Submitted values:", values);
     await submitLogin(values.email, values.password);
   }
 

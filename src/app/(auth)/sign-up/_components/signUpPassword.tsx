@@ -60,19 +60,16 @@ export const SignUpEmailPassword = ({ userName }: { userName: string }) => {
 
       return TrendingUpDownIcon;
     } catch (error) {
-      // console.log(error?.response?.data.message as unknown as AxiosError);
-      // console.log(error);
 
       const axiosError = error as AxiosError;
-      console.log(axiosError);
 
       if (axiosError.response) {
         const errorMessage = (axiosError.response.data as { message: string })
           .message;
-        console.log("error messaage:", errorMessage);
+
 
         if (errorMessage === "User profile already created") {
-          // alert("User profile already created");
+          alert("User profile already created");
           return false;
         } else {
           alert(`error ${errorMessage}`);
@@ -83,7 +80,7 @@ export const SignUpEmailPassword = ({ userName }: { userName: string }) => {
   };
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("Submitted values:", values, userName);
+
     // if (!values || userName) return;
 
     const isSuccess = await handleOtgoo(
@@ -91,7 +88,6 @@ export const SignUpEmailPassword = ({ userName }: { userName: string }) => {
       values.password,
       userName
     );
-    console.log("isSuccess", isSuccess);
 
     if (!isSuccess) {
       alert("User profile already created");

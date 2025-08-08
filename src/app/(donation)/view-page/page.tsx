@@ -8,7 +8,7 @@ import { useContext } from "react";
 export default function Donation() {
   
   const{userProvider} = useContext(UserContext);
-  console.log("CONTEXT USER VIEW:", userProvider.username);
+
 
   const username = userProvider?.username;
 

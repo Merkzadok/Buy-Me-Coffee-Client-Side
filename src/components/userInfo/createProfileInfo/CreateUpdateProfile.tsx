@@ -47,8 +47,6 @@ export const CreateUserProfile = ({
     ...urlInputProps
   } = profileURLInputProps;
 
-  //   console.log("CREATEUSER : ", profileNameinputProps);
-  //   console.log(profileImageInputProps);
 
   const inputNameBorderErrorStyle = nameInputerror ? "border-red-500" : "";
 

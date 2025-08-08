@@ -6,6 +6,7 @@ import { CreateProfileAPIType, CreateProfileType } from "@/types/DonationType";
 import axios from "axios";
 import { useFormik } from "formik";
 import { useContext, useEffect, useState } from "react";
+import { toast } from "sonner";
 import * as Yup from "yup";
 
 const createUserSchema = Yup.object({
@@ -29,20 +30,16 @@ export const EditProfile = ({
     socialURL: "",
   });
 
-  // console.log("userProvider:", userProvider);
-
-  // console.log("userProver: SETTING", );
 
   const getUserProfile = async () => {
     try {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/profile/view/${username}`
       );
-      console.log("GET USER PROFILE SETTINGS: ", response.data.userProfile);
+
 
       const data = response.data.userProfile as CreateProfileAPIType;
 
-      console.log("data", data);
 
       setProfileInput({
         profileImage: data.avatarImage || "",
@@ -51,7 +48,8 @@ export const EditProfile = ({
         socialURL: data.socialMediaURL || "",
       });
     } catch (error) {
-      console.log(error);
+      toast.error("Error");
+      
     }
   };
 
@@ -75,7 +73,6 @@ export const EditProfile = ({
         socialMediaURL: socialURL,
       }
     );
-    console.log("response UPDATE:", response.data.avatarImage);
   };
 
   const formik = useFormik({
@@ -94,7 +91,6 @@ export const EditProfile = ({
         values.about,
         values.socialURL
       );
-      console.log("~L Setting profile edit:", values);
     },
   });
 
