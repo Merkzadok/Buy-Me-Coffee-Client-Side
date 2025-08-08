@@ -19,7 +19,7 @@ type exploreType = {
   totalPage: number;
 };
 
-export const  ExplorePage = () => {
+export const ExplorePage = () => {
   const [users, setUsers] = useState<null | exploreType>(null);
 
   const [page, setPage] = useQueryState<number>(
@@ -30,12 +30,12 @@ export const  ExplorePage = () => {
   const getExplore = async () => {
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/profile/explore`
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/profile/explore?page=${page}`
       );
 
-      const data = await response.data;
+      const data = (await response.data) as exploreType;
 
-      setUsers(data?.usersProfile);
+      setUsers(data);
     } catch (error) {
       toast.error("Error");
     }
