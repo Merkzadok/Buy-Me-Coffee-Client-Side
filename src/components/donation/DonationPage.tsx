@@ -9,8 +9,9 @@ import { DonationBuyCoffeeCart } from "./DonationBuyCoffeeCart";
 import { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
-import { error } from "console";
+
 import { LoaderCoffee } from "../loading.tsx/loader";
+import { toast } from "sonner";
 
 export const DonationPage = ({
   isEditable,
@@ -21,12 +22,9 @@ export const DonationPage = ({
 }) => {
   const { push } = useRouter();
 
-  console.log("isEditable", isEditable);
-  console.log("USERNAME:", username);
-
   const [userData, setUserData] = useState({} as ProfileType);
   const [loading, setLoading] = useState(false);
-  
+
   const getDonationPage = async () => {
     setLoading(true);
     axios
@@ -34,21 +32,19 @@ export const DonationPage = ({
       .then((response) => {
         const data = response?.data;
         setUserData(data?.userProfile);
-        console.log("[USERNAME]:", data);
       })
       .catch((error) => {
         const axiosError = error as AxiosError;
-
-        console.log("axiosError axiosError axiosError", axiosError);
         if (axiosError.response) {
           const errorMessage = (axiosError.response.data as { message: string })
             .message;
 
           if (errorMessage === "User profile not found.") {
-            alert("Please enter your profile details!");
+            toast.error("Please enter your profile details!");
+
             push("/create-profile");
           } else {
-            alert(`erddddddddror ${errorMessage}`);
+            toast.error(`error ${errorMessage}`);
           }
         }
       })
@@ -61,7 +57,6 @@ export const DonationPage = ({
     if (!username) return;
     getDonationPage();
   }, [username, isEditable]);
-  console.log("user:", userData);
 
   if (loading) {
     return <LoaderCoffee />;

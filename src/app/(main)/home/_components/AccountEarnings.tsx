@@ -13,6 +13,8 @@ import { ProfileType } from "@/types/DonationType";
 import axios, { AxiosError } from "axios";
 import { subDays } from "date-fns";
 
+import { toast } from "sonner";
+
 export const AccountEarnings = () => {
   const [selected, setSelected] = useState("Select");
   const [totalEarnings, setTotalEarnings] = useState<number>();
@@ -32,7 +34,7 @@ export const AccountEarnings = () => {
         const data = await response.json();
         setTotalEarnings(data.total);
       } catch (error) {
-        console.error("Error fetching earnings:", error);
+        toast.error("Error");
       }
     };
     if (userProvider.id) getEarnings();
@@ -63,20 +65,17 @@ export const AccountEarnings = () => {
       const data = await response?.data;
 
       setUserData(data?.userProfile);
-
-      console.log("[USERNAME]:", data);
     } catch (error) {
       const axiosError = error as AxiosError;
 
-      console.log("axiosError axiosError axiosError", axiosError);
       if (axiosError.response) {
         const errorMessage = (axiosError.response.data as { message: string })
           .message;
 
         if (errorMessage === "User profile not found.") {
-          alert("Please enter your profile details!");
+          toast.error("Please enter your profile details!");
         } else {
-          alert(`error ${errorMessage}`);
+          toast.error(`error ${errorMessage}`);
         }
       }
     }
@@ -95,7 +94,7 @@ export const AccountEarnings = () => {
         alert("Page link copied to clipboard!");
       })
       .catch((err) => {
-        console.error("Failed to copy: ", err);
+       toast.error("Error")
       });
   };
 

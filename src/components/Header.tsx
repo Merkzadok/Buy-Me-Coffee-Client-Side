@@ -16,6 +16,7 @@ import { useContext, useEffect, useState } from "react";
 import { ProfileType } from "@/types/DonationType";
 import axios, { AxiosError } from "axios";
 import { UserContext } from "@/provider/currentUserProvider";
+import { toast } from "sonner";
 
 export const Header = () => {
   const pathName = usePathname();
@@ -41,20 +42,17 @@ export const Header = () => {
       const data = await response?.data;
 
       setUserData(data?.userProfile);
-
-      console.log("[USERNAME]:", data);
     } catch (error) {
       const axiosError = error as AxiosError;
 
-      console.log("axiosError axiosError axiosError", axiosError);
       if (axiosError.response) {
         const errorMessage = (axiosError.response.data as { message: string })
           .message;
 
         if (errorMessage === "User profile not found.") {
-          alert("Please enter your profile details!");
+          toast.error("Please enter your profile details!");
         } else {
-          alert(`error ${errorMessage}`);
+          toast.error(`error ${errorMessage}`);
         }
       }
     }

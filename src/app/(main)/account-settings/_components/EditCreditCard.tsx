@@ -4,14 +4,15 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 
 import { CardInputsMain } from "@/components/userInfo/bankCardCreate/cardInputMain";
-import { UserContext } from "@/provider/currentUserProvider";
+
 import { BankCardInfoType } from "@/types/bankCardType";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { error } from "console";
-import { useContext, useEffect, useState } from "react";
+
+import { useEffect, useState } from "react";
 
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 const bankFormmSchema = bankFormSchema;
@@ -59,11 +60,10 @@ export const EditCreditCard = ({ userId }: { userId: number }) => {
         form.reset(newBankInitialValue);
       })
       .catch((error) => {
-        console.log("Алдаа гарлаа:", error);
+        toast.error("Error");
       })
       .finally(() => {
         setLoading(false);
-        console.log("getBankCard дууслаа.");
       });
   };
 
@@ -72,7 +72,6 @@ export const EditCreditCard = ({ userId }: { userId: number }) => {
   }, [userId]);
 
   async function onSubmit(values: z.infer<typeof bankFormmSchema>) {
-    console.log(values);
     await settingsBankUpdate(
       values.selectCountry,
       values.name,
@@ -83,8 +82,6 @@ export const EditCreditCard = ({ userId }: { userId: number }) => {
       values.year
     );
   }
-
-  console.log("bankCardId: ", typeof bankCardId);
 
   const settingsBankUpdate = async (
     selectCountry: string,
@@ -97,17 +94,6 @@ export const EditCreditCard = ({ userId }: { userId: number }) => {
   ) => {
     const expiryDate = `${year}-${month}-01`;
 
-    // const { data } = await axios.put(
-    //   `http://localhost:4001/bank-cards/update/${bankCardId}`,
-    // {
-    //   country: selectCountry,
-    //   firstName: name,
-    //   lastName: lastName,
-    //   cardNumber: cardNumber,
-    //   expiryDate: expiryDate,
-    //   CVC: CVC,
-    // }
-    // );
     setLoading(true);
     axios
       .put(
@@ -123,7 +109,7 @@ export const EditCreditCard = ({ userId }: { userId: number }) => {
       )
       .then((response) => {})
       .catch((error) => {
-        console.log(error);
+        toast.error("Error");
       })
       .finally(() => {
         setLoading(false);

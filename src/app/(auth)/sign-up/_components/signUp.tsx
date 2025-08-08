@@ -58,7 +58,7 @@ export const SignUpUserName = ({
       localStorage.setItem("takenUsernames", JSON.stringify(takenUsernames));
     }
     onChangeUserName(values.username);
-    console.log("Submitted:", values);
+  
     handleNext();
   }
 

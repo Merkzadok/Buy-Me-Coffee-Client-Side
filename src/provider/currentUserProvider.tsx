@@ -3,6 +3,7 @@
 import { UserType } from "@/types/DonationType";
 import axios from "axios";
 import React, { createContext, useEffect, useState } from "react";
+import { toast } from "sonner";
 
 type userContextType = {
   userProvider: UserType;
@@ -28,11 +29,10 @@ export default function UserContextProvider({
           },
         }
       );
-      // console.log(response?.data);
 
       setUserProvider(response?.data?.user);
     } catch (error) {
-      console.log(error);
+      toast.error("Error");
     }
   };
 
@@ -46,15 +46,3 @@ export default function UserContextProvider({
     </UserContext.Provider>
   );
 }
-
-// {
-//     "user": {
-//         "id": 13,
-//         "email": "test89@gmail.com",
-//         "username": "L-era67",
-//         "password": "$2b$10$6ahHFys6BaXd/Il5YT7TM.12BjT7Rjfhi1XiPrlS8rZAKKRsCwv9C",
-//         "profileId": 16,
-//         "createdAt": "2025-08-04T03:53:54.958Z",
-//         "updatedAt": "2025-08-04T05:04:35.990Z"
-//     }
-// }

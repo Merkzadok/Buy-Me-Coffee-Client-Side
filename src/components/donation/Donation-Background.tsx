@@ -8,23 +8,19 @@ import { DonationUserUIType } from "@/types/DonationType";
 import { UserContext } from "@/provider/currentUserProvider";
 import axios from "axios";
 
-import { useFormik } from "formik";
-import { error } from "console";
-
 import { LoaderCoffee } from "../loading.tsx/loader";
+import { toast } from "sonner";
 
 export default function DonationBackground({
   isEditable,
   userData,
 }: DonationUserUIType) {
-  // const { backgroundImage } = userData.userProfile;
-  console.log(userData);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { userProvider } = useContext(UserContext);
 
   const [imageUrl, setImageUrl] = useState<string | null>(
     userData.backgroundImage || null
-  ); //cloudnary-s awach baigaa state
+  );
 
   const [loading, setLoading] = useState(false);
 
@@ -39,8 +35,6 @@ export default function DonationBackground({
     setShowChangeButton(false);
   };
 
-  //Cloudinary-с авсан зурагны линк (urlCloud)-ийг backend рүү PUT хүсэлтээр илгээнэ.
-
   const handleSave = async (urlCloud: string) => {
     setLoading(true);
     axios
@@ -51,15 +45,11 @@ export default function DonationBackground({
         }
       )
       .then((response) => {
-        console.log("CLOUD RESPONSE ", response.data.profile.backgroundImage);
-        console.log("CLOUD IMAGE URLL:", imageUrl);
-        console.log("USER PROVIDER4 BACKGPRUND", userData.backgroundImage);
-
         setShowChangeButton(true);
         setImageUrl(response.data.profile.backgroundImagel);
       })
       .catch((error) => {
-        console.log(error);
+        toast.error("Error");
       })
       .finally(() => {
         setLoading(false);
@@ -81,27 +71,22 @@ export default function DonationBackground({
     const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", "coverImage");
-    console.log(process.env.NEXT_PUBLIC_COVER_URL);
+
     setLoading(true);
     try {
-      const res = await fetch(
-        coverURL, // user iin cover image ees zurgiig solih
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      const res = await fetch(coverURL, {
+        method: "POST",
+        body: formData,
+      });
       const data = await res.json();
-      console.log(data);
+
       if (data.secure_url) {
         setImageUrl(data.secure_url);
-        console.log("data.secure_url", data.secure_url);
-        // handleSave(data.secure_url);
 
         setShowChangeButton(false);
       }
     } catch (error) {
-      console.error("Upload error:", error);
+      toast.error("Error");
     } finally {
       setLoading(false);
     }

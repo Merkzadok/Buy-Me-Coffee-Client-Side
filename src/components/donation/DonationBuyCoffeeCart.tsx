@@ -32,12 +32,7 @@ export const DonationBuyCoffeeCart = ({
 
   const [loading, setLoading] = useState(false);
 
- 
-
   const { userProvider } = useContext(UserContext);
-
-  console.log("DONAR id :", userProvider.id);
-  console.log("RECIPIENT ID:", userid);
 
   const handleSupport = async () => {
     setLoading(true);
@@ -50,28 +45,26 @@ export const DonationBuyCoffeeCart = ({
         specialMesssage: specialMsg,
       })
       .then((response) => {
-        console.log("responseeee:", response);
         if (response.status === 200) {
-  
-          toast.custom((t) => <div className="bg-white p-4 rounded-lg w-[600px] flex flex-col items-center">
-            <DonationComplatePage />
-          </div>, {
-            position: "top-center",
-            duration: 3000,
-          
-          });
+          toast.custom(
+            (t) => (
+              <div className="bg-white p-4 rounded-lg w-[600px] flex flex-col items-center">
+                <DonationComplatePage />
+              </div>
+            ),
+            {
+              position: "top-center",
+              duration: 3000,
+            }
+          );
         }
-
-        console.log("ok");
       })
       .catch((error) => {
-        console.log(error);
+        toast.error("Error");
       })
       .finally(() => {
         setLoading(false);
       });
-
-    // console.log("handleSupport:", response.data);
   };
 
   return (

@@ -12,9 +12,10 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { error } from "console";
+
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 import { string, z } from "zod";
 
@@ -46,7 +47,7 @@ export const EditSuccessPage = ({
         form.reset({ successMsg: response.data.userProfile.successMessage });
       })
       .catch((error) => {
-        console.log(error);
+      toast.error("Error");
       })
       .finally(() => {
         setLoading(false);
@@ -59,7 +60,6 @@ export const EditSuccessPage = ({
   }, [username]);
 
   async function onSubmit(values: z.infer<typeof NewSuccessSchema>) {
-    console.log(values);
     updateSuccessMsg(values.successMsg);
   }
 
@@ -75,16 +75,13 @@ export const EditSuccessPage = ({
         }
       })
       .catch((error) => {
-        console.log(error);
+      toast.error("Error");
       })
       .finally(() => {
         setLoading(false);
       });
   };
 
-  // if (loading) {
-  //   return <LoaderCoffee />;
-  // }
 
   return (
     <div>

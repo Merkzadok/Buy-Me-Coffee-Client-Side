@@ -18,8 +18,6 @@ const Home = () => {
 
   const { userProvider } = useContext(UserContext);
 
-  console.log("userProvider", userProvider);
-
   useEffect(() => {
     const donationAmounts = async () => {
       if (!userProvider.id) return;

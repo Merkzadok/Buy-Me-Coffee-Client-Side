@@ -10,6 +10,7 @@ import { ProfileImageUploader } from "@/components/userInfo/createProfileInfo/pr
 import axios from "axios";
 import { useContext, useState } from "react";
 import { UserContext } from "@/provider/currentUserProvider";
+import { toast } from "sonner";
 
 const createUserSchema = Yup.object({
   profileImage: Yup.string().required("Please enter image"),
@@ -27,9 +28,7 @@ export const CreateProfile = ({ handleNext }: createProfileType) => {
 
   const { userProvider } = useContext(UserContext);
 
-  console.log("CREATE PROFILE USERPROVIDER:", userProvider);
-
-  const url = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:4001";
+  const url = process.env.BACKEND_URL || "http://localhost:4001";
 
   const createProfilePost = async (
     profileImage: string,
@@ -45,7 +44,7 @@ export const CreateProfile = ({ handleNext }: createProfileType) => {
         socialMediaURL: socialURL,
       });
     } catch (error) {
-      console.log(error);
+      toast.error("Error");
     }
   };
 
@@ -60,10 +59,7 @@ export const CreateProfile = ({ handleNext }: createProfileType) => {
     validationSchema: createUserSchema,
 
     onSubmit: async (values) => {
-      // if (!userProvider.id) {
-      //   alert("User data is not loaded yet. Please try again.");
-      //   return;
-      // }
+
       setLoading(true);
 
       await createProfilePost(
@@ -74,8 +70,6 @@ export const CreateProfile = ({ handleNext }: createProfileType) => {
       );
 
       handleNext();
-
-      console.log("L create profile: ", values);
 
       setLoading(false);
     },

@@ -10,7 +10,8 @@ import { parseAsInteger, useQueryState } from "nuqs";
 
 import { Button } from "@/components/ui/button";
 import { ProfileWithUserNameType } from "@/types/DonationType";
-import { number } from "zod";
+
+import { toast } from "sonner";
 
 type exploreType = {
   usersProfile: ProfileWithUserNameType[];
@@ -18,7 +19,7 @@ type exploreType = {
   totalPage: number;
 };
 
-export const ExplorePage = () => {
+export const  ExplorePage = () => {
   const [users, setUsers] = useState<null | exploreType>(null);
 
   const [page, setPage] = useQueryState<number>(
@@ -36,7 +37,7 @@ export const ExplorePage = () => {
 
       setUsers(data?.usersProfile);
     } catch (error) {
-      console.log(error);
+      toast.error("Error");
     }
   };
 
@@ -44,7 +45,6 @@ export const ExplorePage = () => {
     // if (!users) return;
     getExplore();
   }, [page]);
-  console.log("page:", page);
 
   const totalPage = users?.totalPage || 1;
 
