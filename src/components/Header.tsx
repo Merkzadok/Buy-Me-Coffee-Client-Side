@@ -64,7 +64,7 @@ export const Header = () => {
   }, [userProvider.username]);
 
   return (
-    <div className="justify-between flex mx-30 my-4 ">
+    <div className="justify-between flex my-4 ">
       <Link href={"/home"}>
         <p className="font-bold flex gap-[10px] cursor-pointer">
           <CoffeeIcon className="w-6" />

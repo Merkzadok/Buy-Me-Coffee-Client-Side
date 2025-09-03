@@ -41,9 +41,12 @@ export const NewPassword = ({ userId }: { userId: number }) => {
 
   const UpdatePassword = (confirmPassword: string) => {
     axios
-      .put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users/update-user/${userId}`, {
-        password: confirmPassword,
-      })
+      .put(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/update-user/${userId}`,
+        {
+          password: confirmPassword,
+        }
+      )
       .then((response) => {})
       .catch((error) => {
         toast.error("Error");
@@ -68,7 +71,11 @@ export const NewPassword = ({ userId }: { userId: number }) => {
                 <FormItem>
                   <FormLabel>New password</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter new password" {...field} />
+                    <Input
+                      type="password"
+                      placeholder="Enter new password"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -82,7 +89,11 @@ export const NewPassword = ({ userId }: { userId: number }) => {
                 <FormItem>
                   <FormLabel>Confirm password</FormLabel>
                   <FormControl>
-                    <Input placeholder="Confirm password" {...field} />
+                    <Input
+                      type="password"
+                      placeholder="Confirm password"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
