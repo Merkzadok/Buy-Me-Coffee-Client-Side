@@ -1,13 +1,11 @@
 "use client";
 
-import { Sidebar } from "@/components/Sidebar";
+import LoginPage from "./(auth)/login/page";
 
 export default function Home() {
   return (
-    <div className="flex gap-10 justify-center">
-      <div className="w-[80%] ">
-        <Sidebar />
-      </div>
+    <div>
+      <LoginPage />
     </div>
   );
 }

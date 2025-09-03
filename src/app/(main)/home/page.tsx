@@ -6,6 +6,7 @@ import { Amount } from "./_components/Amount";
 import { Transactions } from "./_components/Transactions";
 import { UserContext } from "@/provider/currentUserProvider";
 import { DonationItemType } from "@/types/DonationType";
+import { Header } from "@/components/Header";
 
 const Home = () => {
   const [donations, setDonations] = useState<DonationItemType[]>([]);
@@ -43,6 +44,8 @@ const Home = () => {
 
   return (
     <div className=" max-w-[1200px] ">
+      <Header />
+
       <AccountEarnings />
       <Amount
         amount={amountSelected}

@@ -1,4 +1,3 @@
-import { Header } from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import type { Metadata } from "next";
 import Link from "next/link";

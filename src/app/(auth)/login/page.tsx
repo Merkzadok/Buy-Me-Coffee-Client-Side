@@ -1,13 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import { LogInEmailPassword } from "./_components/login";
 
-const Page = () => {
-//   const [currentStep, setCurrentStep] = useState(0);
-
-  // const StepComponent = [LogInEmailPassword][currentStep];
-
+const LoginPage = () => {
   return (
     <div className="flex justify-center">
       <LogInEmailPassword />
@@ -15,4 +10,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default LoginPage;

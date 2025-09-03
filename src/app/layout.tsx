@@ -26,17 +26,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <NuqsAdapter>
-          <UserContextProvider>
-            <Header />
-            {children}
-          </UserContextProvider>
+          <UserContextProvider>{children}</UserContextProvider>
           <Toaster
             position="top-center"
             toastOptions={{
