@@ -1,4 +1,5 @@
 import { DonationPage } from "@/components/donation/DonationPage";
+import { Header } from "@/components/Header";
 
 export default async function UsersProfile({
   params,
@@ -8,5 +9,9 @@ export default async function UsersProfile({
   const { username } = await params;
   const UserName = username;
 
-  return <DonationPage isEditable={false} username={UserName} />;
+  return (
+    <div>
+      <Header /> <DonationPage isEditable={false} username={UserName} />
+    </div>
+  );
 }

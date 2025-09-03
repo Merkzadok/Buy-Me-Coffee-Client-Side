@@ -37,17 +37,18 @@ export const CreateProfile = ({ handleNext }: createProfileType) => {
     socialURL: string
   ) => {
     try {
-      await axios.post(`${url}/profile/${userProvider.id}`, {
+      const res = await axios.post(`${url}/profile/${userProvider.id}`, {
         avatarImage: profileImage,
         about,
         name,
         socialMediaURL: socialURL,
       });
+      return res.data;
     } catch (error) {
-      toast.error("Error");
+      toast.error("Error creating profile");
+      throw error;
     }
   };
-
   const formik = useFormik({
     initialValues: {
       profileImage: "",
@@ -60,17 +61,20 @@ export const CreateProfile = ({ handleNext }: createProfileType) => {
 
     onSubmit: async (values) => {
       setLoading(true);
+      try {
+        await createProfilePost(
+          values.profileImage,
+          values.about,
+          values.name,
+          values.socialURL
+        );
 
-      await createProfilePost(
-        values.profileImage,
-        values.about,
-        values.name,
-        values.socialURL
-      );
-
-      handleNext();
-
-      setLoading(false);
+        handleNext();
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
     },
   });
 

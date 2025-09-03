@@ -15,7 +15,6 @@ export const DonationSupporters = ({ userData }: userDataprops) => {
   const [supporters, setSupporters] = useState<DonationItemType[]>([]);
   const [loading, setLoading] = useState(false);
 
-
   const [showAll, setShowAll] = useState(false);
 
   const visibleSupporters = showAll ? supporters : supporters.slice(0, 3);
@@ -30,7 +29,7 @@ export const DonationSupporters = ({ userData }: userDataprops) => {
         setSupporters(data);
       })
       .catch((error) => {
-            toast.error("Error");
+        toast.error("Error");
       })
       .finally(() => {
         setLoading(false);

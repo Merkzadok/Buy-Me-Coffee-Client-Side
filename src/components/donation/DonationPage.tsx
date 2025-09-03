@@ -82,19 +82,3 @@ export const DonationPage = ({
     </div>
   );
 };
-
-// {
-//     "userProfile": {
-//         "id": 16,
-//         "name": "Space Ranger",
-//         "about": "All day, every day, we're watching, listening to, reading and absorbing politics. It's exhausting. We then report on what we've seen in a way that's as chill as possible.",
-//         "avatarImage": "https://i.pinimg.com/736x/de/74/86/de74864e5816d86bf2f4d6485dd3b252.jpg",
-//         "socialMediaURL": "https://buymeacoffee.com/baconpancakes1",
-//         "backgroundImage": "https://i.pinimg.com/736x/e4/a7/8e/e4a78ebbeecb51b412255df090e57c0f.jpg",
-//         "successMessage": "THANK YOU!",
-//         "userId": 13,
-//         "createdAt": "2025-08-04T05:04:35.787Z",
-//         "updatedAt": "2025-08-04T05:04:35.787Z"
-//     },
-//     "username": "L-era67"
-// }

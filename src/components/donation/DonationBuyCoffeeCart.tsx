@@ -134,25 +134,24 @@ export const DonationBuyCoffeeCart = ({
             Special message:
           </Label>
           <Textarea
-            //   type="text"
             id="text"
             placeholder="Please write your message here"
             className="w-full h-[131px] resize-none"
             onChange={(e) => setSpecialMsg(e.target.value)}
           />
         </div>
+
         <div className="w-full mt-8">
           {!isEditable ? (
-            <QRdialog handleSupport={handleSupport} />
+            <Button className="w-full" onClick={handleSupport}>
+              Support
+            </Button>
           ) : (
-            <Button className="w-full" disabled={true}>
+            <Button className="w-full" disabled>
               Support
             </Button>
           )}
         </div>
-        {/* <Button className="w-full mt-8" onClick={handleSupport}>
-          Support
-        </Button> */}
       </div>
     </div>
   );
