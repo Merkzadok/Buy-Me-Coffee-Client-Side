@@ -117,10 +117,13 @@ export const Header = () => {
                 <PopoverContent className="w-[187px]">
                   <Button
                     variant="outline"
-                    className="border-none "
-                    onClick={() => push("/login")}
+                    className="border-none"
+                    onClick={() => {
+                      localStorage.removeItem("token");
+                      push("/login");
+                    }}
                   >
-                    Log Out
+                    Log out
                   </Button>
                 </PopoverContent>
               </Popover>
