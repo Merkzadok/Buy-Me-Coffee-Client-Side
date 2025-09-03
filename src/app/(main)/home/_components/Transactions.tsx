@@ -2,6 +2,7 @@ import { UserContext } from "@/provider/currentUserProvider";
 import { FilterProps } from "@/types/types";
 import { useContext, useEffect, useState } from "react";
 import { formatDistanceToNow } from "date-fns";
+import Image from "next/image";
 
 export const Transactions = ({ filteredAmounts }: FilterProps) => {
   return (
@@ -12,10 +13,12 @@ export const Transactions = ({ filteredAmounts }: FilterProps) => {
             <div className="pt-8">
               <div className=" flex justify-between">
                 <div className="flex gap-4 items-center">
-                  <img
+                  <Image
                     src={item.donor.profile.avatarImage}
                     alt="profile"
                     className="w-10 h-10 rounded-full"
+                    width={40}
+                    height={40}
                   />
                   <div>
                     <p className="font-medium text-md">

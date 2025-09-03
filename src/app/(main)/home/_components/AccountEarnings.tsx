@@ -14,6 +14,7 @@ import axios, { AxiosError } from "axios";
 import { subDays } from "date-fns";
 
 import { toast } from "sonner";
+import Image from "next/image";
 
 export const AccountEarnings = () => {
   const [selected, setSelected] = useState("Select");
@@ -103,16 +104,21 @@ export const AccountEarnings = () => {
         <div className="mx-6 my-6 flex justify-between ">
           <div className="flex gap-4 items-center">
             {userData.avatarImage ? (
-              <img
+              <Image
                 src={userData.avatarImage}
                 alt="profile"
                 className="w-10 h-10 rounded-full"
+                width={40}
+                height={40}
               />
             ) : (
-              <img
+              <Image
                 src="https://i.pinimg.com/originals/5c/44/45/5c4445eea6c9386d27b348af65ce8278.gif"
                 alt="profile"
                 className="w-10 h-10 rounded-full"
+                width={40}
+                height={40}
+                unoptimized={true}
               />
             )}
 

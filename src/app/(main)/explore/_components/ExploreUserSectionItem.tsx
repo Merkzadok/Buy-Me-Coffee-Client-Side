@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { ProfileWithUserNameType } from "@/types/DonationType";
 import axios from "axios";
 import { SquareArrowOutUpRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -22,10 +23,12 @@ export const ExploreUserSection = ({ item }: itemType) => {
     <div className=" p-6 border-1 rounded-lg border-zinc-200 h-[230px] min-w-[900px]">
       <div className="flex justify-between items-center mb-[12px]">
         <div className="flex items-center gap-3 text-xl">
-          <img
+          <Image
             src={avatarImage}
             alt="avatar"
             className="w-[40px] h-[40px] rounded-full"
+            width={40}
+            height={40}
           />
           <p className="text-xl font-semibold">{name}</p>
         </div>

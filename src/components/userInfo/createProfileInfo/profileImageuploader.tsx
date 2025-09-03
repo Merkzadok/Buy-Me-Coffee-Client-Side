@@ -2,6 +2,7 @@ import { Camera } from "lucide-react";
 import { Input } from "../../ui/input";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
+import Image from "next/image";
 
 type profileImageType = {
   value: string;
@@ -41,7 +42,6 @@ export const ProfileImageUploader = ({
 
       const data = await response.json();
       if (data.secure_url) {
-        // setFieldValue("profileImage", data.secure_url);
         setImageField(data.secure_url);
       }
     } catch (error) {
@@ -66,12 +66,18 @@ export const ProfileImageUploader = ({
           className="hidden"
           onChange={handleImageUpload}
         />
-
-        <div onClick={focusInput} className={inputBorderImageErrorStyle}>
+        import Image from "next/image"; // Make sure you have this import // ...
+        other imports
+        <div
+          onClick={focusInput}
+          className={`relative ${inputBorderImageErrorStyle}`}
+        >
           {value && (
-            <img
+            <Image
               src={value}
               alt="preview"
+              width={150}
+              height={150}
               className="w-full h-full rounded-full object-cover"
             />
           )}
@@ -86,7 +92,6 @@ export const ProfileImageUploader = ({
             </div>
           )}
         </div>
-
         {touchedErr && error && (
           <p className="text-sm text-red-500 mt-1">{error}</p>
         )}
