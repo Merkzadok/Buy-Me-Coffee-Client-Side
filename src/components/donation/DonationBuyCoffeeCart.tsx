@@ -5,11 +5,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import { Coffee } from "lucide-react";
 import { useContext, useState } from "react";
-import { QRdialog } from "./QR-Dialog";
 import { Textarea } from "../ui/textarea";
 import axios from "axios";
 import { UserContext } from "@/provider/currentUserProvider";
-
 import { LoaderCoffee } from "../loading.tsx/loader";
 import { toast } from "sonner";
 import { DonationComplatePage } from "./succes";
@@ -110,7 +108,7 @@ export const DonationBuyCoffeeCart = ({
                 $10
               </Button>
               <p className="p-2 h-9 w-9 flex justify-center items-center bg-black text-white rounded-md">
-                {amount}
+                ${amount}
               </p>
             </div>
           </div>

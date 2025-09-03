@@ -10,9 +10,7 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 
 import { ChevronDown } from "lucide-react";
-import { useEffect, useState } from "react";
 import { AmountType } from "@/types/types";
-import { DonationItemType } from "@/types/DonationType";
 
 const amounts = [
   { amount: "$1" },
