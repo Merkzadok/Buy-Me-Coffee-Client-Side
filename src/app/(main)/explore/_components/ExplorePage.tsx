@@ -42,7 +42,6 @@ export const ExplorePage = () => {
   };
 
   useEffect(() => {
-    // if (!users) return;
     getExplore();
   }, [page]);
 

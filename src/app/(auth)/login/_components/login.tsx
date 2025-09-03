@@ -1,7 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import z, { success } from "zod";
+import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 const formSchema = z.object({

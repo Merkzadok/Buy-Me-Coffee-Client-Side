@@ -24,7 +24,6 @@ export const AccountEarnings = () => {
     from: string;
     to: string;
   } | null>(null);
-  console.log(process.env.BACKEND_URL);
   useEffect(() => {
     const getEarnings = async () => {
       try {
@@ -94,7 +93,7 @@ export const AccountEarnings = () => {
         alert("Page link copied to clipboard!");
       })
       .catch((err) => {
-       toast.error("Error")
+        toast.error("Error");
       });
   };
 

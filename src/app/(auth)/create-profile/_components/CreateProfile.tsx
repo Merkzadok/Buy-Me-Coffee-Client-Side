@@ -59,7 +59,6 @@ export const CreateProfile = ({ handleNext }: createProfileType) => {
     validationSchema: createUserSchema,
 
     onSubmit: async (values) => {
-
       setLoading(true);
 
       await createProfilePost(

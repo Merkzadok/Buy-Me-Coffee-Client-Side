@@ -17,8 +17,6 @@ type itemType = {
 };
 
 export const ExploreUserSection = ({ item }: itemType) => {
-
-
   const { name, avatarImage, about, socialMediaURL } = item;
   return (
     <div className=" p-6 border-1 rounded-lg border-zinc-200 h-[230px] min-w-[900px]">

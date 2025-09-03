@@ -2,11 +2,10 @@
 import { useRouter } from "next/navigation";
 
 import { useForm } from "react-hook-form";
-import z, { success, unknown } from "zod";
+import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import axios, { AxiosError } from "axios";
-// import { Router } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -60,13 +59,11 @@ export const SignUpEmailPassword = ({ userName }: { userName: string }) => {
 
       return TrendingUpDownIcon;
     } catch (error) {
-
       const axiosError = error as AxiosError;
 
       if (axiosError.response) {
         const errorMessage = (axiosError.response.data as { message: string })
           .message;
-
 
         if (errorMessage === "User profile already created") {
           alert("User profile already created");
@@ -80,9 +77,6 @@ export const SignUpEmailPassword = ({ userName }: { userName: string }) => {
   };
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-
-    // if (!values || userName) return;
-
     const isSuccess = await handleOtgoo(
       values.email,
       values.password,

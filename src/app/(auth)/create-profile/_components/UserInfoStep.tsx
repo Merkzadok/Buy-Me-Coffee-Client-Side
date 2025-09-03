@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import { CreateProfile } from "./CreateProfile";
@@ -10,10 +10,9 @@ export const UserInfoCreate = () => {
   const handleNext = () => setStep(step + 1);
 
   const stepComponents = [
-    <CreateProfile key={0} handleNext={handleNext}/>,
+    <CreateProfile key={0} handleNext={handleNext} />,
     <CreateBankCartForm key={1} />,
   ];
-  
-  return stepComponents[step];
 
+  return stepComponents[step];
 };

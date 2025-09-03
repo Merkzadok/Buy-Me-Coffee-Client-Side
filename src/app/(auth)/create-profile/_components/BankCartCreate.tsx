@@ -31,9 +31,6 @@ export const bankFormSchema = z.object({
     .string()
     .min(16, { message: "Card number is invalid" })
     .regex(/^\d+$/, { message: "Card number must contain only digits" }),
-  // .transform((val)=>{
-  //       return val.match(/.{1,4}/g)?.join("-") ?? val;
-  // }),
 
   month: z.string().min(1, { message: "Select a month" }),
   year: z.string().min(4, { message: "Year is required" }),
@@ -62,7 +59,7 @@ export const CreateBankCartForm = () => {
     expiryDate: string
   ) => {
     try {
-      const response = await axios.post(
+      await axios.post(
         `http://localhost:4001/bank-cards/create/${userProvider.id}`,
         {
           firstName: name,

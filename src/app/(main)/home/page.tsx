@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AccountEarnings } from "./_components/AccountEarnings";
 import { Amount } from "./_components/Amount";
 import { Transactions } from "./_components/Transactions";
@@ -43,17 +43,18 @@ const Home = () => {
   });
 
   return (
-    <div className=" max-w-[1200px] ">
+    <div>
       <Header />
-
-      <AccountEarnings />
-      <Amount
-        amount={amountSelected}
-        donations={donations}
-        amountSelected={amountSelected}
-        handleAmountSelect={handleAmountSelect}
-      />
-      <Transactions filteredAmounts={filteredAmounts} />
+      <div className=" max-w-[1200px] ">
+        <AccountEarnings />
+        <Amount
+          amount={amountSelected}
+          donations={donations}
+          amountSelected={amountSelected}
+          handleAmountSelect={handleAmountSelect}
+        />
+        <Transactions filteredAmounts={filteredAmounts} />
+      </div>
     </div>
   );
 };
