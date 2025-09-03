@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 const getFormSchema = () =>
   z.object({
@@ -39,7 +40,6 @@ export const SignUpUserName = ({
   handleNext: () => void;
   onChangeUserName: (_userName: string) => void;
 }) => {
-  
   const form = useForm<z.infer<ReturnType<typeof getFormSchema>>>({
     resolver: zodResolver(getFormSchema()),
     defaultValues: {
@@ -47,6 +47,7 @@ export const SignUpUserName = ({
     },
     mode: "onChange",
   });
+  const router = useRouter();
 
   function onSubmit(values: z.infer<ReturnType<typeof getFormSchema>>) {
     const a = values.username.trim().toLowerCase();
@@ -58,12 +59,20 @@ export const SignUpUserName = ({
       localStorage.setItem("takenUsernames", JSON.stringify(takenUsernames));
     }
     onChangeUserName(values.username);
-  
+
     handleNext();
   }
 
   return (
     <div className="flex h-screen w-full">
+      <div className="absolute top-4 right-4">
+        <Button
+          onClick={() => router.push("/login")}
+          className="bg-black text-white hover:bg-gray-800 px-4 py-2 rounded-lg"
+        >
+          Login{" "}
+        </Button>
+      </div>
       <div className="w-1/2 bg-[#FBBF24] flex items-center justify-center ">
         <div className="text-center px-10  ">
           <div className="mb-6 ">
