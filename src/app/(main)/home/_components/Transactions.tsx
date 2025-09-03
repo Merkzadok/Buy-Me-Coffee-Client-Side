@@ -1,6 +1,4 @@
-import { UserContext } from "@/provider/currentUserProvider";
 import { FilterProps } from "@/types/types";
-import { useContext, useEffect, useState } from "react";
 import { formatDistanceToNow } from "date-fns";
 import Image from "next/image";
 

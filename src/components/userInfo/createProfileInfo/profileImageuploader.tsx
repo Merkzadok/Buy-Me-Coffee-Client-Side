@@ -66,8 +66,6 @@ export const ProfileImageUploader = ({
           className="hidden"
           onChange={handleImageUpload}
         />
-        import Image from "next/image"; // Make sure you have this import // ...
-        other imports
         <div
           onClick={focusInput}
           className={`relative ${inputBorderImageErrorStyle}`}

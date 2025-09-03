@@ -11,13 +11,15 @@ export const DonationProfile = ({
       <div className="p-6 border w-[632px] rounded-lg bg-white">
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <Image
-              src={userData?.avatarImage}
-              alt="profile zurag"
-              className="w-12 h-12 rounded-full"
-              width={48}
-              height={48}
-            />
+            {userData?.avatarImage && (
+              <Image
+                src={userData.avatarImage}
+                alt="profile zurag"
+                className="w-12 h-12 rounded-full"
+                width={48}
+                height={48}
+              />
+            )}
             <p className="font-bold">{userData?.name}</p>
           </div>
 

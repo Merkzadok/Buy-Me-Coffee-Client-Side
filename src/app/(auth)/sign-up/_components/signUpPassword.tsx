@@ -92,6 +92,14 @@ export const SignUpEmailPassword = ({ userName }: { userName: string }) => {
 
   return (
     <div className="flex h-screen w-full">
+      <div className="absolute top-4 right-4">
+        <Button
+          onClick={() => router.push("/login")}
+          className="bg-black text-white hover:bg-gray-800 px-4 py-2 rounded-lg"
+        >
+          Login{" "}
+        </Button>
+      </div>
       <div className="w-1/2 bg-[#FBBF24] flex items-center justify-center">
         <div className="text-center px-10">
           <div className="mb-6">
