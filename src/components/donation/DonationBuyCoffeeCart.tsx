@@ -65,6 +65,8 @@ export const DonationBuyCoffeeCart = ({
       });
   };
 
+  const amounts = [1, 2, 5, 10];
+
   return (
     <div>
       {loading && <LoaderCoffee />}
@@ -75,48 +77,23 @@ export const DonationBuyCoffeeCart = ({
           <div className="flex flex-col gap-2">
             <p className="font-medium">Select amount:</p>
             <div className="flex gap-3">
-              <Button
-                variant="secondary"
-                className="cursor-pointer hover:bg-gray-400  focus:border-2 border-black"
-                onClick={() => setAmount(1)}
-              >
-                <Coffee />
-                $1
-              </Button>
-              <Button
-                variant="secondary"
-                className="cursor-pointer hover:bg-gray-400  focus:border-2 border-black"
-                onClick={() => setAmount(2)}
-              >
-                <Coffee />
-                $2
-              </Button>
-              <Button
-                variant="secondary"
-                className="cursor-pointer hover:bg-gray-400  focus:border-2 border-black"
-                onClick={() => setAmount(5)}
-              >
-                <Coffee />
-                $5
-              </Button>
-              <Button
-                variant="secondary"
-                className="cursor-pointer hover:bg-gray-400  focus:border-2 border-black"
-                onClick={() => setAmount(10)}
-              >
-                <Coffee />
-                $10
-              </Button>
-              <p className="p-2 h-9 w-9 flex justify-center items-center bg-black text-white rounded-md">
-                ${amount}
-              </p>
+              {amounts.map((value) => (
+                <Button
+                  key={value}
+                  variant={amount === value ? "default" : "secondary"}
+                  className="cursor-pointer"
+                  onClick={() => setAmount(value)}
+                >
+                  <Coffee className="mr-2" />${value}
+                </Button>
+              ))}
             </div>
           </div>
         </div>
 
         <div className="grid items-center gap-2 pt-8">
           <Label htmlFor="text" className="font-medium">
-            Enter BuyMeCoffee or social acount URL:
+            Enter BuyMeCoffee or social account URL:
           </Label>
           <Input
             type="url"
